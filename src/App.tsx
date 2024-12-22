@@ -1,8 +1,9 @@
 import './App.css'
+import Pdf from './pages/pdf'
 function App() {
     return (
       <div className="App">
-                 <h1 className='text-red-600 text-2xl font-bold'>React App</h1>
+        <Pdf />
       </div>
   )
 }
