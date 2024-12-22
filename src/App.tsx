@@ -1,10 +1,28 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Pdf from './pages/pdf'
+import Layout from './Layout'
+import Overview from './pages/Overview'
+import Documents from './pages/Documents'
+import Yourdocs from './pages/Yourdocs'
+import Home from './pages/Home'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
+import Settings from './pages/Settings'
+import Error404 from './pages/Error404'
 function App() {
     return (
-      <div className="App">
-        <Pdf />
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path='signup' element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Layout />}>
+          <Route index element={<Overview />} />
+          <Route path="documents" element={<Documents />} />
+          <Route path="yourdocs" element={<Yourdocs />} />
+          <Route path="settings" element={<Settings/>} />
+        </Route>
+        <Route path="*" element={<Error404/>}/>
+      </Routes>
   )
 }
 
