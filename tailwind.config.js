@@ -11,7 +11,8 @@ export default {
         'lg': '26px',
         'xl': '20px',
         '2xl': '25px',
-        '3xl': '40px',
+        '3xl': '30px',
+        '4xl': '40px',
         
       },
       colors: {

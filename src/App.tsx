@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Settings from './pages/Settings'
+import Error404 from './pages/Error404'
 function App() {
     return (
       <Routes>
@@ -20,7 +21,7 @@ function App() {
           <Route path="yourdocs" element={<Yourdocs />} />
           <Route path="settings" element={<Settings/>} />
         </Route>
-        <Route path="*" element={<h1>Not Found</h1>}/>
+        <Route path="*" element={<Error404/>}/>
       </Routes>
   )
 }
