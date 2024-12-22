@@ -19,6 +19,9 @@ export default {
         'dark-blue': '#004182',
         'light-blue': '#EBF3FC',
       },
+      fontFamily: {
+        sans: ['Poppins', 'sans-serif'], 
+      },
     },
   },
   plugins: [

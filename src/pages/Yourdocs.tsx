@@ -1,7 +1,7 @@
 function Yourdocs() {
   return (
     <div>
-      
+      yourdocs
     </div>
   )
 }
