@@ -12,14 +12,14 @@ const yourdocs_card: React.FC<YourDocsCardProps> = ({ title, description, Author
     
 
     
-        <div className=' flex  justify-between rounded-xl bg-white pt-1 w-2/3 h-14 mt-5 ml-5 [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)]'>
+        <div className='md:w-5/6 flex justify-between rounded-xl bg-white pt-1 xl:w-2/3 h-14 mt-5 ml-5 [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)]'>
             <div className=' ml-5'>
-                <div className=' font-poppins ml-4  text-base mt-1 pb-0'> {title}</div>
+                <div className=' font-poppins ml-4  text-base mt-1 pb-0 sm:text-sm'> {title}</div>
 
 
-                <div className=' font-poppins ml-4 mt-0 pt-0 '>{description}</div>
+                <div className=' font-poppins ml-4 mt-0 pt-0 sm:text-sm '>{description}</div>
             </div>
-            <div className='w-1/2 flex justify-center items-center font-poppins   text-sm opacity-50'>
+            <div className='w-1/2 flex justify-center items-center font-poppins visible text-sm opacity-50 max-md:hidden'>
                 {Authority}
             </div>
             <div className=' flex justify-center items-center font-poppins  text-sm'>
