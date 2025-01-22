@@ -37,9 +37,9 @@ const Signup = () => {
                                                         <i className="fa-solid fa-boxes-stacked mr-4 ml-4 mt-4 mb-4 text-gray-500"></i>
                                                         <input type="text" placeholder='Wallet account' className="focus:outline-none focus:ring-0 w-80" />
                                                 </div>
-                                                <button style={{ backgroundColor: '#004182' }}className="text-white font-bold py-2 w-40 rounded-lg mt-8 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 h-[40px]">
-                                                   Signup
-                                                 </button>
+                                                <button style={{ backgroundColor: '#004182' }} className="text-white font-bold py-2 w-40 rounded-lg mt-8 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 h-[40px]">
+                                                        Signup
+                                                </button>
                                         </div>
 
 
