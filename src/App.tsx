@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Settings from './pages/Settings';
 import Error404 from './pages/Error404';
 import GetDoc from './pages/GetDoc'; // Import the ViewMore component
+import Yourdocs_viewmore from './pages/Yourdocs_viewmore'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="documents" element={<Documents />} />
         <Route path="yourdocs" element={<Yourdocs />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="yourdocs/education" element={<Yourdocs_viewmore />} />
         <Route path="getdoc" element={<GetDoc />} /> {/* Add ViewMore route */}
       </Route>
       <Route path="*" element={<Error404 />} />
