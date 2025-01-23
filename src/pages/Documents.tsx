@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Card_component1 from '../components/Card_component1'
 import Card_component2 from '../components/Card_component2'
 import Card_component3 from '../components/Card_component3'
@@ -23,9 +23,9 @@ function Documents() {
 
       </div>
       <div className='flex space justify-between'>
-        <div className=" text-[16px] font-poppins font-semibold   ">Issued Documents</div>
+        <div className=" text-[16px] font-poppins font-semibold ">Issued Documents</div>
         <div className='flex gap-x-0 mr-5'>
-          <div className=" text-sm font-poppins font-semibold mr-2  ">View all</div>
+          <div className=" text-sm font-poppins font-semibold mr-2">View all</div>
           <i className="fa-solid fa-arrow-right"></i>
         </div>
       </div>
@@ -41,7 +41,7 @@ function Documents() {
         <div className="  font-poppins text-base ml-4 font-normal" style={{ color: '#004182' }}>Combines blockchain’s immutability, IPFS’s distributed storage, and smart contract-based workflows.</div>
       </div>
       <div className=" text-[16px] font-poppins font-semibold mt-3  ">Authorized Government Documents</div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-1 w-11/12">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-x-10 w-11/12">
         <Card_component2 Name={'E-Aadhar'} />
         <Card_component2 Name={'Residence Certificate'} />
         <Card_component2 Name={'Voter ID'} />
@@ -64,7 +64,7 @@ function Documents() {
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-10 gap-1 w-11/12">
-      <Card_component3 Name={''} />
+      <Card_component3 Name={'Kerala'} />
       <Card_component3 Name={''} />
       <Card_component3 Name={''} />
       <Card_component3 Name={''} />

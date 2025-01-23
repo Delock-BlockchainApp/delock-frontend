@@ -5,13 +5,13 @@ function Yourdocs() {
   return (
     <div className="h-full p-3 overflow-y-scroll scrollbar">
       <div className="h-fit"><div className="flex justify-between">
-        <div className=" text-5xl font-poppins font-semibold mt-2 mb-6 ml-3" style={{ color: '#004182' }}>Your Docs</div>
-        <div className=" w-10 h-10 mr-4 mt-2 rounded-full bg-[#004182] flex items-center justify-center" >
+        <div className=" text-5xl font-poppins font-semibold mt-2 mb-6 ml-3 text-dark-blue">Your Docs</div>
+        <div className=" w-10 h-10 mr-4 mt-2 rounded-full bg-dark-blue flex items-center justify-center" >
           <i className="fa-regular fa-user text-white text-base"></i>
         </div>
 
       </div>
-      <div className=" text-sm font-poppins font-bold  ml-5 ">12 Issued documents Found</div>
+      <div className=" text-lg  font-semibold  ml-5 ">12 Issued documents Found</div>
 
 
         <div className=" flex flex-col align">
@@ -24,7 +24,7 @@ function Yourdocs() {
 
 
 
-        <div className=" text-sm font-poppins font-bold  ml-5  mt-8">Delock Drive Folders</div>
+        <div className=" text-lg font-semibold  ml-5  mt-8">Delock Drive Folders</div>
 
         <div className="flex justify-between">
 
@@ -34,13 +34,13 @@ function Yourdocs() {
             <Yourdocs_card2 Name={'Revenue/Tax'} Number={2} />
             <Yourdocs_card2 Name={'Personal'} Number={4} />
           </div>
-          <div className=" w-10 h-10 mr-4 mt-2 rounded-full bg-[#004182] flex items-center justify-center" >
+          <div className=" w-10 h-10 mr-4 mt-2 rounded-full bg-dark-blue flex items-center justify-center" >
             <i className="fa-solid fa-plus text-white text-lg"></i>
           </div>
 
         </div>
         <div className=" flex items-center rounded-xl bg-[#EBF3FC] pt-1 w-11/12 h-12 mt-5 ml-5">
-          <div className="  font-poppins text-base ml-4 font-medium " style={{ color: '#004182' }}>Documents in Delock Drive are <span className="font-semibold">NOT</span> treated as authentic original documents. You can upload your personal documents with trust</div>
+          <div className="text-base ml-4 font-medium text-dark-blue">Documents in Delock Drive are <span className="font-semibold">NOT</span> treated as authentic original documents. You can upload your personal documents with trust</div>
         </div>
       </div>
       
