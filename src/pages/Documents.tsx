@@ -2,6 +2,9 @@ import React from 'react'
 import Card_component1 from '../components/Card_component1'
 import Card_component2 from '../components/Card_component2'
 import Card_component3 from '../components/Card_component3'
+import Card_component4 from '../components/Card_component4'
+import YourdocsCard3 from "../components/yourdocs_card3"
+
 function Documents() {
   return (
     <div className="ml-5 h-full p-3 overflow-y-scroll scrollbar ">
@@ -73,6 +76,23 @@ function Documents() {
       <Card_component3 Name={''} />
       
 
+      </div>
+      <div className='flex space justify-between mt-8'>
+        <div className=" text-[16px] font-poppins font-semibold    ">Education & Learning</div>
+        <div className='flex gap-x-0 mr-5'>
+          <div className=" text-sm font-poppins font-semibold mr-2  ">View all</div>
+          <i className="fa-solid fa-arrow-right"></i>
+        </div>
+      </div>
+      <div className="flex  mt-3">
+        <YourdocsCard3 title={'APJ Abdul Kalam Technical University hgdhrtd ghcbv gfncn  bv g'} />
+        <YourdocsCard3 title={'APJ Abdul Kalam Technical Unive...'} />
+        <YourdocsCard3 title={'APJ Abdul Kalam Technical Unive...'} />
+        <YourdocsCard3 title={'APJ Abdul Kalam Technical Unive...'} />
+        <YourdocsCard3 title={'APJ Abdul Kalam Technical Unive...'} />
+        <YourdocsCard3 title={'APJ Abdul Kalam Technical Unive...'} />
+        <YourdocsCard3 title={'APJ Abdul Kalam Technical Unive...'} />
+        <YourdocsCard3 title={'XII Certificate'} />
       </div>
 
       
