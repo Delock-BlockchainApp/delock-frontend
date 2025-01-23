@@ -1,6 +1,6 @@
 const Overview_component1=()=> {
   return (
-    <div className="w-[250px] h-[150px] border border-gray-300 rounded-lg shadow-md p-4 bg-white flex flex-col justify-between mt-5 mr-10 mb-5">
+    <div className="w-[250px] h-[150px] border border-gray-300 rounded-lg shadow-md p-4 bg-white flex flex-col justify-between mt-5 mr-7 mb-5">
       <div className="flex items-center">
         {/* Image Box */}
         <div className="w-20 h-20 bg-gray-300 rounded-lg flex-shrink-0 overflow-hidden">
