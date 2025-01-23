@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Card_component1 from '../components/Card_component1'
 import Card_component2 from '../components/Card_component2'
 import Card_component3 from '../components/Card_component3'
@@ -20,9 +20,9 @@ function Documents() {
 
       </div>
       <div className='flex space justify-between'>
-        <div className=" text-[16px] font-poppins font-semibold   ">Issued Documents</div>
+        <div className=" text-[16px] font-poppins font-semibold ">Issued Documents</div>
         <div className='flex gap-x-0 mr-5'>
-          <div className=" text-sm font-poppins font-semibold mr-2  ">View all</div>
+          <div className=" text-sm font-poppins font-semibold mr-2">View all</div>
           <i className="fa-solid fa-arrow-right"></i>
         </div>
       </div>

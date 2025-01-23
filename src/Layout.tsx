@@ -13,7 +13,7 @@ function Layout() {
   return (
     <div className="h-screen bg-bold-blue py-2 pr-2 flex">
         {/* ///////////////////////NAVBAR SECTION////////////////////// */}
-            <div className="w-[250px] text-white ">
+            <div className="w-[300px] text-white ">
                 {/* logo section */}
                 <div className="flex mt-5 justify-center gap-7 items-center"><img src={logo} alt="logo" /><h1 className="text-[30px] font-semibold">Delock</h1></div>
                 {/* nav section */}

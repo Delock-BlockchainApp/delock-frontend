@@ -1,6 +1,6 @@
 // import React from 'react'
 import TextComponent from '../components/TextComponent'
-import '@fortawesome/fontawesome-free/css/all.min.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 const Login = () => {
