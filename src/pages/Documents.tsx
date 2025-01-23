@@ -38,7 +38,7 @@ function Documents() {
         <div className="  font-poppins text-base ml-4 font-normal" style={{ color: '#004182' }}>Combines blockchain’s immutability, IPFS’s distributed storage, and smart contract-based workflows.</div>
       </div>
       <div className=" text-[16px] font-poppins font-semibold mt-3  ">Authorized Government Documents</div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-1 w-11/12">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-x-10 w-11/12">
         <Card_component2 Name={'E-Aadhar'} />
         <Card_component2 Name={'Residence Certificate'} />
         <Card_component2 Name={'Voter ID'} />
@@ -61,7 +61,7 @@ function Documents() {
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-10 gap-1 w-11/12">
-      <Card_component3 Name={''} />
+      <Card_component3 Name={'Kerala'} />
       <Card_component3 Name={''} />
       <Card_component3 Name={''} />
       <Card_component3 Name={''} />
