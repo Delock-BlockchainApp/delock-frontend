@@ -9,18 +9,21 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Settings from './pages/Settings'
 import Error404 from './pages/Error404'
+import Yourdocs_viewmore from './pages/Yourdocs_viewmore'
 import Pdf from './pages/pdf'
+import Meta_login from './pages/meta_login'
 function App() {
     return (
       <Routes>
-        <Route path="/" element={<Pdf />} />
+        <Route path="/" element={<Meta_login />} />
         <Route path='signup' element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Layout />}>
           <Route index element={<Overview />} />
           <Route path="documents" element={<Documents />} />
           <Route path="yourdocs" element={<Yourdocs />} />
-          <Route path="settings" element={<Settings/>} />
+          <Route path="yourdocs/education" element={<Yourdocs_viewmore />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
         <Route path="*" element={<Error404/>}/>
       </Routes>

@@ -665,63 +665,69 @@ function Pdf() {
         }}
         className="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
       >
+        connectBlockchain
+      </button>
+      <button
+        onClick={async () => {
+          console.log('Registering user...');
+          await generatePdfAndGetIpfsHash();
+        }}
+        className="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+      >
         Generate PDF & Upload
       </button>
-
     </div>
   )
 
-  function generatePdfAndGetIpfsHash() {
-    return async () => {
-      const card = document.getElementById('card');
-      if (card) {
-        try {
-          // Convert card to canvas
-          const canvas = await html2canvas(card);
-          const imgData = canvas.toDataURL('image/png');
+  async function generatePdfAndGetIpfsHash() {
+    console.log('Generating PDF and uploading to IPFS...');
+    const card = document.getElementById('card');
+    if (card) {
+      try {
+        // Convert card to canvas
+        const canvas = await html2canvas(card);
+        const imgData = canvas.toDataURL('image/png');
 
-          // Generate PDF
-          const pdf = new jsPDF();
-          pdf.addImage(imgData, 'PNG', 10, 10);
-          const pdfBlob = pdf.output('blob'); // Get PDF as a Blob
+        // Generate PDF
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, 'PNG', 10, 10);
+        const pdfBlob = pdf.output('blob'); // Get PDF as a Blob
 
-          // Create FormData for upload
-          const formData = new FormData();
-          formData.append('file', pdfBlob, 'id_card.pdf');
+        // Create FormData for upload
+        const formData = new FormData();
+        formData.append('file', pdfBlob, 'id_card1.pdf');
 
-          // Pinata API URL
-          const url = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
+        // Pinata API URL
+        const url = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
 
-          // API Key, Secret Key, and JWT (use one for authentication)
-          const jwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI0NTg2ZmI3OC02OTgzLTRhODQtODNmMC00ZDZhY2JhMTMzZmEiLCJlbWFpbCI6ImNobjIxY3MwMjFAY2Vjb25saW5lLmVkdSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6IkZSQTEifSx7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6Ik5ZQzEifV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiI5Zjk3NjI4NGYyZDVlN2E3YzJiYSIsInNjb3BlZEtleVNlY3JldCI6ImEyYTNkMjA1MWFiMjY4NTIxOThjZWMzNGY5YjZhZTU3MTBlZWNmZmZlNTBhNWZjODQ4NzUwNzcwM2MwNWIxMWMiLCJleHAiOjE3NjY0MDEwMDR9.ai9QwNnoLmQVWapRBfgf63yKxXxgQqmEZuWq-TWNiCQ'; // Replace with your JWT token
+        // API Key, Secret Key, and JWT (use one for authentication)
+        const jwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI0NTg2ZmI3OC02OTgzLTRhODQtODNmMC00ZDZhY2JhMTMzZmEiLCJlbWFpbCI6ImNobjIxY3MwMjFAY2Vjb25saW5lLmVkdSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6IkZSQTEifSx7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6Ik5ZQzEifV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiI5Zjk3NjI4NGYyZDVlN2E3YzJiYSIsInNjb3BlZEtleVNlY3JldCI6ImEyYTNkMjA1MWFiMjY4NTIxOThjZWMzNGY5YjZhZTU3MTBlZWNmZmZlNTBhNWZjODQ4NzUwNzcwM2MwNWIxMWMiLCJleHAiOjE3NjY0MDEwMDR9.ai9QwNnoLmQVWapRBfgf63yKxXxgQqmEZuWq-TWNiCQ'; // Replace with your JWT token
 
-          // Upload to Pinata
-          const response = await fetch(url, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              Authorization: `Bearer ${jwtToken}`, // Add your JWT token here
-            },
-          });
+        // Upload to Pinata
+        const response = await fetch(url, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${jwtToken}`, // Add your JWT token here
+          },
+        });
 
-          const result = await response.json();
-          if (response.ok) {
-            console.log('PDF pinned to IPFS:', result);
-            alert(`Upload successful! IPFS Hash: ${result.IpfsHash}`);
-          } else {
-            console.error('Pinata API error:', result);
-            alert('Failed to upload to Pinata. Check console for details.');
-          }
-        } catch (error) {
-          console.error('Error generating PDF or uploading to Pinata:', error);
-          alert('An error occurred. Please check the console for details.');
+        const result = await response.json();
+        if (response.ok) {
+          console.log('PDF pinned to IPFS:', result);
+          alert(`Upload successful! IPFS Hash: ${result.IpfsHash}`);
+        } else {
+          console.error('Pinata API error:', result);
+          alert('Failed to upload to Pinata. Check console for details.');
         }
-      } else {
-        console.error('Card element not found!');
-        alert('Card element not found!');
+      } catch (error) {
+        console.error('Error generating PDF or uploading to Pinata:', error);
+        alert('An error occurred. Please check the console for details.');
       }
-    };
-
+    } else {
+      console.error('Card element not found!');
+      alert('Card element not found!');
+    }
   }
 
   function registerUser() {
