@@ -12,7 +12,7 @@ const yourdocs_card: React.FC<YourDocsCardProps> = ({ title, description, Author
     
 
     
-        <div className='md:w-5/6 flex justify-between rounded-xl bg-white pt-1 xl:w-2/3 h-14 mt-5 ml-5 [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)]'>
+        <div className='md:w-5/6 flex justify-between rounded-xl bg-white  xl:w-5/6 h-14 mb-5  [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)]'>
             <div className=' ml-5'>
                 <div className=' font-poppins ml-4  text-base mt-1 pb-0 sm:text-sm'> {title}</div>
 
