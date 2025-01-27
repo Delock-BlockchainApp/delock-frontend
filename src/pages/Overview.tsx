@@ -1,6 +1,6 @@
 import overview_img from "../assets/overview_pic1.svg"
 import Card_component2 from "../components/Card_component2"
-import Overview_component1 from "../components/overview_component1"
+import Overview_component1 from "../components/Overview_component1"
 import TextComponent2 from "../components/TextComponent2"
 function Overview() {
   return (

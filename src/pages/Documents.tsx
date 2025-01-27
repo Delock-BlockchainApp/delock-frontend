@@ -9,11 +9,11 @@ function Documents() {
   return (
     <div className="ml-5 h-full p-3 overflow-y-scroll scrollbar ">
       <div className="flex justify-between  mt-4">
-        <div className=" text-3xl font-poppins font-semibold  mb-6 " style={{ color: '#004182' }}>Documents</div>
+        <div className=" text-[40px] font-poppins font-semibold  mb-6 " style={{ color: '#004182' }}>Documents</div>
         <div className="flex gap-x-20 mt-2">
-          <div className='border-2 bg-[#004182]/10 rounded-lg h-[40px] '>
-            <i className="fa-solid fa-magnifying-glass mr-8 ml-4  mb-2 mt-2 text-[#004182]"></i>
-            <input type="text" placeholder='Search Document' className="focus:outline-none bg-transparent focus:ring-0 w-80" />
+          <div className='border-2 bg-[#004182]/10 rounded-lg w-[393.47px] h-[50px] '>
+            <i className="fa-solid fa-magnifying-glass mr-8 ml-4  mb-4 mt-4 text-[#004182]"></i>
+            <input type="text" placeholder='Search Document' className="focus:outline-none bg-transparent focus:ring-0 w-30" />
           </div>
 
           <div className=" w-10 h-10 mr-4  rounded-full bg-[#004182] flex items-center justify-center" >
@@ -25,7 +25,7 @@ function Documents() {
       <div className='flex space justify-between'>
         <div className=" text-[16px] font-poppins font-semibold ">Issued Documents</div>
         <div className='flex gap-x-0 mr-5'>
-          <div className=" text-sm font-poppins font-semibold mr-2">View all</div>
+          <div className=" text-[16px] font-poppins font-normal mr-2">View all</div>
           <i className="fa-solid fa-arrow-right"></i>
         </div>
       </div>
@@ -38,7 +38,7 @@ function Documents() {
 
       </div>
       <div className=" flex items-center rounded-[10px] bg-[#EBF3FC] pt-0 w-[1200.96px] h-[52.95px] mt-8 ">
-        <div className="  font-poppins text-base ml-4 font-normal" style={{ color: '#004182' }}>Combines blockchain’s immutability, IPFS’s distributed storage, and smart contract-based workflows.</div>
+        <div className="  font-poppins  text-[20px] text-base ml-4 font-normal" style={{ color: '#004182' }}>Combines blockchain’s immutability, IPFS’s distributed storage, and smart contract-based workflows.</div>
       </div>
       <div className=" text-[16px] font-poppins font-semibold mt-3  ">Authorized Government Documents</div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-x-10 w-11/12">
@@ -65,10 +65,10 @@ function Documents() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-10 gap-1 w-11/12">
       <Card_component3 Name={'Kerala'} />
-      <Card_component3 Name={''} />
-      <Card_component3 Name={''} />
-      <Card_component3 Name={''} />
-      <Card_component3 Name={''} />
+      <Card_component3 Name={'Kerala'} />
+      <Card_component3 Name={'Kerala'} />
+      <Card_component3 Name={'Kerala'} />
+      <Card_component3 Name={'Kerala'} />
       <Card_component3 Name={''} />
       <Card_component3 Name={''} />
       <Card_component3 Name={''} />

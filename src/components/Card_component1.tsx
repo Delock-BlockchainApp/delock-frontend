@@ -8,7 +8,7 @@ interface CardProps {
 
 const Card_component1: React.FC<CardProps> = ({ title, description, Authority }) => {
     return (
-        <div className='flex  items-center rounded-xl bg-white p-2 w-[250px] h-[110px] mt-8 mr-8  [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)]'>
+        <div className='flex  items-center rounded-xl bg-white p-2 w-[250px] h-[100px] mt-8 mr-8  [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)]'>
 
 
 
@@ -17,11 +17,11 @@ const Card_component1: React.FC<CardProps> = ({ title, description, Authority })
 
             </div>
             <div className='ml-2'>
-                <div className=' font-poppins text-sm   '> {title}</div>
+                <div className=' font-poppins text-[12px]  '> {title}</div>
 
 
-                <div className=' font-poppins text-sm  '>{description}</div>
-                <div className=' font-poppins  mt-2 text-xs'>{Authority}</div>
+                <div className=' font-poppins text-[12px]  '>{description}</div>
+                <div className=' font-poppins  mt-2 text-[12px]'>{Authority}</div>
             </div>
 
 
