@@ -16,7 +16,7 @@ function Documents() {
             <input type="text" placeholder='Search Document' className="focus:outline-none bg-transparent focus:ring-0 w-30" />
           </div>
 
-          <div className=" w-10 h-10 mr-4  rounded-full bg-[#004182] flex items-center justify-center" >
+          <div className=" w-10 h-10 rounded-full bg-[#004182] flex items-center justify-center" >
             <i className="fa-regular fa-user text-white text-base "></i>
           </div>
         </div>

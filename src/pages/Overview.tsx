@@ -24,7 +24,7 @@ function Overview() {
           <div className="text-base ml-4 font-light text-dark-blue text-xl">Enhances security, reduces fraud risk,  streamlines document management for government and citizens.</div>
         </div>
         <TextComponent2 text="Documents you might need"/>
-        <div className="flex w-full grid grid-cols-4 ">
+        <div className="w-full grid grid-cols-4 ">
           <Card_component2 Name="Aadhaar Card"/>
           <Card_component2 Name="Driving License"/>
           <Card_component2 Name="PAN Verification"/>

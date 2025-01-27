@@ -10,6 +10,7 @@ import Login from './pages/Login'
 import Settings from './pages/Settings'
 import Error404 from './pages/Error404'
 import Yourdocs_viewmore from './pages/Yourdocs_viewmore'
+import UploadDocs from './pages/UploadDocs'
 function App() {
     return (
       <Routes>
@@ -22,6 +23,7 @@ function App() {
           <Route path="yourdocs" element={<Yourdocs />} />
           <Route path="yourdocs/education" element={<Yourdocs_viewmore />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="upload" element={<UploadDocs/>}/>
         </Route>
         <Route path="*" element={<Error404/>}/>
       </Routes>
