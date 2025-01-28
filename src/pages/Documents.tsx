@@ -3,6 +3,7 @@ import Card_component1 from '../components/Card_component1'
 import Card_component2 from '../components/Card_component2'
 import Card_component3 from '../components/Card_component3'
 import Card_component4 from '../components/Card_component4'
+import TextComponent2 from '../components/TextComponent2'
 import YourdocsCard3 from "../components/yourdocs_card3"
 
 function Documents() {
@@ -22,15 +23,9 @@ function Documents() {
         </div>
 
       </div>
-      <div className='flex space justify-between'>
-        <div className=" text-[16px] font-poppins font-semibold ">Issued Documents</div>
-        <div className='flex gap-x-0 mr-5'>
-          <div className=" text-[16px] font-poppins font-normal mr-2">View all</div>
-          <i className="fa-solid fa-arrow-right"></i>
-        </div>
-      </div>
+     <TextComponent2 text="Issued Documents" /> 
 
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div className='flex justify-between'>
         <Card_component1 title={'Aadhaar'} description={'***********'} Authority={'Unique Identification Authority of India'} />
         <Card_component1 title={'Driving License'} description={'KL26******776'} Authority={'Motor Vehicle Department, Kerala'} />
         <Card_component1 title={'PAN Verification'} description={'FUE8****'} Authority={'Income Tax Department'} />
@@ -40,8 +35,8 @@ function Documents() {
       <div className=" flex items-center rounded-[10px] bg-[#EBF3FC] pt-0 w-[1200.96px] h-[52.95px] mt-8 ">
         <div className="  font-poppins  text-[20px] text-base ml-4 font-normal" style={{ color: '#004182' }}>Combines blockchain’s immutability, IPFS’s distributed storage, and smart contract-based workflows.</div>
       </div>
-      <div className=" text-[16px] font-poppins font-semibold mt-3  ">Authorized Government Documents</div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-x-10 w-11/12">
+      <div className=" text-[16px] font-poppins font-semibold mt-3 ">Authorized Government Documents</div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-x-10 w-11/12">
         <Card_component2 Name={'E-Aadhar'} />
         <Card_component2 Name={'Residence Certificate'} />
         <Card_component2 Name={'Voter ID'} />
@@ -52,8 +47,6 @@ function Documents() {
         <Card_component2 Name={'Life Insurance'} />
         <Card_component2 Name={'Ration Card'} />
         <Card_component2 Name={'Caste Certifiacte'} />
-
-
 
       </div>
       <div className='flex space justify-between mt-5'>
