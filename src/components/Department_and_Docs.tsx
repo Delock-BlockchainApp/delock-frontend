@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import YourdocsCard3 from "../components/yourdocs_card3";
+import axios from "axios";
 
 const Department_and_Docs = () => {
   interface Department {
@@ -14,19 +15,17 @@ const Department_and_Docs = () => {
     fetchDepartmentData("Kerala");
   }, []);
 
-  const fetchDepartmentData = async (searchKey: string | number | boolean) => {
+const fetchDepartmentData = async (searchKey: string | number | boolean) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/documents/get_department?searchkey=${encodeURIComponent(searchKey)}`
-      );
-      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-      const data = await response.json();
-      setDepartments(data.departmentData);
+        const response = await axios.get(
+            `http://localhost:3000/api/documents/get_department`,
+            { params: { searchkey: searchKey } }
+        );
+        setDepartments(response.data.departmentData);
     } catch (error) {
-      console.error("Error fetching department data:", error);
+        console.error("Error fetching department data:", error);
     }
-  };
+};
 
   return (
     <div>

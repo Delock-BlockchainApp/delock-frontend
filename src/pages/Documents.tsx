@@ -2,31 +2,34 @@ import axios from "axios";
 import Card_component1 from '../components/Card_component1'
 import Card_component2 from '../components/Card_component2'
 import Card_component3 from '../components/Card_component3'
-import Card_component4 from '../components/Card_component4'
 import TextComponent2 from '../components/TextComponent2'
 import DepartmentAndDocs from "../components/Department_and_Docs";
+import { useEffect, useState } from "react";
 
 function Documents() {
 
-  const fetchDepartmentData = async (searchKey: string | number | boolean) => {
+  interface Department {
+    _id: string;
+    department_name: string;
+  }
+
+  const [departments, setDepartments] = useState<Department[]>([]);
+
+  useEffect(() => {
+    fetchDepartmentData();
+  }, []);
+
+  const fetchDepartmentData = async () => {
     try {
-        console.log("Fetching department data for:", searchKey);
-        
-        const response = await axios.get(`http://localhost:3000/api/documents/get_department?searchkey=${encodeURIComponent(searchKey)}`);
-        
-        if (response.status === 200) {
-            const departmentData = response.data;
-            console.log("Department Data:", departmentData);
-            return departmentData;
-        } else if (response.status === 401) {
-            console.error("Unauthorized access. Please check your credentials.");
-        } else {
-            console.error(`Error fetching department data! HTTP Status: ${response.status}`);
-        }
+      const response = await axios.get("http://localhost:3000/api/documents/get_all_department");
+      if (response.status !== 200) throw new Error(`HTTP error! Status: ${response.status}`);
+
+      const data = response.data;
+      setDepartments(data.departmentData);
     } catch (error) {
-        console.error("Error fetching department data:", error);
+      console.error("Error fetching department data:", error);
     }
-};
+  };
 
   return (
     <div className="ml-5 h-full p-3 overflow-y-scroll scrollbar ">
@@ -44,7 +47,7 @@ function Documents() {
         </div>
 
       </div>
-     <TextComponent2 text="Issued Documents" /> 
+      <TextComponent2 text="Issued Documents" />
 
       <div className='flex justify-between'>
         <Card_component1 title={'Aadhaar'} description={'***********'} Authority={'Unique Identification Authority of India'} />
@@ -77,25 +80,17 @@ function Documents() {
           <i className="fa-solid fa-arrow-right"></i>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-10 gap-1 w-11/12">
-      <Card_component3 Name={'Kerala'} />
-      <Card_component3 Name={'Kerala'} />
-      <Card_component3 Name={'Kerala'} />
-      <Card_component3 Name={'Kerala'} />
-      <Card_component3 Name={'Kerala'} />
-      <Card_component3 Name={''} />
-      <Card_component3 Name={''} />
-      <Card_component3 Name={''} />
-      <Card_component3 Name={''} />
-      <Card_component3 Name={''} />
-      
 
+      <div className="flex overflow-x-hidden scrollbar mt-3">
+        <div className="flex flex-wrap justify-start gap-4">
+          {departments.slice(0, 10).map((department) => (
+        <Card_component3 key={department._id} Name={department.department_name} />
+          ))}
+        </div>
       </div>
 
-    <div className='flex space justify-between mt-5'>
-      <div className=" text-[16px] font-poppins font-semibold">Departments and Documents</div>
-    </div>
-   
+
+
       <DepartmentAndDocs></DepartmentAndDocs>
 
 
