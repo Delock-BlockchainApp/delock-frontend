@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 
 
 // ABI of the DeLock contract
-const CONTRACT_ABI = [
+const CONTRACT_ABI =[
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -244,6 +244,25 @@ const CONTRACT_ABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "admins",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
@@ -373,6 +392,24 @@ const CONTRACT_ABI = [
 				"internalType": "address",
 				"name": "owner",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAllAdminsAndDepartmentId",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",
@@ -520,6 +557,19 @@ const CONTRACT_ABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "isAdmin",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -601,7 +651,9 @@ const CONTRACT_ABI = [
 	}
 ];
 
-const CONTRACT_ADDRESS = "0x366356cfD82e69dFaa4d2aa2FecC342dcbE3B24B";
+const CONTRACT_ADDRESS = "0xeDAf6a14d0E33F2351A7acA4527611530E730c1e";
+
+
 
 const App: React.FC = () => {
     const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null);
@@ -612,7 +664,7 @@ const App: React.FC = () => {
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [documents, setDocuments] = useState<any[]>([]);
-
+	const [departmentAndAdmin, setDepartmentAndAdmin] = useState<any[]>([]);
     useEffect(() => {
         const init = async () => {
             if ((window as any).ethereum) {
@@ -628,6 +680,7 @@ const App: React.FC = () => {
 
                 const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
                 setContract(contract);
+
             } else {
                 alert("Please install MetaMask!");
             }
@@ -635,6 +688,15 @@ const App: React.FC = () => {
 
         init();
     }, []);
+
+
+useEffect(() => {
+    if (contract) {
+        getAllAdminsAndDepartmentId();
+    }
+}, [contract]); // Dependency added to ensure contract is ready
+
+
     useEffect(() => {
      
           (window as any).ethereum.on("accountsChanged", (accounts: string | any[]) => {
@@ -666,17 +728,30 @@ const App: React.FC = () => {
             const docs = await contract.getRequestedDocuments();
             console.log("Own Documents:", docs);
           //  setDocuments(docs);
+
+            // Parsing the data
+            const parsedDocs = docs.map((doc: any[]) => ({
+                ipfs: doc[0],  // IPFS Hash
+                id: doc[1],    // Document ID
+                name: doc[2],  // Document Name
+                status: doc[3], // Boolean (Approved/Not)
+                owner: doc[4]  // Wallet Address
+            }));
+
+            setDocuments(parsedDocs);
         } catch (error) {
             console.error(error);
             alert("Error fetching documents.");
         }
     };
 
+
+
     // Function: Issue a document
-    const issueDocument = async (userAddress: string, ipfsHash: string, deptId: number) => {
+    const issueDocument = async (userAddress: string, ipfsHash: string, deptId: string, docId:string) => {
         if (!contract) return;
         try {
-            const tx = await contract.issueDocument(userAddress, ipfsHash, deptId);
+            const tx = await contract.issueDocument(userAddress, ipfsHash, deptId,docId);
             await tx.wait(); // Wait for transaction to be mined
             alert("Document issued successfully!");
         } catch (error) {
@@ -684,6 +759,18 @@ const App: React.FC = () => {
             alert("Error issuing document.");
         }
     };
+
+	const requestDocument =async( deptId: string, docId:string) => {
+		if (!contract) return;
+		try {
+			const tx = await contract.requestDocument(deptId,docId);
+			await tx.wait(); // Wait for transaction to be mined
+			alert("Document requested successfully!");
+		} catch (error) {
+			console.error(error);
+			alert("Error requesting document.");
+		}
+	}
 
     const createDepartment = async (deptId: number) => {
         if (!contract) return;
@@ -749,6 +836,34 @@ const App: React.FC = () => {
     };
 
 
+
+const getAllAdminsAndDepartmentId = async () => {
+    console.log("Getting all admins and department id");
+    if (!contract) return;
+
+    try {
+        const users = await contract.getAllAdminsAndDepartmentId();
+        console.log("All Admins and Department Id:", users);
+
+        // Parse returned data
+        const admins = users[0]; // Address array
+        const departments = users[1]; // Department string array
+
+        const parsedData = admins.map((admin: string, index: number) => ({
+            admin,
+            department: departments[index]
+        }));
+
+        setDepartmentAndAdmin(parsedData);
+        return parsedData;
+    } catch (error) {
+        console.error("Error fetching all admins and department id:", error);
+        alert("Error fetching all admins and department id.");
+    }
+};
+
+
+
     const getOwnDepartmentDocs = async () => {
         if (!contract) return;
         try {
@@ -771,7 +886,22 @@ const App: React.FC = () => {
             ) : (
               <p className="text-red-500 mb-6">Please connect to MetaMask</p>
             )}
-    
+{departmentAndAdmin && departmentAndAdmin.length > 0 ? (
+  <div>
+    <h3 className="text-green-500 mb-4">Admins and Departments:</h3>
+    <ul className="list-disc pl-5">
+      {departmentAndAdmin.map((item, index) => (
+        <li key={index} className="text-blue-500">
+          <strong>Admin:</strong> {item.admin} <br />
+          <strong>Department:</strong> {item.department}
+        </li>
+      ))}
+    </ul>
+  </div>
+) : (
+  <p className="text-red-500 mb-6">Please connect to MetaMask</p>
+)}
+
             {/* Register User Section */}
             <div className="bg-gray-50 p-5 rounded-lg shadow mb-8">
               <h2 className="text-xl font-semibold mb-4 text-gray-800">Register User</h2>
@@ -806,23 +936,18 @@ const App: React.FC = () => {
               >
                 Fetch Documents
               </button>
-              {documents.length > 0 && (
-                <ul className="mt-4 text-left">
-                  {documents.map((doc, index) => (
-                    <li
-                      key={index}
-                      className="border border-gray-300 rounded p-2 mb-2 bg-white shadow"
-                    >
-                      <p>
-                        <span className="font-semibold">IPFS Hash:</span> {doc.ipfsHash}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Dept ID:</span> {doc.deptId}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              )}
+			  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+            {documents.map((doc, index) => (
+                <div key={index} className="p-4 border rounded-lg shadow">
+                    <h3 className="text-lg font-bold">{doc.name}</h3>
+                    <p><strong>ID:</strong> {doc.id}</p>
+                    <p><strong>Status:</strong> {doc.status ? "Approved" : "Pending"}</p>
+                    <p><strong>Owner:</strong> {doc.owner}</p>
+                    <p><strong>IPFS:</strong> <span className="text-blue-600 break-all">{doc.ipfs}</span></p>
+                </div>
+            ))}
+        </div>
+            
             </div>
     
             {/* Issue Document Section */}
@@ -841,9 +966,15 @@ const App: React.FC = () => {
                 className="block w-full p-2 border border-gray-300 rounded mb-3"
               />
               <input
-                type="number"
+                type="text"
                 placeholder="Department ID"
                 id="deptId"
+                className="block w-full p-2 border border-gray-300 rounded mb-4"
+              />
+			   <input
+                type="text"
+                placeholder="Doc ID"
+                id="docId"
                 className="block w-full p-2 border border-gray-300 rounded mb-4"
               />
               <button
@@ -851,9 +982,10 @@ const App: React.FC = () => {
                   issueDocument(
                     (document.getElementById("userAddress") as HTMLInputElement).value,
                     (document.getElementById("ipfsHash") as HTMLInputElement).value,
-                    parseInt(
-                      (document.getElementById("deptId") as HTMLInputElement).value
-                    )
+                    
+                      (document.getElementById("deptId") as HTMLInputElement).value,
+					  (document.getElementById("docId") as HTMLInputElement).value,
+                    
                   )
                 }
                 className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
@@ -862,7 +994,39 @@ const App: React.FC = () => {
               </button>
             </div>
     
-            {/* Admin Controls */}
+			<div className="bg-gray-50 p-5 rounded-lg shadow mb-8">
+              <h2 className="text-xl font-semibold mb-4 text-gray-800">Request Document</h2>
+             
+              <input
+                type="text"
+                placeholder="Department ID"
+                id="deptIdr"
+                className="block w-full p-2 border border-gray-300 rounded mb-4"
+              />
+			   <input
+                type="text"
+                placeholder="Doc ID"
+                id="docIdr"
+                className="block w-full p-2 border border-gray-300 rounded mb-4"
+              />
+              <button
+                onClick={() =>
+                  requestDocument(
+                 
+                      (document.getElementById("deptIdr") as HTMLInputElement).value,
+					  (document.getElementById("docIdr") as HTMLInputElement).value,
+                    
+                  )
+                }
+                className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+              >
+                Request Document
+              </button>
+            </div>
+    
+			
+
+	        {/* Admin Controls */}
             <div className="bg-gray-50 p-5 rounded-lg shadow">
               <h2 className="text-xl font-semibold mb-4 text-gray-800">Admin Controls</h2>
               <button
