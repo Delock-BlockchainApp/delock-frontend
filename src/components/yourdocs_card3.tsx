@@ -12,12 +12,12 @@ const yourdocs_card3: React.FC<YourDocsCard3Props> = ({ title }) => {
                 </div>
             </div>
             
-                <div className='font-poppins mt-2 text-sm line-clamp-2 overflow-ellipsis'>
+                <div className='font-poppins mt-2 h-9 text-sm line-clamp-2 overflow-ellipsis'>
                     {title}
                 </div>
         
            
-            <div className=' font-poppins  mt-4 text-xs text-black/80 '>Kerala</div>
+            <div className=' font-poppins  text-xs text-black/80 '>Kerala</div>
         </div>
     )
 }

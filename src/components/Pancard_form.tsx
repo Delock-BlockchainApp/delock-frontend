@@ -1,4 +1,6 @@
 
+import axios from 'axios';
+
 function Pancard_form() {
   return (
     <div className='h-[550px] w-full shadow-md mt-4 p-5 border border-gray-300 rounded-lg'>
@@ -60,7 +62,32 @@ function Pancard_form() {
         </div>
         {/* /////////////////////////////////////// */}
         <div className="mt-5 flex justify-end"> 
-        <div className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-pointer">Get Document</div>
+         <button
+          className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-pointer"
+          onClick={async () => {
+            const pancardNumber = "ABDG7394KDL1Q";
+            const name = (document.getElementById('Name') as HTMLInputElement).value;
+            const gender = (document.getElementById('gender') as HTMLInputElement).value;
+            const dob = (document.getElementById('dob') as HTMLInputElement).value;
+            const signDate = new Date().toLocaleString();
+
+            const response = await axios.post('http://localhost:3000/api/documents/generate/pancard', {
+              pancardNumber,
+              name,
+              gender,
+              dob,
+              signDate
+            });
+
+            if (response.status === 200) {
+              console.log('Document details:', response.data);
+            } else {
+              console.error('Failed to fetch document details');
+            }
+          }}
+        >
+          Get Document
+        </button>
         </div>
       
     </div>

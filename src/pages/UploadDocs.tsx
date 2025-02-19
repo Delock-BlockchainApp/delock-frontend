@@ -1,4 +1,5 @@
-import Drivinglicense_form from "../components/drivinglicense_form"
+import Drivinglicense_form from "../components/Drivinglicense_form"
+import Pancard_form from "../components/Pancard_form"
 // import Pancard_form from "../components/Pancard_form"
 import TextComponent from "../components/TextComponent"
 
@@ -18,8 +19,8 @@ function UploadDocs() {
         <div className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold">Driving License</div>
       </div>
       {/* form area */}
-      {/* <Pancard_form /> */}
-      <Drivinglicense_form />
+      <Pancard_form />
+      {/* <Drivinglicense_form /> */}
     </div>
   )
 }

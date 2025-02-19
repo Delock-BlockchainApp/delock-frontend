@@ -23,13 +23,14 @@ const yourdocs_card: React.FC<YourDocsCardProps> = ({ title, description, Author
                 {Authority}
             </div>
             <div className=' flex justify-center items-center font-poppins  text-sm'>
-                <div className='flex flex-col justify-center items-center '>
+                 <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" className='flex flex-col justify-center items-center '>
 
-                    <i className="fa-solid fa-up-right-from-square text-xl " style={{ color: '#022A51' }}></i>
-                    <div className='font-poppins   ' style={{ color: '#022A51' }}>
+                    <i className="fa-solid fa-up-right-from-square text-xl text-[#022A51]"></i>
+                    <div className="font-poppins text-[#022A51]">
                         Preview
                     </div>
-                </div>
+                 </a>
+                
                 <div className='flex flex-col justify-center items-center ml-4 mr-8'>
                     <i className="fa-solid fa-cloud-arrow-down text-xl " style={{ color: '#022A51' }}></i>
                     <div className='font-poppins   ' style={{ color: '#022A51' }}>

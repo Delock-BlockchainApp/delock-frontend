@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 
 
 function Drivinglicense_form() {
@@ -131,8 +133,34 @@ function Drivinglicense_form() {
 
     </div>
     {/* /////////////////////////////////////// */}
-    <div className="flex justify-end -mt-10"> 
-    <div className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-pointer">Get Document</div>
+    <div className="flex justify-end -mt-10">
+      <div
+        className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-pointer"
+        onClick={() => {
+          const data = {
+            authority: (document.getElementById('IssuingAuthority') as HTMLInputElement).value,
+            name: (document.getElementById('name') as HTMLInputElement).value,
+            licenseNumber: (document.getElementById('licenseNo') as HTMLInputElement).value,
+            vehicle: (document.getElementById('AuthorizeVehicle') as HTMLInputElement).value,
+            guardian: (document.getElementById('guardian') as HTMLInputElement).value,
+            dob: (document.getElementById('dob') as HTMLInputElement).value,
+            address: (document.getElementById('address') as HTMLTextAreaElement).value,
+            blood_group: (document.getElementById('bloodGroup') as HTMLSelectElement).value,
+            issueDate: (document.getElementById('doi') as HTMLInputElement).value,
+            expiryDate: (document.getElementById('doe') as HTMLInputElement).value,
+            signDate: new Date().toISOString()
+          };
+
+          axios.post('http://localhost:3000/api/documents/generate/driving_license', data)
+            .then(response => {
+              console.log('Success:', response.data);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });    }}
+      >
+        Get Document
+      </div>
     </div>
   
 </div>
