@@ -14,6 +14,7 @@ import Pdf from './pages/pdf'
 import Meta_login from './pages/meta_login'
 import Delock from './pages/delock'
 import UploadDocs from './pages/UploadDocs'
+import GetDoc from './pages/GetDoc'
 function App() {
     return (
       <Routes>
@@ -27,6 +28,7 @@ function App() {
           <Route path="yourdocs/education" element={<Yourdocs_viewmore />} />
           <Route path="settings" element={<Settings />} />
           <Route path="upload" element={<UploadDocs/>}/>
+          <Route path="getdoc" element={<GetDoc />} /> {/* Add ViewMore route */}
         </Route>
         <Route path="*" element={<Error404/>}/>
       </Routes>
