@@ -19,8 +19,8 @@ function UploadDocs() {
         <div className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold">Driving License</div>
       </div>
       {/* form area */}
-      <Pancard_form />
-      {/* <Drivinglicense_form /> */}
+      {/* <Pancard_form /> */}
+      <Drivinglicense_form />
     </div>
   )
 }

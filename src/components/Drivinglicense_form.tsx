@@ -2,8 +2,10 @@ import axios from 'axios';
 
 
 
+
 function Drivinglicense_form() {
     const bloodGroup = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+    
   return (
     <div className='h-[550px] w-full shadow-md mt-4 p-5 border border-gray-300 rounded-lg'>
     <p className="font-medium text-xl text-dark-blue">Enter the user details for the upload</p>
@@ -137,6 +139,10 @@ function Drivinglicense_form() {
       <div
         className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-pointer"
         onClick={() => {
+          if ((document.getElementById('IssuingAuthority') as HTMLInputElement).value == '' || (document.getElementById('name') as HTMLInputElement).value == '' || (document.getElementById('licenseNo') as HTMLInputElement).value == '' || (document.getElementById('AuthorizeVehicle') as HTMLInputElement).value == '' || (document.getElementById('guardian') as HTMLInputElement).value == '' || (document.getElementById('dob') as HTMLInputElement).value == '' || (document.getElementById('address') as HTMLTextAreaElement).value == '' || (document.getElementById('bloodGroup') as HTMLSelectElement).value == '' || (document.getElementById('doi') as HTMLInputElement).value == '' || (document.getElementById('doe') as HTMLInputElement).value == '') {
+           window.alert('Please fill all the fields');
+            return;
+          }
           const data = {
             authority: (document.getElementById('IssuingAuthority') as HTMLInputElement).value,
             name: (document.getElementById('name') as HTMLInputElement).value,
@@ -150,7 +156,7 @@ function Drivinglicense_form() {
             expiryDate: (document.getElementById('doe') as HTMLInputElement).value,
             signDate: new Date().toISOString()
           };
-
+console.log(data);
           axios.post('http://localhost:3000/api/documents/generate/driving_license', data)
             .then(response => {
               console.log('Success:', response.data);
