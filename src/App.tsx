@@ -10,12 +10,15 @@ import Login from './pages/Login'
 import Settings from './pages/Settings'
 import Error404 from './pages/Error404'
 import Yourdocs_viewmore from './pages/Yourdocs_viewmore'
+import Pdf from './pages/pdf'
+import Meta_login from './pages/meta_login'
+import Delock from './pages/delock'
 import UploadDocs from './pages/UploadDocs'
 import GetDoc from './pages/GetDoc'
 function App() {
     return (
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Delock />} />
         <Route path='signup' element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Layout />}>
