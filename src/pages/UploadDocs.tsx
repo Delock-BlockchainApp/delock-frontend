@@ -18,6 +18,9 @@ const { contract, account } = useBlockchain();
           const department= await contract.adminToDepartment(account);
           setDepartment(department);
         }
+        else{
+          setDepartment('');
+        }
       }
     };
     checkAdmin();
@@ -39,7 +42,7 @@ const { contract, account } = useBlockchain();
       </div>
       {/* form area */}
       {/* <Pancard_form /> */}
-      {isAdmin?<Drivinglicense_form />:<div className="justify-center items-center mt-20">Not an admin</div>}
+      {isAdmin?<Pancard_form />:<div className="justify-center items-center mt-20">Not an admin</div>}
       
     </div>
   )
