@@ -4,9 +4,11 @@ interface YourDocsCardProps {
     title: string;
     description: string;
     Authority: string;
+    ipfs: string;
 }
 
-const yourdocs_card: React.FC<YourDocsCardProps> = ({ title, description, Authority }) => {
+const yourdocs_card: React.FC<YourDocsCardProps> = ({ title, description, Authority,ipfs }) => {
+    const ipfsBaseUrl ='https://www.ipfs.com/';
     return (
        
     
@@ -23,7 +25,7 @@ const yourdocs_card: React.FC<YourDocsCardProps> = ({ title, description, Author
                 {Authority}
             </div>
             <div className=' flex justify-center items-center font-poppins  text-sm'>
-                 <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" className='flex flex-col justify-center items-center '>
+                 <a href={`${ipfsBaseUrl}${ipfs}`} target="_blank" rel="noopener noreferrer" className='flex flex-col justify-center items-center '>
 
                     <i className="fa-solid fa-up-right-from-square text-xl text-[#022A51]"></i>
                     <div className="font-poppins text-[#022A51]">
