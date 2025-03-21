@@ -45,7 +45,7 @@ const Login = () => {
 
 
 					<div className='flex justify-center mt-5'>
-					<p className='flex justify-center gap-x-2 font-poppins '>Don&apos;t have an account <a href='/Sign up' className= 'text-[#004182] font-bold '>Signup Now</a></p>
+					<p className='flex justify-center gap-x-2 font-poppins '>Don&apos;t have an account <a href='/signup' className= 'text-[#004182] font-bold '>Signup Now</a></p>
 					</div>
 
 				</div>

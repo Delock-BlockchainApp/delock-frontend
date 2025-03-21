@@ -80,7 +80,7 @@ const Signup = () => {
                                 </div>
                         </div>
                         <div >
-                                <p className='flex justify-center gap-x-2 font-poppins'>Go back to the <a href='/home page' className='text-blue-500'>home page</a></p>
+                                <p className='flex justify-center gap-x-2 font-poppins'>Go back to the <a href='/' className='text-blue-500'>home page</a></p>
                         </div>
                 </div>
 

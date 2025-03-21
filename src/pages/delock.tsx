@@ -2,6 +2,11 @@
 import React, { useEffect, useState} from "react";
 import { useBlockchain } from "../context/BlockchainContext";
 
+interface DepartmentAdmin {
+    admin: string;
+    department: string;
+}
+
 
 
 const Delock: React.FC = () => {
@@ -9,8 +14,8 @@ const Delock: React.FC = () => {
 	
 	const [name, setName] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
-	const [documents, setDocuments] = useState<any[]>([]);
-	const [departmentAndAdmin, setDepartmentAndAdmin] = useState<any[]>([]);
+	const [documents, setDocuments] = useState<{ ipfs: string; id: string; name: string; status: boolean; owner: string }[]>([]);
+    const [departmentAndAdmin, setDepartmentAndAdmin] = useState<DepartmentAdmin[]>([]);
 	// useEffect(() => {
 	// 	const init = async () => {
 	// 		if ((window as any).ethereum) {
