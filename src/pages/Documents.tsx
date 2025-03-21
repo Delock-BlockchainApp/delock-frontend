@@ -5,6 +5,7 @@ import Card_component3 from '../components/Card_component3'
 import TextComponent2 from '../components/TextComponent2'
 import DepartmentAndDocs from "../components/Department_and_Docs";
 import { useEffect, useState } from "react";
+import { useBlockchain } from "../context/BlockchainContext";
 
 function Documents() {
 
@@ -12,12 +13,54 @@ function Documents() {
     _id: string;
     department_name: string;
   }
+  const { contract, account } = useBlockchain();
+
+  const [documents, setDocuments] = useState<any[]>([]);
 
   const [departments, setDepartments] = useState<Department[]>([]);
 
-  useEffect(() => {
-    fetchDepartmentData();
-  }, []);
+  const departmentMap = new Map([
+    ["d1", "Motor Vehicles Department"],
+    ["d02", "Revenue Department"],
+    ["D3", "Education Department"],
+    ["D4", "Health Department"],
+    ["D5", "Police Department"],
+    ["D6", "Labour Department"],
+    ["D7", "Fisheries Department"],
+    ["D8", "Agriculture Department"],
+    ["D9", "Civil Supplies Department"],
+    ["D10", "Local Self Government Department (LSGD)"],
+  ]);
+  
+  // Function to get department name
+  const getDepartmentName = (deptId: string): string | undefined => {
+    return departmentMap.get(deptId);
+  };
+
+  // Function: Get own documents
+  const getRequestedDocuments = async () => {
+    if (!contract) return;
+    try {
+      const docs = await contract.getRequestedDocuments();
+      console.log("Own Documents:", docs);
+      //  setDocuments(docs);
+
+      // Parsing the data
+      const parsedDocs = docs.map((doc: any[]) => ({
+        ipfs: doc[0],  // IPFS Hash
+        depId: doc[1],    // Document ID
+        docId: doc[2],  // Document Name
+        status: doc[3], // Boolean (Approved/Not)
+        owner: doc[4]  // Wallet Address
+      }));
+
+      setDocuments(parsedDocs);
+      console.log("Parsed Docs:", parsedDocs);
+    } catch (error) {
+      console.error(error);
+      alert("Error fetching documents.");
+    }
+  };
 
   const fetchDepartmentData = async () => {
     try {
@@ -30,6 +73,17 @@ function Documents() {
       console.error("Error fetching department data:", error);
     }
   };
+
+  useEffect(() => {
+    getRequestedDocuments();
+    console.log("Account:", account);
+  }
+    , [contract, account]);
+
+
+  useEffect(() => {
+    fetchDepartmentData();
+  }, []);
 
   return (
     <div className="ml-5 h-full p-3 overflow-y-scroll scrollbar ">
@@ -50,12 +104,20 @@ function Documents() {
       <TextComponent2 text="Issued Documents" />
 
       <div className='flex justify-between'>
+        {documents.map((document) => (
+          <Card_component1 title={document.docId} description={document.ipfs} Authority={getDepartmentName(document.depId) || "Unknown Department"} />
+        ))}
+      </div>
+
+      {/* <div className='flex justify-between'>
         <Card_component1 title={'Aadhaar'} description={'***********'} Authority={'Unique Identification Authority of India'} />
         <Card_component1 title={'Driving License'} description={'KL26******776'} Authority={'Motor Vehicle Department, Kerala'} />
         <Card_component1 title={'PAN Verification'} description={'FUE8****'} Authority={'Income Tax Department'} />
         <Card_component1 title={'Class X Mark Sheet'} description={'3456****'} Authority={'Central Board of Secondary Education'} />
 
-      </div>
+      </div> */}
+
+
       <div className=" flex items-center rounded-[10px] bg-[#EBF3FC] pt-0 w-[1200.96px] h-[52.95px] mt-8 ">
         <div className="  font-poppins  text-[20px] text-base ml-4 font-normal" style={{ color: '#004182' }}>Combines blockchain’s immutability, IPFS’s distributed storage, and smart contract-based workflows.</div>
       </div>
@@ -84,7 +146,7 @@ function Documents() {
       <div className="flex overflow-x-hidden scrollbar mt-3">
         <div className="flex flex-wrap justify-start gap-4">
           {departments.slice(0, 10).map((department) => (
-        <Card_component3 key={department._id} Name={department.department_name} />
+            <Card_component3 key={department._id} Name={department.department_name} />
           ))}
         </div>
       </div>
