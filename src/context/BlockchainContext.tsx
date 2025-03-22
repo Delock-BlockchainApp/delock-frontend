@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { ethers } from "ethers";
 
 const CONTRACT_ABI = [
@@ -647,13 +647,14 @@ const CONTRACT_ABI = [
 		"type": "function"
 	}
 ];
-const CONTRACT_ADDRESS = "0xeDAf6a14d0E33F2351A7acA4527611530E730c1e";
+const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
 
 interface BlockchainContextType {
   provider: ethers.providers.Web3Provider | null;
   signer: ethers.Signer | null;
   contract: ethers.Contract | null;
   account: string | null;
+  connectWallet: () => Promise<void>; // Function to connect MetaMask
 }
 
 const BlockchainContext = createContext<BlockchainContextType | undefined>(undefined);
@@ -664,9 +665,10 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [contract, setContract] = useState<ethers.Contract | null>(null);
   const [account, setAccount] = useState<string | null>(null);
 
-  useEffect(() => {
-    const init = async () => {
-      if ((window as any).ethereum) {
+  // Function to connect MetaMask
+  const connectWallet = async () => {
+    if ((window as any).ethereum) {
+      try {
         const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
         setProvider(web3Provider);
 
@@ -679,26 +681,25 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
         const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
         setContract(contractInstance);
-      } else {
-        alert("Please install MetaMask!");
-      }
-    };
 
-    init();
-  }, []);
-
-  useEffect(() => {
-    (window as any).ethereum?.on("accountsChanged", (accounts: string[]) => {
-      if (accounts.length > 0) {
-        setAccount(accounts[0]);
-      } else {
-        setAccount(null);
+        // Listen for account changes
+        (window as any).ethereum.on("accountsChanged", (accounts: string[]) => {
+          if (accounts.length > 0) {
+            setAccount(accounts[0]);
+          } else {
+            setAccount(null);
+          }
+        });
+      } catch (error) {
+        console.error("Failed to connect wallet:", error);
       }
-    });
-  }, []);
+    } else {
+      alert("Please install MetaMask!");
+    }
+  };
 
   return (
-    <BlockchainContext.Provider value={{ provider, signer, contract, account }}>
+    <BlockchainContext.Provider value={{ provider, signer, contract, account, connectWallet }}>
       {children}
     </BlockchainContext.Provider>
   );
