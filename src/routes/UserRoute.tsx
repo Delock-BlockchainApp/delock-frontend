@@ -1,12 +1,16 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { authState } from '../state/authState';
+import { authState } from '../recoil';
 
-const UserRoute = ({ children }) => {
-  const { isAuthenticated } = useRecoilValue(authState);
+type UserRouteProps = {
+  children: ReactNode;
+};
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+const UserRoute = ({ children }: UserRouteProps) => {
+  const auth = useRecoilValue(authState) as { isAuthenticated: boolean };
+
+  return auth.isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 export default UserRoute;

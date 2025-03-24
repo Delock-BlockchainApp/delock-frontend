@@ -14,6 +14,7 @@ import Delock from './pages/delock'
 import UploadDocs from './pages/UploadDocs'
 import GetDoc from './pages/GetDoc'
 import Home from './pages/Home'
+import UserRoute from './routes/UserRoute'
 function App() {
     return (
       <Routes>

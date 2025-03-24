@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState,useEffect } from "react";
 import { ethers } from "ethers";
 import toast from "react-hot-toast";
-
+import { authState } from '../recoil';
 const CONTRACT_ABI = [
 	{
 		"inputs": [],
@@ -650,12 +650,16 @@ const CONTRACT_ABI = [
 ];
 const CONTRACT_ADDRESS = "0x329d7c51180185780396cef743a427f5e34a180f";
 
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+
 interface BlockchainContextType {
   provider: ethers.providers.Web3Provider | null;
   signer: ethers.Signer | null;
   contract: ethers.Contract | null;
   account: string | null;
-  connectWallet: () => Promise<void>; // Function to connect MetaMask
+  connectWallet: () => Promise<void>;
+  disconnectWallet: () => void;
 }
 
 const BlockchainContext = createContext<BlockchainContextType | undefined>(undefined);
@@ -665,42 +669,83 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [signer, setSigner] = useState<ethers.Signer | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
   const [account, setAccount] = useState<string | null>(null);
+  const [auth, setAuth] = useRecoilState(authState);
 
   // Function to connect MetaMask
   const connectWallet = async () => {
-    if ((window as any).ethereum) {
-      try {
-        const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
-        setProvider(web3Provider);
-
-        await web3Provider.send("eth_requestAccounts", []);
-        const signer = web3Provider.getSigner();
-        setSigner(signer);
-
-        const userAccount = await signer.getAddress();
-        setAccount(userAccount);
-
-        const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-        setContract(contractInstance);
-
-        // Listen for account changes
-        (window as any).ethereum.on("accountsChanged", (accounts: string[]) => {
-          if (accounts.length > 0) {
-            setAccount(accounts[0]);
-          } else {
-            setAccount(null);
-          }
-        });
-      } catch (error) {
-        console.error("Failed to connect wallet:", error);
-      }
-    } else {
+	if ((window as any).ethereum) {
+	  try {
+		const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
+		setProvider(web3Provider);
+  
+		await web3Provider.send("eth_requestAccounts", []);
+		const signer = web3Provider.getSigner();
+		setSigner(signer);
+  
+		const userAccount = await signer.getAddress();
+		setAccount(userAccount); // Update address immediately
+  
+		const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+		setContract(contractInstance);
+  
+		toast.success("Wallet connected successfully!");
+  
+		// Listen for account changes
+		(window as any).ethereum.on("accountsChanged", (accounts: string[]) => {
+		  if (accounts.length > 0) {
+			setAccount(accounts[0]);
+		  } else {
+			disconnectWallet();
+		  }
+		});
+  
+		// Listen for disconnection
+		(window as any).ethereum.on("disconnect", () => {
+		  console.log("MetaMask disconnected.");
+		  disconnectWallet();
+		});
+  
+	  } catch (error) {
+		console.error("Failed to connect wallet:", error);
+		toast.error("Failed to connect wallet.");
+	  }
+	} else {
 	  toast.error("Please install MetaMask!");
-    }
+	}
   };
 
+  // Function to disconnect wallet
+  const disconnectWallet = () => {
+    setAccount(null);
+    setProvider(null);
+    setSigner(null);
+    setContract(null);
+	setAuth({ isAuthenticated: false, account: "" });
+	console.log("Wallet disconnected.");
+
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    if ((window as any).ethereum) {
+      (window as any).ethereum.on("connect", () => {
+        console.log("Connected to MetaMask.");
+		setAuth({ isAuthenticated: true, account: account || "" });
+      });
+
+      (window as any).ethereum.on("disconnect", () => {
+        console.log("MetaMask disconnected.");
+        disconnectWallet();
+      });
+
+      return () => {
+        (window as any).ethereum.removeAllListeners("connect");
+        (window as any).ethereum.removeAllListeners("disconnect");
+      };
+    }
+  }, []);
   return (
-    <BlockchainContext.Provider value={{ provider, signer, contract, account, connectWallet }}>
+    <BlockchainContext.Provider value={{ provider, signer, contract, account, connectWallet, disconnectWallet }}>
       {children}
     </BlockchainContext.Provider>
   );
