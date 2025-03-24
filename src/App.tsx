@@ -17,18 +17,27 @@ import Home from './pages/Home'
 function App() {
     return (
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path='superadmin' element={<Delock />} />
-        <Route path='signup' element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Layout />}>
-          <Route index element={<Overview />} />
-          <Route path="documents" element={<Documents />} />
-          <Route path="yourdocs" element={<Yourdocs />} />
-          <Route path="yourdocs/education" element={<Yourdocs_viewmore />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="getdoc" element={<GetDoc />} /> {/* Add ViewMore route */}
-        </Route>
+      {/* Public Routes */}
+      <Route path="/" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/login" element={<Login />} />
+
+      {/* Protected User Routes */}
+      <Route
+        path="/dashboard"
+        element={
+          <UserRoute>
+            <Layout />
+          </UserRoute>
+        }
+      >
+        <Route index element={<Overview />} />
+        <Route path="documents" element={<Documents />} />
+        <Route path="yourdocs" element={<Yourdocs />} />
+        <Route path="yourdocs/education" element={<Yourdocs_viewmore />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="getdoc" element={<GetDoc />} />
+      </Route>
         <Route path="/admin" element={<Layout />}>
           <Route path="settings" element={<Settings />} />
           <Route path="upload" element={<UploadDocs/>}/>

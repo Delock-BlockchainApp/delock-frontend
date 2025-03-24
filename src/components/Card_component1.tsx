@@ -13,13 +13,13 @@ const Card_component1: React.FC<CardProps> = ({ title, description, Authority })
 
 
             <div className=' bg-[#D9D9D9] w-[80px] h-[80px] rounded-[10px] flex justify-center items-center'>
-                {/* <img src="https://cdn-icons-png.flaticon.com/512/1250/1250614.png" alt="icon" className='w-16 h-16' /> */}
+                <img src="https://cdn-icons-png.flaticon.com/512/1250/1250614.png" alt="icon" className='w-16 h-16' />
 
             </div>
-            <div className='ml-2'>
+            <div className='ml-2 justify-center items-center'>
                 <div className=' font-poppins text-[12px] '> {title}</div>
                 <div className=' font-poppins text-[12px] w-7 bg'>{description}</div>
-                <div className=' font-poppins  mt-2 text-sm w-28 '>{Authority}</div>
+                <div className=' font-poppins text-xs  mt-2 w-full flex-wrap'>{Authority}</div>
             </div>
 
 

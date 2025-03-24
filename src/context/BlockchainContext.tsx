@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { ethers } from "ethers";
+import toast from "react-hot-toast";
 
 const CONTRACT_ABI = [
 	{
@@ -647,7 +648,7 @@ const CONTRACT_ABI = [
 		"type": "function"
 	}
 ];
-const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+const CONTRACT_ADDRESS = "0x329d7c51180185780396cef743a427f5e34a180f";
 
 interface BlockchainContextType {
   provider: ethers.providers.Web3Provider | null;
@@ -694,7 +695,7 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         console.error("Failed to connect wallet:", error);
       }
     } else {
-      alert("Please install MetaMask!");
+	  toast.error("Please install MetaMask!");
     }
   };
 

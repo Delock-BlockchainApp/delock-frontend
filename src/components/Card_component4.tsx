@@ -13,12 +13,12 @@ const Card_component4: React.FC<CardProps> = () => {
 
 
             <div className=' bg-[#D9D9D9] w-[100px] h-[80px] rounded-[10px]   ml-1'>
-                {/* <img src="https://cdn-icons-png.flaticon.com/512/1250/1250614.png" alt="icon" className='w-16 h-16' /> */}
+                <img src="https://cdn-icons-png.flaticon.com/512/1250/1250614.png" alt="icon" className='w-16 h-16' />
 
             </div> 
             <div className="flex flex-col items-center mt-5">
                 <span className="text-xs font-poppins font-semibold text-center">
-                    APJ Abdul Kalam  Technical University
+                    APJ Abd
                 </span>
                 <span className="text-xs font-poppins text-gray-500 mt-1">
                     Kerala

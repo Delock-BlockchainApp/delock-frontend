@@ -50,21 +50,19 @@ useEffect(() => {
         </div>
 
       </div>
-        <TextComponent2 text="Issued Documents" />
+      <div className="text-lg font-medium ">Issued Documents</div>
         <div className=" flex flex-col pt-5 ">
-        {documents.map((document) => (
+        {/* {documents.map((document) => (
        <Yourdocs_card title={document.docId} description={document.ipfs} Authority={document.depId} ipfs={document.ipfs} />
-          ))}
-          {/* <Yourdocs_card title={'Aadhaar Card'} description={'**************'} Authority={'Unique Identification Authority of India(UIDAI)'} />
+          ))} */}
+          <Yourdocs_card title={'Aadhaar Card'} description={'**************'} Authority={'Unique Identification Authority of India(UIDAI)'} />
           <Yourdocs_card title={'Driving License'} description={'KL05*******15'} Authority={'Motor Vechile Department,Kerala'} />
           <Yourdocs_card title={'PAN Verification'} description={'FUE******9A'} Authority={'Income Tax Department'} />
           <Yourdocs_card title={'Class X Marksheet'} description={'431******2019'} Authority={'Central Board of Secondary Education'} />
-          <Yourdocs_card title={'Registraton of Vechiles'} description={'KL01*******189'} Authority={'Motor Vehicle Department, Kerala'} /> */}
+          <Yourdocs_card title={'Registraton of Vechiles'} description={'KL01*******189'} Authority={'Motor Vehicle Department, Kerala'} />
         </div>
 
-
-
-        <TextComponent2 text="Delock Drive Folders" />
+        <div className="text-lg font-medium ">Delock Drive Folders</div>
 
         <div className="flex justify-between">
 
@@ -79,7 +77,7 @@ useEffect(() => {
           </div>
 
         </div>
-        <div className=" flex items-center rounded-xl bg-[#EBF3FC] pt-1 w-11/12 h-12 mt-5 ml-5">
+        <div className=" flex items-center rounded-xl bg-[#EBF3FC] pt-1 w-11/12 h-12 mt-5 ">
           <div className="text-base ml-4 font-medium text-dark-blue">Documents in Delock Drive are <span className="font-semibold">NOT</span> treated as authentic original documents. You can upload your personal documents with trust</div>
         </div>
       </div>

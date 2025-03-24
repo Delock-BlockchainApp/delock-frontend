@@ -6,6 +6,7 @@ import TextComponent2 from '../components/TextComponent2'
 import DepartmentAndDocs from "../components/Department_and_Docs";
 import { useEffect, useState } from "react";
 import { useBlockchain } from "../context/BlockchainContext";
+import YourdocsCard3 from "../components/yourdocs_card3";
 
 function Documents() {
 
@@ -31,6 +32,37 @@ function Documents() {
     ["D9", "Civil Supplies Department"],
     ["D10", "Local Self Government Department (LSGD)"],
   ]);
+
+  const stateMap = new Map([
+    ["KL", "Kerala"],
+    ["TN", "Tamil Nadu"],
+    ["KA", "Karnataka"],
+    ["AP", "Andhra Pradesh"],
+    ["MH", "Maharashtra"],
+    ["GJ", "Gujarat"],
+    ["RJ", "Rajasthan"],
+    ["UP", "Uttar Pradesh"],
+    ["MP", "Madhya Pradesh"],
+    ["WB", "West Bengal"],
+    ["BR", "Bihar"],
+    ["OR", "Odisha"],
+    ["AS", "Assam"],
+    ["JH", "Jharkhand"],
+    ["UK", "Uttarakhand"],
+    ["HP", "Himachal Pradesh"],
+    ["PB", "Punjab"],
+    ["HR", "Haryana"],
+    ["TG", "Telangana"],
+    ["CT", "Chhattisgarh"],
+    ["GA", "Goa"],
+    ["MN", "Manipur"],
+    ["ML", "Meghalaya"],
+    ["MZ", "Mizoram"],
+    ["NL", "Nagaland"],
+    ["SK", "Sikkim"],
+    ["TR", "Tripura"],
+    ["AR", "Arunachal Pradesh"]
+  ])
   
   // Function to get department name
   const getDepartmentName = (deptId: string): string | undefined => {
@@ -102,26 +134,26 @@ function Documents() {
 
       </div>
       <TextComponent2 text="Issued Documents" />
-
+      {/* 
       <div className='flex justify-between'>
         {documents.map((document) => (
           <Card_component1 title={document.docId} description={document.ipfs} Authority={getDepartmentName(document.depId) || "Unknown Department"} />
         ))}
-      </div>
+      </div> */}
 
-      {/* <div className='flex justify-between'>
+      <div className='flex justify-between w-[1200px]'>
         <Card_component1 title={'Aadhaar'} description={'***********'} Authority={'Unique Identification Authority of India'} />
         <Card_component1 title={'Driving License'} description={'KL26******776'} Authority={'Motor Vehicle Department, Kerala'} />
         <Card_component1 title={'PAN Verification'} description={'FUE8****'} Authority={'Income Tax Department'} />
         <Card_component1 title={'Class X Mark Sheet'} description={'3456****'} Authority={'Central Board of Secondary Education'} />
 
-      </div> */}
+      </div>
 
 
-      <div className=" flex items-center rounded-[10px] bg-[#EBF3FC] pt-0 w-[1200.96px] h-[52.95px] mt-8 ">
+      <div className=" flex items-center rounded-[10px] bg-[#EBF3FC] pt-0 w-[1200px] h-[53px] mt-8 ">
         <div className="  font-poppins  text-[20px] text-base ml-4 font-normal" style={{ color: '#004182' }}>Combines blockchain’s immutability, IPFS’s distributed storage, and smart contract-based workflows.</div>
       </div>
-      <div className=" text-[16px] font-poppins font-semibold mt-3 ">Authorized Government Documents</div>
+      <div className=" text-[16px] font-poppins font-medium mt-3 ">Authorized Government Documents</div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-x-10 w-11/12">
         <Card_component2 Name={'E-Aadhar'} />
         <Card_component2 Name={'Residence Certificate'} />
@@ -135,29 +167,78 @@ function Documents() {
         <Card_component2 Name={'Caste Certifiacte'} />
 
       </div>
-      <div className='flex space justify-between mt-5'>
-        <div className=" text-[16px] font-poppins font-semibold    ">State Government</div>
-        <div className='flex gap-x-0 mr-5'>
-          <div className=" text-sm font-poppins font-semibold mr-2  ">View all</div>
-          <i className="fa-solid fa-arrow-right"></i>
+      <div className=" text-[16px] font-poppins font-medium mt-5">State Government</div>
+      <div className="mt-5 w-[1200px]">
+        <div className="flex justify-between overflow-y-hidden scrollbar">
+          {[...stateMap.values()].map((value) => (
+            <Card_component3 Name={value} />
+          ))}
         </div>
-      </div>
+        <section>
+            <div className="mt-5">
+              <TextComponent2 text="Education & Learning" />
+              <div className="flex mt-5 gap-5">
+                <YourdocsCard3 title={'BTech Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'MTech Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'BCA Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'PhD Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'Integrated Course Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'X Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'XII Certificate'} authority="Kerala" />
+              </div>
+            </div>
 
-      <div className="flex overflow-x-hidden scrollbar mt-3">
-        <div className="flex flex-wrap justify-start gap-4">
-          {departments.slice(0, 10).map((department) => (
+            <div className="mt-5">
+              <TextComponent2 text="Central Government" />
+              <div className="flex mt-5 gap-5">
+                <YourdocsCard3 title={'BTech Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'MTech Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'BCA Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'PhD Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'Integrated Course Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'X Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'XII Certificate'} authority="Kerala" />
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <TextComponent2 text="Health & Wealthness" />
+              <div className="flex mt-5 gap-5">
+                <YourdocsCard3 title={'BTech Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'MTech Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'BCA Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'PhD Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'Integrated Course Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'X Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'XII Certificate'} authority="Kerala" />
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <TextComponent2 text="Transport & Infrastructure" />
+              <div className="flex mt-5 gap-5">
+                <YourdocsCard3 title={'BTech Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'MTech Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'BCA Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'PhD Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'Integrated Course Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'X Certificate'} authority="Kerala" />
+                <YourdocsCard3 title={'XII Certificate'} authority="Kerala" />
+              </div>
+            </div>
+          </section>
+          </div>
+
+       {/* <div className="flex overflow-x-hidden scrollbar mt-3">
+         <div className="flex flex-wrap justify-start gap-4">
+         {departments.slice(0, 10).map((department) => (
             <Card_component3 key={department._id} Name={department.department_name} />
           ))}
         </div>
-      </div>
-
-
-
-      <DepartmentAndDocs></DepartmentAndDocs>
-
-
-
-    </div>
+      </div> */}
+      {/* <DepartmentAndDocs></DepartmentAndDocs> */}
+          
+</div>
   )
 }
 

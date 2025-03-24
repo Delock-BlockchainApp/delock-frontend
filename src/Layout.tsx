@@ -49,7 +49,7 @@ function Layout() {
         </div>
       </div>
       {/*///////////////////////////PAGE SECTION///////////////////////////  */}
-      <div className="w-full bg-gray-100 rounded-lg">
+      <div className="w-full bg-white rounded-lg">
         <Outlet />
       </div>
     </div>
