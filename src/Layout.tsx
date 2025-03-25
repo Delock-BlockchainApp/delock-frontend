@@ -1,6 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 import logo from "./assets/logo.svg";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { Toaster } from "react-hot-toast";
 
 function Layout() {
   const navOptions = [
@@ -50,6 +51,8 @@ function Layout() {
       </div>
       {/*///////////////////////////PAGE SECTION///////////////////////////  */}
       <div className="w-full bg-white rounded-lg">
+
+        <Toaster />
         <Outlet />
       </div>
     </div>

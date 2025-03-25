@@ -7,31 +7,34 @@ import DepartmentAndDocs from "../components/Department_and_Docs";
 import { useEffect, useState } from "react";
 import { useBlockchain } from "../context/BlockchainContext";
 import YourdocsCard3 from "../components/yourdocs_card3";
+import Profile from "../components/Profile";
 
 function Documents() {
 
   interface Department {
     _id: string;
     department_name: string;
+    state: string; // Added state property
+    department_code: string; // Added department_code property
   }
   const { contract, account } = useBlockchain();
 
   const [documents, setDocuments] = useState<any[]>([]);
 
-  const [departments, setDepartments] = useState<Department[]>([]);
+  const [departments, setDepartments] = useState<any[]>([]);
 
-  const departmentMap = new Map([
-    ["d1", "Motor Vehicles Department"],
-    ["d02", "Revenue Department"],
-    ["D3", "Education Department"],
-    ["D4", "Health Department"],
-    ["D5", "Police Department"],
-    ["D6", "Labour Department"],
-    ["D7", "Fisheries Department"],
-    ["D8", "Agriculture Department"],
-    ["D9", "Civil Supplies Department"],
-    ["D10", "Local Self Government Department (LSGD)"],
-  ]);
+  // const departmentMap = new Map([
+  //   ["d1", "Motor Vehicles Department"],
+  //   ["d02", "Revenue Department"],
+  //   ["D3", "Education Department"],
+  //   ["D4", "Health Department"],
+  //   ["D5", "Police Department"],
+  //   ["D6", "Labour Department"],
+  //   ["D7", "Fisheries Department"],
+  //   ["D8", "Agriculture Department"],
+  //   ["D9", "Civil Supplies Department"],
+  //   ["D10", "Local Self Government Department (LSGD)"],
+  // ]);
 
   const stateMap = new Map([
     ["KL", "Kerala"],
@@ -63,11 +66,154 @@ function Documents() {
     ["TR", "Tripura"],
     ["AR", "Arunachal Pradesh"]
   ])
+
+  const departmentMap=[
+    {
+        "state": "Andhra Pradesh",
+        "department_code": "AN-D1",
+        "department_name": "Motor Vehicles Department",
+        "department_description": "Handles vehicle registration and driving licenses.",
+        "documents": [
+            {
+                "document_id": "AN-D1-001",
+                "document_name": "Driving Licence"
+            },
+            {
+                "document_id": "AN-D1-002",
+                "document_name": "Vehicle Registration Certificate"
+            },
+            {
+                "document_id": "AN-D1-003",
+                "document_name": "Pollution Under Control Certificate"
+            }
+        ]
+    },
+    {
+        "state": "Andhra Pradesh",
+        "department_code": "AN-D2",
+        "department_name": "Revenue Department",
+        "department_description": "Manages land records and tax collection.",
+        "documents": [
+            {
+                "document_id": "AN-D2-001",
+                "document_name": "Land Tax Receipt"
+            },
+            {
+                "document_id": "AN-D2-002",
+                "document_name": "Possession Certificate"
+            },
+            {
+                "document_id": "AN-D2-003",
+                "document_name": "Encumbrance Certificate"
+            }
+        ]
+    },
+    {
+        "state": "Andhra Pradesh",
+        "department_code": "AN-D3",
+        "department_name": "Education Department",
+        "department_description": "Oversees schools, colleges, and academic certifications.",
+        "documents": [
+            {
+                "document_id": "AN-D3-001",
+                "document_name": "SSLC Certificate"
+            },
+            {
+                "document_id": "AN-D3-002",
+                "document_name": "Higher Secondary Certificate"
+            },
+            {
+                "document_id": "AN-D3-003",
+                "document_name": "Transfer Certificate"
+            }
+        ]
+    },
+    {
+        "state": "Andhra Pradesh",
+        "department_code": "AN-D4",
+        "department_name": "Health Department",
+        "department_description": "Regulates hospitals and health-related certifications.",
+        "documents": [
+            {
+                "document_id": "AN-D4-001",
+                "document_name": "Birth Certificate"
+            },
+            {
+                "document_id": "AN-D4-002",
+                "document_name": "Death Certificate"
+            },
+            {
+                "document_id": "AN-D4-003",
+                "document_name": "Medical Fitness Certificate"
+            }
+        ]
+    },
+    {
+        "state": "Andhra Pradesh",
+        "department_code": "AN-D5",
+        "department_name": "Police Department",
+        "department_description": "Handles law enforcement and public safety.",
+        "documents": [
+            {
+                "document_id": "AN-D5-001",
+                "document_name": "Police Clearance Certificate"
+            },
+            {
+                "document_id": "AN-D5-002",
+                "document_name": "Gun Licence"
+            },
+            {
+                "document_id": "AN-D5-003",
+                "document_name": "Character Certificate"
+            }
+        ]
+    },
+    {
+        "state": "Andhra Pradesh",
+        "department_code": "AN-D6",
+        "department_name": "Labour Department",
+        "department_description": "Regulates employment, labor laws, and worker safety.",
+        "documents": [
+            {
+                "document_id": "AN-D6-001",
+                "document_name": "Labour Welfare Fund Registration"
+            },
+            {
+                "document_id": "AN-D6-002",
+                "document_name": "Shops and Establishment Licence"
+            },
+            {
+                "document_id": "AN-D6-003",
+                "document_name": "Trade Licence"
+            }
+        ]
+    },
+    {
+        "state": "Andhra Pradesh",
+        "department_code": "AN-D7",
+        "department_name": "Fisheries Department",
+        "department_description": "Supports fishermen and regulates marine activities.",
+        "documents": [
+            {
+                "document_id": "AN-D7-001",
+                "document_name": "Fisherman Identity Card"
+            },
+            {
+                "document_id": "AN-D7-002",
+                "document_name": "Fishing Boat Registration"
+            },
+            {
+                "document_id": "AN-D7-003",
+                "document_name": "Subsidy Approval Certificate"
+            }
+        ]
+    }]
+  
   
   // Function to get department name
-  const getDepartmentName = (deptId: string): string | undefined => {
-    return departmentMap.get(deptId);
-  };
+  // const getDepartmentName = (deptId: string): string | undefined => {
+  //   return departmentMap.get(deptId);
+  // };
 
   // Function: Get own documents
   const getRequestedDocuments = async () => {
@@ -96,11 +242,13 @@ function Documents() {
 
   const fetchDepartmentData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/documents/get_all_department");
-      if (response.status !== 200) throw new Error(`HTTP error! Status: ${response.status}`);
+      // const response = await axios.get("http://localhost:3000/api/documents/get_all_department");
+      // if (response.status !== 200) throw new Error(`HTTP error! Status: ${response.status}`);
 
-      const data = response.data;
-      setDepartments(data.departmentData);
+      // const data = response.data;
+      // setDepartments(data.departmentData);
+      setDepartments(departmentMap);
+      console.log("Department Data ", departments);
     } catch (error) {
       console.error("Error fetching department data:", error);
     }
@@ -118,18 +266,11 @@ function Documents() {
   }, []);
 
   return (
-    <div className="ml-5 h-full p-3 overflow-y-scroll scrollbar ">
-      <div className="flex justify-between  mt-4">
+    <div className="ml-5 h-full p-5 overflow-y-scroll scrollbar ">
+      <div className="flex justify-between ">
         <div className=" text-[40px] font-poppins font-semibold  mb-6 " style={{ color: '#004182' }}>Documents</div>
-        <div className="flex gap-x-20 mt-2">
-          <div className='border-2 bg-[#004182]/10 rounded-lg w-[393.47px] h-[50px] '>
-            <i className="fa-solid fa-magnifying-glass mr-8 ml-4  mb-4 mt-4 text-[#004182]"></i>
-            <input type="text" placeholder='Search Document' className="focus:outline-none bg-transparent focus:ring-0 w-30" />
-          </div>
-
-          <div className=" w-10 h-10 rounded-full bg-[#004182] flex items-center justify-center" >
-            <i className="fa-regular fa-user text-white text-base "></i>
-          </div>
+        <div className="flex gap-x-20">
+          <Profile />
         </div>
 
       </div>
@@ -178,52 +319,10 @@ function Documents() {
             <div className="mt-5">
               <TextComponent2 text="Education & Learning" />
               <div className="flex mt-5 gap-5">
-                <YourdocsCard3 title={'BTech Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'MTech Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'BCA Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'PhD Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'Integrated Course Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'X Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'XII Certificate'} authority="Kerala" />
-              </div>
-            </div>
-
-            <div className="mt-5">
-              <TextComponent2 text="Central Government" />
-              <div className="flex mt-5 gap-5">
-                <YourdocsCard3 title={'BTech Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'MTech Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'BCA Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'PhD Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'Integrated Course Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'X Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'XII Certificate'} authority="Kerala" />
-              </div>
-            </div>
-
-            <div className="mt-5">
-              <TextComponent2 text="Health & Wealthness" />
-              <div className="flex mt-5 gap-5">
-                <YourdocsCard3 title={'BTech Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'MTech Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'BCA Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'PhD Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'Integrated Course Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'X Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'XII Certificate'} authority="Kerala" />
-              </div>
-            </div>
-
-            <div className="mt-5">
-              <TextComponent2 text="Transport & Infrastructure" />
-              <div className="flex mt-5 gap-5">
-                <YourdocsCard3 title={'BTech Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'MTech Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'BCA Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'PhD Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'Integrated Course Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'X Certificate'} authority="Kerala" />
-                <YourdocsCard3 title={'XII Certificate'} authority="Kerala" />
+                {departments?.map((department, index) => (
+                <YourdocsCard3 key={index} data={{ name:department?.department_name,department,code:department?.department_code }} />
+                ))}
+              
               </div>
             </div>
           </section>

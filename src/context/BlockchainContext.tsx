@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState,useEffect } from "react";
 import { ethers } from "ethers";
 import toast from "react-hot-toast";
 import { authState } from '../recoil';
+
 const CONTRACT_ABI = [
 	{
 		"inputs": [],
@@ -649,8 +650,6 @@ const CONTRACT_ABI = [
 	}
 ];
 const CONTRACT_ADDRESS = "0x329d7c51180185780396cef743a427f5e34a180f";
-
-import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
 interface BlockchainContextType {
@@ -661,6 +660,11 @@ interface BlockchainContextType {
   connectWallet: () => Promise<void>;
   disconnectWallet: () => void;
 }
+
+// const abi = process.env.REACT_APP_CONTRACT_ABI;
+// const address = process.env.REACT_APP_CONTRACT_ADDRESS;
+// console.log('abi',abi);
+// console.log('address',address);
 
 const BlockchainContext = createContext<BlockchainContextType | undefined>(undefined);
 

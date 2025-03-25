@@ -19,7 +19,6 @@ const Login = () => {
 		  if (isRegistered) {
 			setAuth({ isAuthenticated: true, account });
 			console.log('Login successful! Redirecting to dashboard...');
-			toast.success('Login successful! Redirecting to dashboard...');
 			navigate('/dashboard') 
 		  } else {
 			toast.error('You are not registered. Please sign up.');

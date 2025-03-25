@@ -1,45 +1,46 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import Profile from "../components/Profile";
+import toast from "react-hot-toast";
+
 const ViewMore = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state; // Destructure the data from location.state
+  console.log(data);
+
+
   return (
-    <div className="flex flex-col justify-start items-start min-h-screen bg-gray-100 p-5">
+    <div className="p-5">
+    <div className="flex justify-end">
+    <Profile/>
+    </div>
+     <div className="font-medium text-4xl -mt-10">{data?.data?.name}</div>
+     <div className="flex my-2">
+       <i onClick={()=>{navigate(-1)}} className=" fa-solid fa-arrow-turn-up transform -rotate-90 text-2xl text-black font-light ml-2 cursor-pointer "/>
+       <div className=" text-xl font-poppins font-light ml-5 ">{data?.name}</div>
+     </div>
+    
       {/* Form Box */}
       <div
-        className="p-8 bg-white rounded shadow-md mb-6"
+        className="p-8 bg-white rounded shadow-md m-5"
         style={{ width: '987.8px', border: '1px solid #00000080' }}
       >
         <h2 className="text-left mb-6 text-xl text-dark-blue font-sans">Get your documents by entering the required details</h2>
-        <form>
+
           <div className="flex items-center" style={{ width: '480.82px', height: '34.08px', marginBottom: '20px' }}>
             <label htmlFor="registerNumber" className="block text-gray-700 font-medium w-1/3 text-md font-sans">
-              Register Number *
+              Department Id *
             </label>
-            <input
-              type="text"
-              id="registerNumber"
-              className="w-2/3 px-4 py-1 border-b border-gray-300 focus:outline-none focus:ring focus:ring-indigo-200"
-              required
-            />
+            <p className=" text-gray-700 font-medium">{data?.data?.code}</p>
+            
           </div>
-          <div className="flex items-center" style={{ width: '480.82px', height: '34.08px', marginBottom: '20px' }}>
-            <label htmlFor="dateOfBirth" className="block text-gray-700 font-medium w-1/3 text-md font-sans">
-              Date of Birth *
-            </label>
-            <input
-              type="date"
-              id="dateOfBirth"
-              className="w-2/3 px-4 py-1 border-b border-gray-300 focus:outline-none focus:ring focus:ring-indigo-200"
-              required
-            />
-          </div>
+         
           <div className="flex items-center" style={{ width: '480.82px', height: '34.08px', marginBottom: '20px' }}>
             <label htmlFor="accountNumber" className="block text-gray-700 font-medium w-1/3 text-md font-sans">
-              Account Number *
+              Document Id *
             </label>
-            <input
-              type="text"
-              id="accountNumber"
-              className="w-2/3 px-4 py-1 border-b border-gray-300 focus:outline-none focus:ring focus:ring-indigo-200"
-              required
-            />
+            <p className=" text-gray-700 font-medium">{data?.code}</p>
+            
           </div>
           <div className="flex items-center mb-6">
             <input
@@ -54,16 +55,20 @@ const ViewMore = () => {
           </div>
           <div className="flex justify-end">
             <button
-              type="submit"
+            onClick={()=>{
+              toast.success("Document fetched successfully")
+            }}
               className="py-2 px-4 rounded text-white bg-bold-blue hover:bg-opacity-90 focus:outline-none focus:ring focus:ring-indigo-200 text-md font-sans"
             >
               Get Document
             </button>
           </div>
-        </form>
+       
       </div>
 
       {/* Information Box */}
+      
+      
       <div
         className="bg-light-blue shadow-md"
         style={{
@@ -83,16 +88,10 @@ const ViewMore = () => {
             color: '#004182',
             fontFamily: 'Poppins, sans-serif',
           }}
-        >
-          APJ Abdul Kalam Technological University (initially Kerala Technological University), a State Government
-          University established by the government of Kerala (
-          <a href="https://ktu.edu.in" className="text-blue-500 underline" target="_blank" rel="noopener noreferrer">
-            https://ktu.edu.in
-          </a>
-          ) is issuing Degree certificates for the year 2021 through Digilocker. These can be pulled by the students
-          into their Digilocker account.
+        > {data?.data?.name} ,  {data?.state} :  {data?.data?.department?.department_description}
         </p>
       </div>
+   
     </div>
   );
 };

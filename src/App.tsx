@@ -9,8 +9,8 @@ import Login from './pages/Login'
 import Settings from './pages/Settings'
 import Error404 from './pages/Error404'
 import Yourdocs_viewmore from './pages/Yourdocs_viewmore'
+import DocsViewMore from './pages/Doc_viewmore'
 // import Meta_login from './pages/meta_login'
-import Delock from './pages/delock'
 import UploadDocs from './pages/UploadDocs'
 import GetDoc from './pages/GetDoc'
 import Home from './pages/Home'
@@ -35,9 +35,10 @@ function App() {
         <Route index element={<Overview />} />
         <Route path="documents" element={<Documents />} />
         <Route path="yourdocs" element={<Yourdocs />} />
+        <Route path="documents/:departmentCode" element={<DocsViewMore />} />
+        <Route path="documents/:departmentCode/:documentCode" element={<GetDoc />} />
         <Route path="yourdocs/education" element={<Yourdocs_viewmore />} />
         <Route path="settings" element={<Settings />} />
-        <Route path="getdoc" element={<GetDoc />} />
       </Route>
         <Route path="/admin" element={<Layout />}>
           <Route path="settings" element={<Settings />} />
