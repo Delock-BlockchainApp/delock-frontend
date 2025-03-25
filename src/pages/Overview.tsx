@@ -28,7 +28,7 @@ function Overview() {
       <div className="flex justify-between">
       <div className="h-32 w-[655px] bg-light-blue p-3 flex justify-between rounded-md">
         <div>
-              <div className="flex text-3xl gap-3"><h3 className="text-dark-blue font-semibold">Welcome</h3><h3 className="font-light">Nandkishor R ,</h3></div>
+              <div className="flex text-3xl gap-3"><h3 className="text-dark-blue font-semibold">Welcome</h3><h3 className="font-light">Alvin Johns ,</h3></div>
               <p className="font-light font-lg">Great to have you back in the Delock are ready to go! </p>
         </div>
         <img src={overview_img} alt="secure_img" />

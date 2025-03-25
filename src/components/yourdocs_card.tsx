@@ -8,7 +8,7 @@ interface YourDocsCardProps {
 }
 
 const yourdocs_card: React.FC<YourDocsCardProps> = ({ title, description, Authority,ipfs }) => {
-    const ipfsBaseUrl ='https://www.ipfs.com/';
+    const ipfsBaseUrl ='https://salmon-left-puffin-891.mypinata.cloud/ipfs/';
     return (
        
     

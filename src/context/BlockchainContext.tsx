@@ -649,7 +649,7 @@ const CONTRACT_ABI = [
 		"type": "function"
 	}
 ];
-const CONTRACT_ADDRESS = "0x329d7c51180185780396cef743a427f5e34a180f";
+const CONTRACT_ADDRESS = "0x02AE560427eb6Da7f4A31B749EE2e617fA430834";
 import { useRecoilState } from "recoil";
 
 interface BlockchainContextType {
