@@ -696,6 +696,7 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   
 		// Listen for account changes
 		(window as any).ethereum.on("accountsChanged", (accounts: string[]) => {
+			console.log("MetaMask account changed.");
 		  if (accounts.length > 0) {
 			setAccount(accounts[0]);
 		  } else {

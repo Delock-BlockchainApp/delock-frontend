@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useBlockchain } from "../context/BlockchainContext";
 import YourdocsCard3 from "../components/yourdocs_card3";
 import Profile from "../components/Profile";
+import { getDepartmentName, getDocumentName, stateMap } from "../utils/dataUtils";
 
 function Documents() {
 
@@ -275,20 +276,21 @@ function Documents() {
 
       </div>
       <TextComponent2 text="Issued Documents" />
-      {/* 
-      <div className='flex justify-between'>
-        {documents.map((document) => (
-          <Card_component1 title={document.docId} description={document.ipfs} Authority={getDepartmentName(document.depId) || "Unknown Department"} />
+      
+       <div className='flex justify-between'>
+        {documents.slice(0, 4).map((document) => (
+          <Card_component1 title={getDocumentName(document.docId) || "Unknown Document"} description={''} Authority={getDepartmentName(document.depId) || "Unknown Department"} />
         ))}
-      </div> */}
 
-      <div className='flex justify-between w-[1200px]'>
+      </div>
+
+      {/* <div className='flex justify-between w-[1200px]'>
         <Card_component1 title={'Aadhaar'} description={'***********'} Authority={'Unique Identification Authority of India'} />
         <Card_component1 title={'Driving License'} description={'KL26******776'} Authority={'Motor Vehicle Department, Kerala'} />
         <Card_component1 title={'PAN Verification'} description={'FUE8****'} Authority={'Income Tax Department'} />
         <Card_component1 title={'Class X Mark Sheet'} description={'3456****'} Authority={'Central Board of Secondary Education'} />
 
-      </div>
+      </div> */}
 
 
       <div className=" flex items-center rounded-[10px] bg-[#EBF3FC] pt-0 w-[1200px] h-[53px] mt-8 ">

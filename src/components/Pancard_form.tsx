@@ -32,8 +32,8 @@ function Pancard_form() {
       issueDocument(
         (document.getElementById("userAddress") as HTMLInputElement).value,
         response.data.ipfsData.IpfsHash,
-        "d02", 
-        "pan" 
+        "KE-D4", 
+        "KE-D4-001" 
       );
       console.log('Document details:', response.data);
     } else {

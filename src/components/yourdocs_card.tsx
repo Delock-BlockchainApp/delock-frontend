@@ -16,10 +16,10 @@ const yourdocs_card: React.FC<YourDocsCardProps> = ({ title, description, Author
     
         <div className='md:w-5/6 flex justify-between rounded-xl bg-white  xl:w-5/6 h-14 mb-5  [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)]'>
             <div className=' ml-5'>
-                <div className=' font-poppins ml-4  text-base mt-1 pb-0 sm:text-sm'> {title}</div>
+                <div className=' font-poppins ml-4  text-base mt-4 pb-0 sm:text-sm'> {title}</div>
 
 
-                <div className=' font-poppins ml-4 mt-0 pt-0 sm:text-sm '>{description}</div>
+                {/* <div className=' font-poppins ml-4 mt-0 pt-0 sm:text-sm '>{description}</div> */}
             </div>
             <div className='w-1/2 flex justify-center items-center font-poppins visible text-sm opacity-50 max-md:hidden'>
                 {Authority}
