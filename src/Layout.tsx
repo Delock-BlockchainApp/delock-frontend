@@ -2,6 +2,10 @@ import { Outlet, Link } from "react-router-dom";
 import logo from "./assets/logo.svg";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Toaster } from "react-hot-toast";
+import { useBlockchain } from "./context/BlockchainContext";
+import { useRecoilState } from 'recoil';
+import { authState } from './recoil';
+import toast from 'react-hot-toast';
 
 function Layout() {
   const navOptions = [
@@ -10,7 +14,14 @@ function Layout() {
     { name: 'Your Docs', icon: 'bi bi-app-indicator', path: '/dashboard/yourdocs' },
     { name: 'Settings', icon: 'bi bi-gear-fill', path: '/dashboard/settings' }
   ];
+  const { disconnectWallet } = useBlockchain();
+  const [auth, setAuth] = useRecoilState(authState);
 
+  const handleDisconnect = () => {
+    disconnectWallet();
+    setAuth({ isAuthenticated: false, account: null });
+    toast.success('Wallet disconnected successfully');
+  };
   return (
     <div className="h-screen bg-bold-blue py-2 pr-2 flex">
       {/* ///////////////////////NAVBAR SECTION////////////////////// */}
@@ -39,7 +50,7 @@ function Layout() {
             </Link>
           ))}
           {/* Logout */}
-          <div className="h-14 flex items-center gap-5 rounded-lg mt-28 hover:bg-gray-200 cursor-pointer group">
+          <div onClick={handleDisconnect} className="h-14 flex items-center gap-5 rounded-lg mt-28 hover:bg-gray-200 cursor-pointer group">
             <i
               className={`text-[#B22626] bi bi-arrow-left-square-fill ml-4 text-[30px] group-hover:text-bold-blue transition-colors duration-300`}
             ></i>
