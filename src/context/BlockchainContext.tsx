@@ -648,9 +648,9 @@ const CONTRACT_ABI = [
 		"type": "function"
 	}
 ];
-const CONTRACT_ADDRESS = "0x329d7c51180185780396cef743a427f5e34a180f";
+const CONTRACT_ADDRESS = "0x02AE560427eb6Da7f4A31B749EE2e617fA430834";
+// 0xeDAf6a14d0E33F2351A7acA4527611530E730c1e
 
-import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
 interface BlockchainContextType {
@@ -692,6 +692,7 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   
 		// Listen for account changes
 		(window as any).ethereum.on("accountsChanged", (accounts: string[]) => {
+			console.log("MetaMask account changed.");
 		  if (accounts.length > 0) {
 			setAccount(accounts[0]);
 		  } else {

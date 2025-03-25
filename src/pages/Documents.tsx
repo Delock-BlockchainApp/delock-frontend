@@ -7,6 +7,7 @@ import DepartmentAndDocs from "../components/Department_and_Docs";
 import { useEffect, useState } from "react";
 import { useBlockchain } from "../context/BlockchainContext";
 import YourdocsCard3 from "../components/yourdocs_card3";
+import { getDepartmentName, getDocumentName, stateMap } from "../utils/dataUtils";
 
 function Documents() {
 
@@ -20,54 +21,7 @@ function Documents() {
 
   const [departments, setDepartments] = useState<Department[]>([]);
 
-  const departmentMap = new Map([
-    ["d1", "Motor Vehicles Department"],
-    ["d02", "Revenue Department"],
-    ["D3", "Education Department"],
-    ["D4", "Health Department"],
-    ["D5", "Police Department"],
-    ["D6", "Labour Department"],
-    ["D7", "Fisheries Department"],
-    ["D8", "Agriculture Department"],
-    ["D9", "Civil Supplies Department"],
-    ["D10", "Local Self Government Department (LSGD)"],
-  ]);
 
-  const stateMap = new Map([
-    ["KL", "Kerala"],
-    ["TN", "Tamil Nadu"],
-    ["KA", "Karnataka"],
-    ["AP", "Andhra Pradesh"],
-    ["MH", "Maharashtra"],
-    ["GJ", "Gujarat"],
-    ["RJ", "Rajasthan"],
-    ["UP", "Uttar Pradesh"],
-    ["MP", "Madhya Pradesh"],
-    ["WB", "West Bengal"],
-    ["BR", "Bihar"],
-    ["OR", "Odisha"],
-    ["AS", "Assam"],
-    ["JH", "Jharkhand"],
-    ["UK", "Uttarakhand"],
-    ["HP", "Himachal Pradesh"],
-    ["PB", "Punjab"],
-    ["HR", "Haryana"],
-    ["TG", "Telangana"],
-    ["CT", "Chhattisgarh"],
-    ["GA", "Goa"],
-    ["MN", "Manipur"],
-    ["ML", "Meghalaya"],
-    ["MZ", "Mizoram"],
-    ["NL", "Nagaland"],
-    ["SK", "Sikkim"],
-    ["TR", "Tripura"],
-    ["AR", "Arunachal Pradesh"]
-  ])
-  
-  // Function to get department name
-  const getDepartmentName = (deptId: string): string | undefined => {
-    return departmentMap.get(deptId);
-  };
 
   // Function: Get own documents
   const getRequestedDocuments = async () => {
@@ -134,20 +88,21 @@ function Documents() {
 
       </div>
       <TextComponent2 text="Issued Documents" />
-      {/* 
-      <div className='flex justify-between'>
-        {documents.map((document) => (
-          <Card_component1 title={document.docId} description={document.ipfs} Authority={getDepartmentName(document.depId) || "Unknown Department"} />
+      
+       <div className='flex justify-between'>
+        {documents.slice(0, 4).map((document) => (
+          <Card_component1 title={getDocumentName(document.docId) || "Unknown Document"} description={''} Authority={getDepartmentName(document.depId) || "Unknown Department"} />
         ))}
-      </div> */}
 
-      <div className='flex justify-between w-[1200px]'>
+      </div>
+
+      {/* <div className='flex justify-between w-[1200px]'>
         <Card_component1 title={'Aadhaar'} description={'***********'} Authority={'Unique Identification Authority of India'} />
         <Card_component1 title={'Driving License'} description={'KL26******776'} Authority={'Motor Vehicle Department, Kerala'} />
         <Card_component1 title={'PAN Verification'} description={'FUE8****'} Authority={'Income Tax Department'} />
         <Card_component1 title={'Class X Mark Sheet'} description={'3456****'} Authority={'Central Board of Secondary Education'} />
 
-      </div>
+      </div> */}
 
 
       <div className=" flex items-center rounded-[10px] bg-[#EBF3FC] pt-0 w-[1200px] h-[53px] mt-8 ">
