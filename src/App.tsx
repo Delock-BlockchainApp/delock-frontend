@@ -38,7 +38,7 @@ function App() {
         <Route path="yourdocs" element={<Yourdocs />} />
         <Route path="documents/:departmentCode" element={<DocsViewMore />} />
         <Route path="documents/:departmentCode/:documentCode" element={<GetDoc />} />
-        <Route path="yourdocs/education" element={<Yourdocs_viewmore />} />
+        <Route path="yourdocs/:folderName" element={<Yourdocs_viewmore />} />
         <Route path="settings" element={<Settings />} />
       </Route>
         <Route path="/admin" element={<Layout />}>
