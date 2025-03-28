@@ -649,7 +649,7 @@ const CONTRACT_ABI = [
 		"type": "function"
 	}
 ];
-const CONTRACT_ADDRESS = "0x329d7c51180185780396cef743a427f5e34a180f";
+const CONTRACT_ADDRESS = "0xbb4e55098be081c4c4691e7ac8dbec8e694754c7";
 import { useRecoilState } from "recoil";
 
 interface BlockchainContextType {
@@ -677,6 +677,7 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   // Function to connect MetaMask
   const connectWallet = async () => {
+	console.log("Connecting wallet...");
 	if ((window as any).ethereum) {
 	  try {
 		const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);

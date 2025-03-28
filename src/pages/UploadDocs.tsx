@@ -46,7 +46,7 @@ function UploadDocs() {
       </div>
       {/* button area */}
       <div className="mt-5 flex gap-4">
-        <div className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold">Pan Card</div>
+        {/* <div className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold">Pan Card</div> */}
         <div className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold">Driving License</div>
       </div>
       {/* form area */}

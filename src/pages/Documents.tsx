@@ -70,145 +70,146 @@ function Documents() {
 
   const departmentMap=[
     {
-        "state": "Andhra Pradesh",
-        "department_code": "AN-D1",
-        "department_name": "Motor Vehicles Department",
-        "department_description": "Handles vehicle registration and driving licenses.",
-        "documents": [
-            {
-                "document_id": "AN-D1-001",
-                "document_name": "Driving Licence"
-            },
-            {
-                "document_id": "AN-D1-002",
-                "document_name": "Vehicle Registration Certificate"
-            },
-            {
-                "document_id": "AN-D1-003",
-                "document_name": "Pollution Under Control Certificate"
-            }
-        ]
-    },
-    {
-        "state": "Andhra Pradesh",
-        "department_code": "AN-D2",
-        "department_name": "Revenue Department",
-        "department_description": "Manages land records and tax collection.",
-        "documents": [
-            {
-                "document_id": "AN-D2-001",
-                "document_name": "Land Tax Receipt"
-            },
-            {
-                "document_id": "AN-D2-002",
-                "document_name": "Possession Certificate"
-            },
-            {
-                "document_id": "AN-D2-003",
-                "document_name": "Encumbrance Certificate"
-            }
-        ]
-    },
-    {
-        "state": "Andhra Pradesh",
-        "department_code": "AN-D3",
-        "department_name": "Education Department",
-        "department_description": "Oversees schools, colleges, and academic certifications.",
-        "documents": [
-            {
-                "document_id": "AN-D3-001",
-                "document_name": "SSLC Certificate"
-            },
-            {
-                "document_id": "AN-D3-002",
-                "document_name": "Higher Secondary Certificate"
-            },
-            {
-                "document_id": "AN-D3-003",
-                "document_name": "Transfer Certificate"
-            }
-        ]
-    },
-    {
-        "state": "Andhra Pradesh",
-        "department_code": "AN-D4",
-        "department_name": "Health Department",
-        "department_description": "Regulates hospitals and health-related certifications.",
-        "documents": [
-            {
-                "document_id": "AN-D4-001",
-                "document_name": "Birth Certificate"
-            },
-            {
-                "document_id": "AN-D4-002",
-                "document_name": "Death Certificate"
-            },
-            {
-                "document_id": "AN-D4-003",
-                "document_name": "Medical Fitness Certificate"
-            }
-        ]
-    },
-    {
-        "state": "Andhra Pradesh",
-        "department_code": "AN-D5",
-        "department_name": "Police Department",
-        "department_description": "Handles law enforcement and public safety.",
-        "documents": [
-            {
-                "document_id": "AN-D5-001",
-                "document_name": "Police Clearance Certificate"
-            },
-            {
-                "document_id": "AN-D5-002",
-                "document_name": "Gun Licence"
-            },
-            {
-                "document_id": "AN-D5-003",
-                "document_name": "Character Certificate"
-            }
-        ]
-    },
-    {
-        "state": "Andhra Pradesh",
-        "department_code": "AN-D6",
-        "department_name": "Labour Department",
-        "department_description": "Regulates employment, labor laws, and worker safety.",
-        "documents": [
-            {
-                "document_id": "AN-D6-001",
-                "document_name": "Labour Welfare Fund Registration"
-            },
-            {
-                "document_id": "AN-D6-002",
-                "document_name": "Shops and Establishment Licence"
-            },
-            {
-                "document_id": "AN-D6-003",
-                "document_name": "Trade Licence"
-            }
-        ]
-    },
-    {
-        "state": "Andhra Pradesh",
-        "department_code": "AN-D7",
-        "department_name": "Fisheries Department",
-        "department_description": "Supports fishermen and regulates marine activities.",
-        "documents": [
-            {
-                "document_id": "AN-D7-001",
-                "document_name": "Fisherman Identity Card"
-            },
-            {
-                "document_id": "AN-D7-002",
-                "document_name": "Fishing Boat Registration"
-            },
-            {
-                "document_id": "AN-D7-003",
-                "document_name": "Subsidy Approval Certificate"
-            }
-        ]
-    }]
+      "state": "Kerala",
+      "department_code": "KE-D1",
+      "department_name": "Motor Vehicles Department",
+      "department_description": "Handles vehicle registration and driving licenses.",
+      "documents": [
+          {
+              "document_id": "KE-D1-001",
+              "document_name": "Driving Licence"
+          },
+          {
+              "document_id": "KE-D1-002",
+              "document_name": "Vehicle Registration Certificate"
+          },
+          {
+              "document_id": "KE-D1-003",
+              "document_name": "Pollution Under Control Certificate"
+          }
+      ]
+  },
+  {
+      "state": "Kerala",
+      "department_code": "KE-D2",
+      "department_name": "Revenue Department",
+      "department_description": "Manages land records and tax collection.",
+      "documents": [
+          {
+              "document_id": "KE-D2-001",
+              "document_name": "Land Tax Receipt"
+          },
+          {
+              "document_id": "KE-D2-002",
+              "document_name": "Possession Certificate"
+          },
+          {
+              "document_id": "KE-D2-003",
+              "document_name": "Encumbrance Certificate"
+          }
+      ]
+  },
+  {
+      "state": "Kerala",
+      "department_code": "KE-D3",
+      "department_name": "Education Department",
+      "department_description": "Oversees schools, colleges, and academic certifications.",
+      "documents": [
+          {
+              "document_id": "KE-D3-001",
+              "document_name": "SSLC Certificate"
+          },
+          {
+              "document_id": "KE-D3-002",
+              "document_name": "Higher Secondary Certificate"
+          },
+          {
+              "document_id": "KE-D3-003",
+              "document_name": "Transfer Certificate"
+          }
+      ]
+  },
+  {
+      "state": "Kerala",
+      "department_code": "KE-D4",
+      "department_name": "Health Department",
+      "department_description": "Regulates hospitals and health-related certifications.",
+      "documents": [
+          {
+              "document_id": "KE-D4-001",
+              "document_name": "Birth Certificate"
+          },
+          {
+              "document_id": "KE-D4-002",
+              "document_name": "Death Certificate"
+          },
+          {
+              "document_id": "KE-D4-003",
+              "document_name": "Medical Fitness Certificate"
+          }
+      ]
+  },
+  {
+      "state": "Kerala",
+      "department_code": "KE-D5",
+      "department_name": "Police Department",
+      "department_description": "Handles law enforcement and public safety.",
+      "documents": [
+          {
+              "document_id": "KE-D5-001",
+              "document_name": "Police Clearance Certificate"
+          },
+          {
+              "document_id": "KE-D5-002",
+              "document_name": "Gun Licence"
+          },
+          {
+              "document_id": "KE-D5-003",
+              "document_name": "Character Certificate"
+          }
+      ]
+  },
+  {
+      "state": "Kerala",
+      "department_code": "KE-D6",
+      "department_name": "Labour Department",
+      "department_description": "Regulates employment, labor laws, and worker safety.",
+      "documents": [
+          {
+              "document_id": "KE-D6-001",
+              "document_name": "Labour Welfare Fund Registration"
+          },
+          {
+              "document_id": "KE-D6-002",
+              "document_name": "Shops and Establishment Licence"
+          },
+          {
+              "document_id": "KE-D6-003",
+              "document_name": "Trade Licence"
+          }
+      ]
+  },
+  {
+      "state": "Kerala",
+      "department_code": "KE-D7",
+      "department_name": "Fisheries Department",
+      "department_description": "Supports fishermen and regulates marine activities.",
+      "documents": [
+          {
+              "document_id": "KE-D7-001",
+              "document_name": "Fisherman Identity Card"
+          },
+          {
+              "document_id": "KE-D7-002",
+              "document_name": "Fishing Boat Registration"
+          },
+          {
+              "document_id": "KE-D7-003",
+              "document_name": "Subsidy Approval Certificate"
+          }
+      ]
+  },
+ ]
   
   
   // Function to get department name

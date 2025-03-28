@@ -23,7 +23,7 @@ function Home() {
         <div className="w-full h-fit z-10 ">
         <Landing/>
         {/* <Features/> */}
-        <Resource/>
+        {/* <Resource/> */}
          
           
         </div>

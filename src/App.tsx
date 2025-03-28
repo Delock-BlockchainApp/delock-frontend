@@ -15,6 +15,7 @@ import UploadDocs from './pages/UploadDocs'
 import GetDoc from './pages/GetDoc'
 import Home from './pages/Home'
 import UserRoute from './routes/UserRoute'
+import Delock from './pages/delock'
 function App() {
     return (
       <Routes>
@@ -45,6 +46,7 @@ function App() {
           <Route path="upload" element={<UploadDocs/>}/>
         </Route>
         <Route path="*" element={<Error404/>}/>
+        <Route path="/superadmin" element={<Delock />} /> 
       </Routes>
   )
 }
