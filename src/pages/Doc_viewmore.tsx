@@ -1,7 +1,6 @@
 
-import Card_component4 from "../components/Card_component4";
+import Card_component5 from "../components/Card_component5";
 import Profile from "../components/Profile";
-import Yourdocs_card3 from "../components/yourdocs_card3";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Doc_viewmore = () => {
@@ -47,7 +46,7 @@ const Doc_viewmore = () => {
       <div className="flex justify-between mt-5 font-medium ml-14">Available documents</div>
       <div className="ml-10 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 w-2/3">
         {data?.department?.documents?.map((doc, index) => (
-          <Card_component4
+          <Card_component5
             key={index}
             data={{ title: doc?.document_name, state: data?.department?.state, code: doc?.document_id, data }}
           />

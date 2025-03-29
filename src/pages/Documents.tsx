@@ -10,9 +10,9 @@ import { useBlockchain } from "../context/BlockchainContext";
 import Profile from "../components/Profile";
 import { getDepartmentName, getDocumentName, stateMap } from "../utils/dataUtils";
 import Card_component4 from "../components/Card_component4";
-
+import { useNavigate } from "react-router-dom";
 function Documents() {
-
+  const navigate = useNavigate();
   interface Department {
     _id: string;
     department_name: string;
@@ -37,37 +37,6 @@ function Documents() {
   //   ["D9", "Civil Supplies Department"],
   //   ["D10", "Local Self Government Department (LSGD)"],
   // ]);
-
-  const stateMap = new Map([
-    ["KL", "Kerala"],
-    ["TN", "Tamil Nadu"],
-    ["KA", "Karnataka"],
-    ["AP", "Andhra Pradesh"],
-    ["MH", "Maharashtra"],
-    ["GJ", "Gujarat"],
-    ["RJ", "Rajasthan"],
-    ["UP", "Uttar Pradesh"],
-    ["MP", "Madhya Pradesh"],
-    ["WB", "West Bengal"],
-    ["BR", "Bihar"],
-    ["OR", "Odisha"],
-    ["AS", "Assam"],
-    ["JH", "Jharkhand"],
-    ["UK", "Uttarakhand"],
-    ["HP", "Himachal Pradesh"],
-    ["PB", "Punjab"],
-    ["HR", "Haryana"],
-    ["TG", "Telangana"],
-    ["CT", "Chhattisgarh"],
-    ["GA", "Goa"],
-    ["MN", "Manipur"],
-    ["ML", "Meghalaya"],
-    ["MZ", "Mizoram"],
-    ["NL", "Nagaland"],
-    ["SK", "Sikkim"],
-    ["TR", "Tripura"],
-    ["AR", "Arunachal Pradesh"]
-  ])
 
   const departmentMap=[
     {
@@ -292,11 +261,24 @@ function Documents() {
     <div className="ml-5 h-full p-5 overflow-y-scroll scrollbar ">
       <div className="flex justify-between ">
         <div className=" text-[40px] font-poppins font-semibold  mb-6 " style={{ color: '#004182' }}>Documents</div>
+        
+        <div className="flex gap-x-20 mt-2">
+          <div className='border-2 bg-[#004182]/10 rounded-lg w-[393.47px] h-[50px] '>
+            <i className="fa-solid fa-magnifying-glass mr-8 ml-4  mb-4 mt-4 text-[#004182]"></i>
+            <input type="text" placeholder='Search Document' onClick={()=>{
+              navigate('issuers')
+            }} className="focus:outline-none bg-transparent focus:ring-0 w-30" />
+          </div>
+          </div>
+
+
         <div className="flex gap-x-20">
           <Profile />
         </div>
 
       </div>
+
+
       <TextComponent2 text="Issued Documents" />
       
        <div className='flex justify-between'>

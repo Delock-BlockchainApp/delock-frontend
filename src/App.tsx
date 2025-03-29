@@ -16,6 +16,7 @@ import GetDoc from './pages/GetDoc'
 import Home from './pages/Home'
 import UserRoute from './routes/UserRoute'
 import Delock from './pages/delock'
+import Issuers from './pages/Issuers'
 function App() {
     return (
       <Routes>
@@ -36,8 +37,9 @@ function App() {
         <Route index element={<Overview />} />
         <Route path="documents" element={<Documents />} />
         <Route path="yourdocs" element={<Yourdocs />} />
-        <Route path="documents/:departmentCode" element={<DocsViewMore />} />
-        <Route path="documents/:departmentCode/:documentCode" element={<GetDoc />} />
+        <Route path="documents/issuers" element={<Issuers />} />
+        <Route path="documents/issuers/:departmentCode" element={<DocsViewMore />} />
+        <Route path="documents/issuers/:departmentCode/:documentCode" element={<GetDoc />} />
         <Route path="yourdocs/:folderName" element={<Yourdocs_viewmore />} />
         <Route path="settings" element={<Settings />} />
       </Route>
