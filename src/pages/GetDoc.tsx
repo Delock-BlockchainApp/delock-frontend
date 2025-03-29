@@ -8,6 +8,7 @@ const IssueData = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
+  console.log("Data from location:", data);
   const { contract } = useBlockchain();
   const [consentGiven, setConsentGiven] = useState(false);
 
@@ -23,7 +24,7 @@ const IssueData = () => {
     }
 
     try {
-      const response = await contract.requestDocument(data?.data?.code, data?.code);
+      const response = await contract.requestDocument(data?.dep_code, data?.doc_code);
       if (response) {
         toast.success("Document fetched successfully.");
         console.log("Fetched Data:", response);
@@ -40,7 +41,7 @@ const IssueData = () => {
       <div className="flex justify-end">
         <Profile />
       </div>
-      <div className="font-medium text-4xl -mt-10">{data?.data?.title}</div>
+      <div className="font-medium text-4xl -mt-10">{data?.dep_name}, {data?.state}</div>
       <div className="flex my-2">
         <i
           onClick={() => navigate(-1)}
@@ -55,12 +56,12 @@ const IssueData = () => {
 
         <div className="flex items-center" style={{ width: '480.82px', marginBottom: '20px' }}>
           <label className="block text-gray-700 font-medium w-1/3 text-md font-sans">Department Id *</label>
-          <p className="text-gray-700 font-medium">{data?.data?.code}</p>
+          <p className="text-gray-700 font-medium">{data?.dep_code}</p>
         </div>
 
         <div className="flex items-center" style={{ width: '480.82px', marginBottom: '20px' }}>
           <label className="block text-gray-700 font-medium w-1/3 text-md font-sans">Document Id *</label>
-          <p className="text-gray-700 font-medium">{data?.code}</p>
+          <p className="text-gray-700 font-medium">{data?.doc_code}</p>
         </div>
 
         <div className="flex items-center mb-6">
