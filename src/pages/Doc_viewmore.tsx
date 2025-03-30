@@ -42,7 +42,7 @@ const Doc_viewmore = () => {
         />
         <div className="text-2xl font-poppins font-light ml-5">{data?.department_name} , {data?.state}</div>
       </div>
-      <p className="flex flex-col ml-14 mt-5 text-md">{data?.department_description}</p>
+      <p className="flex flex-col ml-14 mt-5 text-md w-[1000px]">{data?.department_description}</p>
       <div className="flex justify-between mt-5 font-medium ml-14">Available documents</div>
       <div className="ml-10 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 w-2/3">
         {data?.documents?.map((doc, index) => (
