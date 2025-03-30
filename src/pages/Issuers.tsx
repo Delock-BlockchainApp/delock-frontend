@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import IssuerCard from "../components/IssuerCard"
 import Profile from "../components/Profile"
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 function Issuers() {
     const [searchKey, setSearchKey] = useState('');
     const [responseData, setResponseData] = useState([]);
     const navigate = useNavigate();
+    const location=useLocation();
+    const searchedState=location.state;
+
+    if (searchedState) {
+      if (searchKey === '') {
+        setSearchKey(searchedState);
+      }
+    }
     const fetchDepartmentData = async () => {
       try {
         const response = await fetch(`http://localhost:3000/api/department?searchkey=${searchKey}`);
@@ -28,8 +36,7 @@ function Issuers() {
     };
     useEffect(() => {
         fetchDepartmentData();
-    }
-    , [searchKey]); 
+    }, [searchKey]); 
   return (
     <div className="ml-5 h-full p-5 overflow-y-scroll scrollbar ">
     <div className="flex justify-between ">
@@ -38,7 +45,7 @@ function Issuers() {
       <div className="flex gap-x-20 mt-2">
         <div className='border-2 bg-[#004182]/10 rounded-lg w-[393.47px] h-[50px] '>
           <i className="fa-solid fa-magnifying-glass mr-8 ml-4  mb-4 mt-4 text-[#004182]"></i>
-          <input type="text" placeholder='Search Document' className="focus:outline-none bg-transparent focus:ring-0 w-30" onChange={filterHandlechange} />
+          <input type="text" placeholder='Search Document' className="focus:outline-none bg-transparent focus:ring-0 w-30" onChange={filterHandlechange} value={searchKey}/>
         </div>
         </div>
 

@@ -51,7 +51,7 @@ const IssueData = () => {
       </div>
 
       {/* Form Box */}
-      <div className="p-8 bg-white rounded shadow-md m-5" style={{ width: '987.8px', border: '1px solid #00000080' }}>
+      <div className="p-8 bg-white rounded shadow-md m-5 border-2" style={{ width: '987.8px' }}>
         <h2 className="text-left mb-6 text-xl text-dark-blue font-sans">Get your documents by entering the required details</h2>
 
         <div className="flex items-center" style={{ width: '480.82px', marginBottom: '20px' }}>
@@ -87,7 +87,7 @@ const IssueData = () => {
       </div>
 
       {/* Information Box */}
-      <div className="bg-light-blue shadow-md" style={{ width: '987.85px', height: '134.67px', borderRadius: '10px 0px 0px 0px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
+      <div className="bg-light-blue shadow-md ml-5" style={{ width: '987.85px', height: '134.67px', borderRadius: '10px 0px 0px 0px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
         <p className="text-center" style={{ fontSize: '16px', color: '#004182', fontFamily: 'Poppins, sans-serif' }}>
           {data?.data?.title}, {data?.state}: {data?.data?.department?.department_description}
         </p>
