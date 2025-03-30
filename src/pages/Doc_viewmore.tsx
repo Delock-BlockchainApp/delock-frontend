@@ -1,11 +1,12 @@
+
+import Card_component5 from "../components/Card_component5";
 import Profile from "../components/Profile";
-import Yourdocs_card3 from "../components/yourdocs_card3";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Doc_viewmore = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const data = location.state;
+  const data = location.state.issuer;
   console.log(data);
 
   if (!data) {
@@ -39,15 +40,15 @@ const Doc_viewmore = () => {
           }}
           className="fa-solid fa-arrow-turn-up transform -rotate-90 text-2xl text-black font-light ml-2 cursor-pointer"
         />
-        <div className="text-2xl font-poppins font-light ml-5">{data?.name}</div>
+        <div className="text-2xl font-poppins font-light ml-5">{data?.department_name} , {data?.state}</div>
       </div>
-      <p className="flex flex-col ml-14 mt-5">{data?.department?.department_description}</p>
+      <p className="flex flex-col ml-14 mt-5 text-md">{data?.department_description}</p>
       <div className="flex justify-between mt-5 font-medium ml-14">Available documents</div>
-      <div className="ml-10 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-2/3">
-        {data?.department?.documents?.map((doc, index) => (
-          <Yourdocs_card3
+      <div className="ml-10 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 w-2/3">
+        {data?.documents?.map((doc, index) => (
+          <Card_component5
             key={index}
-            data={{ name: doc?.document_name, state: data?.department?.state, code: doc?.document_id, data }}
+            data={{ title: doc?.document_name, state: data?.state, doc_code: doc?.document_id, dep_code: data?.department_code ,dep_name: data?.department_name}}
           />
         ))}
       </div>

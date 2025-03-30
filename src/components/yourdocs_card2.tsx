@@ -1,12 +1,15 @@
+import { useNavigate } from "react-router-dom";
+
 interface YourDocsCard2Props {
     Name: string;
     Number:number;
 
 }
 
-const yourdocs_card2 = (props: YourDocsCard2Props) => {
+const Yourdocs_card2 = (props: YourDocsCard2Props) => {
+    const navigate = useNavigate();
     return (
-        <div className=' flex relative justify-center items-center rounded-xl bg-white pt-0 w-64 h-16 mt-5 mr-5 border font-poppins text-base font-semibold' style={{
+        <div onClick={() => navigate(`${props.Name}`)} className=' flex relative justify-center items-center rounded-xl bg-white pt-0 w-64 h-16 mt-5 mr-5 border font-poppins text-base font-semibold cursor-pointer' style={{
             borderColor: '#004182',
             borderWidth: '1px',
             boxShadow: '6px 6px 0px  #004182',
@@ -20,4 +23,4 @@ const yourdocs_card2 = (props: YourDocsCard2Props) => {
     )
 }
 
-export default yourdocs_card2
+export default Yourdocs_card2

@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import TextComponent from "../components/TextComponent"
 import Yourdocs_card from "../components/yourdocs_card"
-import Yourdocs_card2 from "../components/yourdocs_card2"
+import Yourdocs_card2 from "../components/Yourdocs_card2"
 import { useBlockchain } from "../context/BlockchainContext";
 import { getDepartmentName, getDocumentName } from "../utils/dataUtils";
 
 function Yourdocs() {
   const { contract, account } = useBlockchain();
-
+  
   const [documents, setDocuments] = useState<any[]>([]);
+
+  const folders = [
+    { name: "Education&Certificates", number: 7 },
+    { name: "Health", number: 11 },
+    { name: "Revenue&Tax", number: 2 },
+    { name: "Personal", number: 4 },
+  ];
 
   // Function: Get own documents
   const getRequestedDocuments = async () => {
@@ -55,11 +62,6 @@ useEffect(() => {
         {documents.map((document) => (
        <Yourdocs_card title={getDocumentName(document.docId) || "Unknown Document"} description={''} Authority={getDepartmentName(document.depId )|| 'unknown dept'} ipfs={document.ipfs} />
           ))}
-          {/* <Yourdocs_card title={'Aadhaar Card'} description={'**************'} Authority={'Unique Identification Authority of India(UIDAI)'} />
-          <Yourdocs_card title={'Driving License'} description={'KL05*******15'} Authority={'Motor Vechile Department,Kerala'} />
-          <Yourdocs_card title={'PAN Verification'} description={'FUE******9A'} Authority={'Income Tax Department'} />
-          <Yourdocs_card title={'Class X Marksheet'} description={'431******2019'} Authority={'Central Board of Secondary Education'} />
-          <Yourdocs_card title={'Registraton of Vechiles'} description={'KL01*******189'} Authority={'Motor Vehicle Department, Kerala'} /> */}
         </div>
 
         <div className="text-lg font-medium ">Delock Drive Folders</div>
@@ -67,10 +69,14 @@ useEffect(() => {
         <div className="flex justify-between">
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-2/3">
-            <Yourdocs_card2 Name={'Education/Certificates'} Number={7} />
-            <Yourdocs_card2 Name={'Health'} Number={11} />
-            <Yourdocs_card2 Name={'Revenue/Tax'} Number={2} />
-            <Yourdocs_card2 Name={'Personal'} Number={4} />
+          {folders.map((folder, index) => (
+              <Yourdocs_card2
+                key={index}
+                Name={folder.name}
+                Number={folder.number}
+                 // Navigate to the view more page with folder data
+              />
+            ))}
           </div>
           <div className=" w-10 h-10 mt-2 rounded-full bg-dark-blue flex items-center justify-center" >
             <i className="fa-solid fa-plus text-white text-lg"></i>

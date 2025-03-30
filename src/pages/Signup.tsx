@@ -54,7 +54,7 @@ const navigate = useNavigate();
                           Click <span 
                             onClick={() => {
                               toast.dismiss(t.id);
-                              navigate('/login');
+                              navigate('/signin');
                             }}
                             className="text-indigo-600 font-semibold cursor-pointer hover:underline"
                           >
