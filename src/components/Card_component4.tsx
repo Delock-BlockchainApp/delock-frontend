@@ -2,14 +2,14 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
 interface CardProps {
-    data: Record<string, any>;
+    issuer: Record<string, any>;
 }
 
-const Card_component4: React.FC<CardProps> = ({ data }) => {
+const Card_component4: React.FC<CardProps> = ({ issuer }) => {
     const navigate = useNavigate();
 // console.log(data)
   const handleNavigate = () => {
-    navigate(`issuers/${data?.code}`, { state: data });
+    navigate(`issuers/${issuer?.department_code}`, { state: { issuer } });
   };
     return (
         <div  onClick={handleNavigate} className='flex flex-col rounded-xl bg-white p-2 w-[120px] h-[150px] mt-8 mr-8  [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)] cursor-pointer'>
@@ -22,10 +22,10 @@ const Card_component4: React.FC<CardProps> = ({ data }) => {
             </div> 
             <div className=" relative flex flex-col mt-2">
                 <span className="absolute text-xs font-poppins font-semibold ">
-                    {data?.title}
+                    {issuer?.department_name}
                 </span>
                 <span className=" absolute text-xs font-poppins text-gray-500 mt-9">
-                    {data?.state}
+                    {issuer?.state}
                 </span>
             </div>
            

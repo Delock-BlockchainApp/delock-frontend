@@ -58,7 +58,7 @@ const Login = () => {
 		<Toaster/>
 		{/* Header Section */}
 		<div className="pl-4 pt-4 font-poppins">
-		  <TextComponent text="Delock" fontSize="30px " />
+		  <a  className="cursor-pointer" href="/"><TextComponent text="Delock" fontSize="30px " /></a>
 		</div>
   
 		{/* Login Form Section */}

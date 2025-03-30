@@ -317,7 +317,7 @@ function Documents() {
               <TextComponent2 text="Education & Learning" />
               <div className="flex mt-5">
                 {departments?.map((department, index) => (
-                <Card_component4 key={index} data={{ title:department?.department_name,department,code:department?.department_code,state:department?.state }} />
+                <Card_component4 key={index} issuer={department} />
                 ))}
               </div>
             </div>

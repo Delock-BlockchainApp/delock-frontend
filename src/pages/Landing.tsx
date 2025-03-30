@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Featurebox from '../components/Home/Featurebox'
 
 function Landing() {
