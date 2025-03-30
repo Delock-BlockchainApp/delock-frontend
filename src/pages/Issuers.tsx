@@ -53,7 +53,7 @@ function Issuers() {
           }}
           className="fa-solid fa-arrow-turn-up transform -rotate-90 text-2xl text-black font-light cursor-pointer"
         />
-      <div className="text-md font-poppins font-medium">598 Issuers found</div></div>
+      <div className="text-md font-poppins font-medium">{responseData.length} Issuers found</div></div>
         <div className="overflow-y-scroll scrollbar grid grid-cols-3 z-10 ">
             {responseData.map((issuer: any, index: number) => (
           <IssuerCard key={index} {...issuer} />

@@ -48,7 +48,7 @@ const Doc_viewmore = () => {
         {data?.documents?.map((doc, index) => (
           <Card_component5
             key={index}
-            data={{ title: doc?.document_name, state: data?.state, doc_code: doc?.document_id, dep_code: data?.department_code ,dep_name: data?.department_name}}
+            data={{ dep_name: data?.department_name, dep_code:data?.department_code,state: data?.state, doc_code: doc?.document_id, title: doc?.document_name, }}
           />
         ))}
       </div>
