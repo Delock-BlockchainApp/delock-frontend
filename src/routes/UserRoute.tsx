@@ -10,7 +10,7 @@ type UserRouteProps = {
 const UserRoute = ({ children }: UserRouteProps) => {
   const auth = useRecoilValue(authState) as { isAuthenticated: boolean };
 
-  return auth.isAuthenticated ? children : <Navigate to="/login" />;
+  return auth.isAuthenticated ? children : <Navigate to="/signin" />;
 };
 
 export default UserRoute;

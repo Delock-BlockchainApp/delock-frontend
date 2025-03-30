@@ -4,31 +4,37 @@ import { useBlockchain } from "../context/BlockchainContext";
 import { useRecoilState } from 'recoil';
 import { authState } from '../recoil';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import {toast,Toaster} from 'react-hot-toast';
 const Login = () => {
 	const { connectWallet, account,contract } = useBlockchain();
 	const [auth, setAuth] = useRecoilState(authState);
 	const navigate = useNavigate();
   
-	const handleConnect = async () => {
-	  try {
-		console.log('Connecting wallet...');
-		await connectWallet();
-		if (account) {
-		  const isRegistered = await checkUserRegistration(account);
-		  if (isRegistered) {
-			setAuth({ isAuthenticated: true, account });
-			console.log('Login successful! Redirecting to dashboard...');
-			navigate('/dashboard') 
-		  } else {
-			toast.error('You are not registered. Please sign up.');
-		  }
-		}
-	  } catch (error) {
-		toast.error('Login failed. Please try again.');
-		console.error(error);
-	  }
-	};
+	const handleConnect = () => {
+		connectWallet()
+		  .then(() => {
+			if (account) {
+			  checkUserRegistration(account)
+				.then((isRegistered) => {
+				  if (isRegistered) {
+					setAuth({ isAuthenticated: true, account });
+					console.log('Login successful! Redirecting to dashboard...');
+					navigate('/dashboard');
+				  } else {
+					toast.error('You are not registered. Please sign up.');
+				  }
+				})
+				.catch((error) => {
+				  toast.error('Failed to check registration. Please try again.');
+				  console.error('Error checking user registration:', error);
+				});
+			}
+		  })
+		  .catch((error) => {
+			toast.error('Login failed. Please try again.');
+			console.error('Error connecting wallet:', error);
+		  });
+	  };
 
 	const checkUserRegistration = async (address: string) => {
 		if (!contract) {
@@ -49,6 +55,7 @@ const Login = () => {
   
 	return (
 	  <div>
+		<Toaster/>
 		{/* Header Section */}
 		<div className="pl-4 pt-4 font-poppins">
 		  <TextComponent text="Delock" fontSize="30px " />

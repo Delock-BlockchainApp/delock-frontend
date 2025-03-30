@@ -15,13 +15,14 @@ import UploadDocs from './pages/UploadDocs'
 import GetDoc from './pages/GetDoc'
 import Home from './pages/Home'
 import UserRoute from './routes/UserRoute'
+import Delock from './pages/delock'
 function App() {
     return (
       <Routes>
       {/* Public Routes */}
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Home />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/signin" element={<Login />} />
 
       {/* Protected User Routes */}
       <Route
@@ -45,6 +46,7 @@ function App() {
           <Route path="upload" element={<UploadDocs/>}/>
         </Route>
         <Route path="*" element={<Error404/>}/>
+        <Route path="/superadmin" element={<Delock />} /> 
       </Routes>
   )
 }

@@ -677,6 +677,7 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   // Function to connect MetaMask
   const connectWallet = async () => {
+	console.log("Connecting wallet...");
 	if ((window as any).ethereum) {
 	  try {
 		const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
@@ -692,7 +693,7 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 		const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 		setContract(contractInstance);
   
-		toast.success("Wallet connected successfully!");
+		// toast.success("Wallet connected successfully!");
   
 		// Listen for account changes
 		(window as any).ethereum.on("accountsChanged", (accounts: string[]) => {

@@ -22,6 +22,7 @@ export default {
       },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'], 
+        caveat: ['Caveat', 'cursive'],
       },
     },
   },
