@@ -260,7 +260,7 @@ function Documents() {
   return (
     <div className="ml-5 h-full p-5 overflow-y-scroll scrollbar ">
       <div className="flex justify-between ">
-        <div className=" text-[40px] font-poppins font-semibold  mb-6 " style={{ color: '#004182' }}>Documents</div>
+        <div className=" text-[40px] font-poppins font-semibold  mb-6 text-dark-blue">Documents</div>
         
         <div className="flex gap-x-20 mt-2">
           <div className='border-2 bg-[#004182]/10 rounded-lg w-[393.47px] h-[50px] '>

@@ -29,7 +29,7 @@ function Overview() {
   };
 
   const handleNavigate = (doc: { document_id: string; name: string }) => {
-    navigate(`documents/${department.department_code}/${doc.document_id}`, {
+    navigate(`documents/issuers/${department.department_code}/${doc.document_id}`, {
       state: {
         ...department,
         document_name: doc.name,

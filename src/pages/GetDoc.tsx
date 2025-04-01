@@ -51,7 +51,7 @@ const IssueData = () => {
       </div>
 
       {/* Form Box */}
-      <div className="p-8 bg-white rounded shadow-md m-5 border-2" style={{ width: '987.8px' }}>
+      <div className="p-8 bg-white rounded shadow-md m-5 border-2 border-gray-200" style={{ width: '987.8px' }}>
         <h2 className="text-left mb-6 text-xl text-dark-blue font-sans">Get your documents by entering the required details</h2>
 
         <div className="flex items-center" style={{ width: '480.82px', marginBottom: '20px' }}>

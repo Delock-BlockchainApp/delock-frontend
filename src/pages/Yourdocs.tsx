@@ -50,7 +50,8 @@ useEffect(() => {
 
   return (
     <div className="h-full p-5 overflow-y-scroll scrollbar">
-      <div className="h-fit"><div className="flex justify-between">
+      <div className="h-fit">
+        <div className="flex justify-between">
         <TextComponent text="Your Docs" fontSize="40px" />
         <div className=" w-10 h-10 mt-2 rounded-full bg-dark-blue flex items-center justify-center" >
           <i className="fa-regular fa-user text-white text-base"></i>

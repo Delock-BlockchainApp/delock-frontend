@@ -2,6 +2,7 @@
 import YourdocsCard4 from "../components/yourdocs_card3"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import Profile from "../components/Profile"
 const Yourdocs_viewmore = () => {
   const navigate = useNavigate()
   const { folderName } = useParams<{ name: string }>();
@@ -19,20 +20,14 @@ const Yourdocs_viewmore = () => {
       <div className="flex justify-between ">
         <div className=" text-5xl font-poppins font-semibold mt-2 mb-6 " style={{ color: '#004182' }}>Your Docs</div>
         <div className=" w-10 h-10 mr-4 mt-2 rounded-full bg-[#004182] flex items-center justify-center cursor-pointer " >
-          <button
-            onClick={() => {
-              navigate(-1)
-            }}
-            className="w-10 h-10 rounded-full bg-[#004182] flex items-center justify-center cursor-pointer"
-            aria-label="Go Back"
-          >
-            <i className="fa-regular fa-user text-white text-base" />
-          </button>
+          <Profile/>
         </div>
       </div>
 
       <div className="flex">
-        <i className=" fa-solid fa-arrow-turn-up transform -rotate-90 text-2xl text-black font-light ml-4 cursor-pointer "/>
+        <i onClick={() => {
+              navigate(-1)
+            }} className=" fa-solid fa-arrow-turn-up transform -rotate-90 text-2xl text-black font-light ml-4 cursor-pointer "/>
         <div className=" text-2xl font-poppins font-light ml-5 ">{folderName}</div>
       </div>
       <div className=" mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 w-2/3">
