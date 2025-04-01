@@ -4,6 +4,7 @@ import Yourdocs_card from "../components/yourdocs_card"
 import Yourdocs_card2 from "../components/Yourdocs_card2"
 import { useBlockchain } from "../context/BlockchainContext";
 import { getDepartmentName, getDocumentName, stateMap } from "../utils/dataUtils";
+import Profile from "../components/Profile";
 
 function Yourdocs() {
   const { contract, account } = useBlockchain();
@@ -53,9 +54,7 @@ useEffect(() => {
       <div className="h-fit">
         <div className="flex justify-between">
         <TextComponent text="Your Docs" fontSize="40px" />
-        <div className=" w-10 h-10 mt-2 rounded-full bg-dark-blue flex items-center justify-center" >
-          <i className="fa-regular fa-user text-white text-base"></i>
-        </div>
+        <Profile />
 
       </div>
       <div className="text-lg font-medium ">Issued Documents</div>
