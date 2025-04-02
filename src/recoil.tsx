@@ -11,3 +11,27 @@ export const authState = atom({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const userState = atom({
+  key: 'userState',
+  default: {
+    name: "",
+    email: "",
+    wallet: "",
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
+
+export const userIpfsCredentials = atom({ 
+  key: 'userIpfsCredentials',
+  default: {
+    domain: "",
+    apiKey: "",
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
+
+
+

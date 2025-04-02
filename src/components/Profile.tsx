@@ -28,7 +28,8 @@ function Profile() {
         }`}
       >
         <div className="p-4 border-b border-gray-100">
-          <p className="text-sm font-medium text-gray-900">{user.name}</p>
+          <p className="text-sm font-semibold
+           text-gray-900">{user.name}</p>
           <p className="text-sm text-gray-500">{user.email}</p>
         </div>
         

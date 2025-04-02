@@ -17,6 +17,7 @@ import Home from './pages/Home'
 import UserRoute from './routes/UserRoute'
 import Delock from './pages/delock'
 import Issuers from './pages/Issuers'
+import AdminOverview from './pages/AdminOverview'
 function App() {
     return (
       <Routes>
@@ -44,7 +45,8 @@ function App() {
         <Route path="settings" element={<Settings />} />
       </Route>
         <Route path="/admin" element={<Layout />}>
-          <Route path="settings" element={<Settings />} />
+          <Route index element={<AdminOverview />} />
+          <Route path="settings" element={<Settings />} /> 
           <Route path="upload" element={<UploadDocs/>}/>
         </Route>
         <Route path="*" element={<Error404/>}/>

@@ -18,12 +18,6 @@ const Card_component3 = (props: Card_component3Props) => {
 
         </div>
 
-
-
-
-
-
-
     )
 }
 
