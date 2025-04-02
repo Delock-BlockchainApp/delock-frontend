@@ -18,6 +18,7 @@ import UserRoute from './routes/UserRoute'
 import Delock from './pages/delock'
 import Issuers from './pages/Issuers'
 import AdminOverview from './pages/AdminOverview'
+import CustomFormPage from './pages/CustomFormPage'
 function App() {
     return (
       <Routes>
@@ -25,6 +26,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Login />} />
+      <Route path="/schema" element={<CustomFormPage />} />
 
       {/* Protected User Routes */}
       <Route

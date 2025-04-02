@@ -3,8 +3,7 @@ import TextComponent from "../components/TextComponent"
 import Yourdocs_card from "../components/yourdocs_card"
 import Yourdocs_card2 from "../components/Yourdocs_card2"
 import { useBlockchain } from "../context/BlockchainContext";
-import { getDepartmentName, getDocumentName, stateMap } from "../utils/dataUtils";
-import Profile from "../components/Profile";
+import { getDepartmentName, getDocumentName } from "../utils/dataUtils";
 
 function Yourdocs() {
   const { contract, account } = useBlockchain();

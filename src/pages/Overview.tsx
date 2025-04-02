@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import overview_img from "../assets/overview_pic1.svg";
-import Card_component2 from "../components/Card_component2";
-import Overview_component1 from "../components/Overview_component1";
-import Profile from "../components/Profile";
-import TextComponent2 from "../components/TextComponent2";
-
+import { useNavigate } from "react-router-dom"
+import overview_img from "../assets/overview_pic1.svg"
+import Card_component2 from "../components/Card_component2"
+import Overview_component1 from "../components/Overview_component1"
+import Profile from "../components/Profile"
+import TextComponent2 from "../components/TextComponent2"
 function Overview() {
   const navigate = useNavigate();
 
@@ -40,17 +39,14 @@ function Overview() {
   return (
     <div className="h-full p-5 overflow-y-scroll scrollbar">
       <div className="flex justify-between">
-        <div className="h-32 w-[655px] bg-light-blue p-3 flex justify-between rounded-md">
-          <div>
-            <div className="flex text-3xl gap-3">
-              <h3 className="text-dark-blue font-semibold">Welcome</h3>
-              <h3 className="font-light">Nandkishor R,</h3>
-            </div>
-            <p className="font-light text-lg">Great to have you back in the Delock and ready to go!</p>
-          </div>
-          <img src={overview_img} alt="secure_img" />
+      <div className="h-32 w-[655px] bg-light-blue p-3 flex justify-between rounded-md">
+        <div>
+              <div className="flex text-3xl gap-3"><h3 className="text-dark-blue font-semibold">Welcome</h3><h3 className="font-light">Nandkishor R ,</h3></div>
+              <p className="font-light font-lg">Great to have you back in the Delock are ready to go! </p>
         </div>
-        <Profile />
+        <img src={overview_img} alt="secure_img" />
+      </div>
+      <Profile />
       </div>
 
       <div className="mt-5">

@@ -649,7 +649,7 @@ const CONTRACT_ABI = [
 		"type": "function"
 	}
 ];
-const CONTRACT_ADDRESS = "0xbb4e55098be081c4c4691e7ac8dbec8e694754c7";
+const CONTRACT_ADDRESS = "0x02AE560427eb6Da7f4A31B749EE2e617fA430834";
 import { useRecoilState } from "recoil";
 
 interface BlockchainContextType {
@@ -693,7 +693,7 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 		const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 		setContract(contractInstance);
   
-		toast.success("Wallet connected successfully!");
+		// toast.success("Wallet connected successfully!");
   
 		// Listen for account changes
 		(window as any).ethereum.on("accountsChanged", (accounts: string[]) => {

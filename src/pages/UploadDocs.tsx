@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Pancard_form from "../components/Pancard_form";
 import TextComponent from "../components/TextComponent";
 import { useBlockchain } from "../context/BlockchainContext";
+import { getDepartmentName } from "../utils/dataUtils";
 
 function UploadDocs() {
   const { contract, account, connectWallet } = useBlockchain();
@@ -39,7 +40,7 @@ function UploadDocs() {
     <div className="h-full p-5 overflow-y-scroll scrollbar">
       {/* Top section */}
       <div className="flex justify-between">
-        <TextComponent text={`Upload Docs - ${department}`} fontSize="40px" />
+        <TextComponent text={`Upload Docs - ${getDepartmentName(department)}`} fontSize="40px" />
         <div className="w-10 h-10 rounded-full bg-[#004182] flex items-center justify-center">
           <i className="fa-regular fa-user text-white text-base"></i>
         </div>
