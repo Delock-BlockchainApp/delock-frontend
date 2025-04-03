@@ -35,14 +35,7 @@ const FormGenerator: React.FC<FormProps> = ({ schema }) => {
             required
           />
         </div>
-          // <input
-          //   type="text"
-          //   id={key}
-          //   value={formData[key] || ""}
-          //   onChange={(e) => handleChange(key, e.target.value)}
-          //   className="border p-2 rounded-md w-full"
-          //   placeholder={key}
-          // />
+          
         );
       case "date":
         return (
@@ -60,13 +53,6 @@ const FormGenerator: React.FC<FormProps> = ({ schema }) => {
           />
         </div>
 
-          // <input
-          //   type="date"
-          //   id={key}
-          //   value={formData[key] || ""}
-          //   onChange={(e) => handleChange(key, e.target.value)}
-          //   className="border p-2 rounded-md w-full"
-          // />
         );
       case "number":
         return (
@@ -85,13 +71,7 @@ const FormGenerator: React.FC<FormProps> = ({ schema }) => {
             required
           />
         </div>
-          // <input
-          //   type="number"
-          //   id={key}
-          //   value={formData[key] || ""}
-          //   onChange={(e) => handleChange(key, +e.target.value)}
-          //   className="border p-2 rounded-md w-full"
-          // />
+          
         );
       default:
         return <div>Unsupported field type</div>;
@@ -102,15 +82,13 @@ const FormGenerator: React.FC<FormProps> = ({ schema }) => {
     <form onSubmit={handleSubmit} className="p-6 bg-white rounded-lg shadow-lg">
       {Object.entries(schema).map(([key, type]) => (
         <div key={key} className="mb-4">
-          {/* <label htmlFor={key} className="block text-gray-700 font-medium">
-            {key.replace(/_/g, " ").toUpperCase()}
-          </label> */}
+          
           {renderInput(key, type)}
         </div>
       ))}
        <div className="mt-5 flex justify-end">
           <button
-            className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-pointer"
+            className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-pointer text-md "
       
           >
             Issue Document

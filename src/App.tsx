@@ -26,7 +26,6 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Login />} />
-      <Route path="/schema" element={<CustomFormPage />} />
 
       {/* Protected User Routes */}
       <Route
@@ -50,6 +49,7 @@ function App() {
           <Route index element={<AdminOverview />} />
           <Route path="settings" element={<Settings />} /> 
           <Route path="upload" element={<UploadDocs/>}/>
+          <Route path="schema" element={<CustomFormPage />} />
         </Route>
         <Route path="*" element={<Error404/>}/>
         <Route path="/superadmin" element={<Delock />} /> 

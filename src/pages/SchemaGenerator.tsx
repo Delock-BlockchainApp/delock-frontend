@@ -38,7 +38,7 @@ const SchemaGenerator: React.FC<{ onSchemaChange: (schema: Record<string, string
   };
 
   return (<div className="p-8 bg-inherit rounded-lg shadow-md border border-gray-400">
-    <h2 className="text-2xl font-bold mb-6 text-gray-700">Schema Generator</h2>
+    <h2 className="text-2xl font-bold mb-6 text-gray-700">Document Generator</h2>
   
     {/* Input and Select Fields */}
     <div className="flex items-center gap-6 mb-6">
@@ -62,7 +62,7 @@ const SchemaGenerator: React.FC<{ onSchemaChange: (schema: Record<string, string
   
       <button
         onClick={addField}
-        className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-pointer"
+        className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-pointer text-md "
       >
         Add Field
       </button>
@@ -84,7 +84,7 @@ const SchemaGenerator: React.FC<{ onSchemaChange: (schema: Record<string, string
               
               <button
                 onClick={() => removeField(index)}
-                className="bg-red-700 text-white px-4 py-1 rounded-md hover:bg-red-600 transition duration-300"
+                className="bg-red-700 text-white px-4 py-1 rounded-md hover:bg-red-600 transition duration-300 text-md font-semibold"
               >
                 Remove
               </button>
