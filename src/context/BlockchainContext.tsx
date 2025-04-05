@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState,useEffect } from "react";
 import { ethers } from "ethers";
 import toast from "react-hot-toast";
 import { authState } from '../recoil';
+import { useNavigate } from "react-router-dom";
 
 const CONTRACT_ABI = [
 	{
@@ -649,7 +650,9 @@ const CONTRACT_ABI = [
 		"type": "function"
 	}
 ];
-const CONTRACT_ADDRESS = "0x02AE560427eb6Da7f4A31B749EE2e617fA430834";
+const CONTRACT_ADDRESS = import.meta.env.VITE_REACT_URL_CONTRACT_ADDRESS // Replace with a valid fallback address
+
+// console.log('CONTRACT_ADDRESS',CONTRACT_ADDRESS);
 import { useRecoilState } from "recoil";
 
 interface BlockchainContextType {
@@ -674,6 +677,7 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [contract, setContract] = useState<ethers.Contract | null>(null);
   const [account, setAccount] = useState<string | null>(null);
   const [auth, setAuth] = useRecoilState(authState);
+  const navigate = useNavigate();
 
   // Function to connect MetaMask
   const connectWallet = async () => {
@@ -694,23 +698,27 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 		setContract(contractInstance);
   
 		// toast.success("Wallet connected successfully!");
-  
-		// Listen for account changes
-		(window as any).ethereum.on("accountsChanged", (accounts: string[]) => {
-			console.log("MetaMask account changed.");
-		  if (accounts.length > 0) {
-			setAccount(accounts[0]);
-		  } else {
-			disconnectWallet();
-		  }
-		});
-  
-		// Listen for disconnection
-		(window as any).ethereum.on("disconnect", () => {
-		  console.log("MetaMask disconnected.");
-		  disconnectWallet();
-		});
-  
+		if(contract){
+			const isAdmin=await contract.isAdmin();
+			if(isAdmin){
+				toast.success("Wallet connected successfully as Admin!");
+				setAuth({ isAuthenticated: true, account: userAccount, role: "admin" });
+				navigate("/dashboard");
+		}
+		else {
+			const isRegistered=await contract.isRegistered(userAccount);
+			if(isRegistered){
+				toast.success("Wallet connected successfully as User!");
+				setAuth({ isAuthenticated: true, account: userAccount, role: "user" });
+				navigate("/dashboard");
+			}
+			else{
+				toast.error("User not registered!");
+				setAuth({ isAuthenticated: false, account: userAccount });
+			;
+			}
+		}
+	}
 	  } catch (error) {
 		console.error("Failed to connect wallet:", error);
 		toast.error("Failed to connect wallet.");
@@ -719,6 +727,22 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 	  toast.error("Please install MetaMask!");
 	}
   };
+
+  			// Listen for disconnection
+		(window as any).ethereum.on("disconnect", () => {
+			console.log("MetaMask disconnected.");
+			disconnectWallet();
+		  });
+
+  		// Listen for account changes
+		  (window as any).ethereum.on("accountsChanged", (accounts: string[]) => {
+			console.log("MetaMask account changed.");
+		  if (accounts.length > 0) {
+			setAccount(accounts[0]);
+		  } else {
+			disconnectWallet();
+		  }
+		});
 
   // Function to disconnect wallet
   const disconnectWallet = () => {

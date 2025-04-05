@@ -14,14 +14,19 @@ import DocsViewMore from './pages/Doc_viewmore'
 import UploadDocs from './pages/UploadDocs'
 import GetDoc from './pages/GetDoc'
 import Home from './pages/Home'
-import UserRoute from './routes/UserRoute'
+import AuthRoute from './routes/AuthRoute'
 import Delock from './pages/delock'
 import Issuers from './pages/Issuers'
 import AdminOverview from './pages/AdminOverview'
 import CustomFormPage from './pages/CustomFormPage'
+import { useRecoilValue } from 'recoil'
+import { authState } from './recoil'
+
 function App() {
-    return (
-      <Routes>
+  const auth = useRecoilValue(authState) as { isAuthenticated: boolean; role: string }
+  const isAdmin = auth.role === 'admin'
+  return (
+    <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<Signup />} />
@@ -31,9 +36,9 @@ function App() {
       <Route
         path="/dashboard"
         element={
-          <UserRoute>
+          <AuthRoute>
             <Layout />
-          </UserRoute>
+          </AuthRoute>
         }
       >
         <Route index element={<Overview />} />
@@ -45,15 +50,26 @@ function App() {
         <Route path="yourdocs/:folderName" element={<Yourdocs_viewmore />} />
         <Route path="settings" element={<Settings />} />
       </Route>
-        <Route path="/admin" element={<Layout />}>
-          <Route index element={<AdminOverview />} />
-          <Route path="settings" element={<Settings />} /> 
-          <Route path="upload" element={<UploadDocs/>}/>
-          <Route path="schema" element={<CustomFormPage />} />
-        </Route>
-        <Route path="*" element={<Error404/>}/>
-        <Route path="/superadmin" element={<Delock />} /> 
-      </Routes>
+
+      {/* Protected Admin Routes */}
+      <Route
+        path="/admin"
+        element={
+          <AuthRoute>
+            <Layout />
+          </AuthRoute>
+        }
+      >
+        <Route index element={<AdminOverview />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="upload" element={<UploadDocs />} />
+        <Route path="schema" element={<CustomFormPage />} />
+      </Route>
+
+      {/* Fallback */}
+      <Route path="*" element={<Error404 />} />
+      {/* <Route path="/superadmin" element={<Delock />} />  */}
+    </Routes>
   )
 }
 

@@ -4,6 +4,7 @@ import Yourdocs_card from "../components/yourdocs_card"
 import Yourdocs_card2 from "../components/Yourdocs_card2"
 import { useBlockchain } from "../context/BlockchainContext";
 import { getDepartmentName, getDocumentName } from "../utils/dataUtils";
+import Profile from "../components/Profile";
 
 function Yourdocs() {
   const { contract, account } = useBlockchain();
@@ -53,7 +54,7 @@ useEffect(() => {
       <div className="h-fit">
         <div className="flex justify-between">
         <TextComponent text="Your Docs" fontSize="40px" />
-        <Profile />
+        <Profile/>
 
       </div>
       <div className="text-lg font-medium ">Issued Documents</div>

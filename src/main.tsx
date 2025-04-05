@@ -9,11 +9,11 @@ import { RecoilRoot } from "recoil";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
      <RecoilRoot>
+     <Router>
     <BlockchainProvider> {/* Wrap the provider at the top level */}
-      <Router>
         <App />
-      </Router>
     </BlockchainProvider>
+    </Router>
     </RecoilRoot>
   </StrictMode>
 );

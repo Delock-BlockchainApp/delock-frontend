@@ -8,12 +8,20 @@ import { authState } from './recoil';
 import toast from 'react-hot-toast';
 
 function Layout() {
-  const navOptions = [
+  const UsernavOptions = [
     { name: 'Overview', icon: 'bi bi-pie-chart-fill', path: '/dashboard' },
     { name: 'Documents', icon: 'bi bi-grid-fill', path: '/dashboard/documents' },
     { name: 'Your Docs', icon: 'bi bi-app-indicator', path: '/dashboard/yourdocs' },
     { name: 'Settings', icon: 'bi bi-gear-fill', path: '/dashboard/settings' }
   ];
+
+  const AdminNavOption=[
+    { name: 'Overview', icon: 'bi bi-pie-chart-fill', path: '/admin' },
+    { name: 'Documents', icon: 'bi bi-upload', path: '/admin/upload' },
+    { name: 'Settings', icon: 'bi bi-gear-fill', path: '/admin/settings' },
+    { name: 'Custom Form', icon: 'bi bi-file-earmark-text-fill', path: '/admin/schema' }
+  ]
+
   const { disconnectWallet } = useBlockchain();
   const [auth, setAuth] = useRecoilState(authState);
 
@@ -33,7 +41,7 @@ function Layout() {
         </div>
         {/* Nav Section */}
         <div className="mt-10 px-3 flex flex-col">
-          {navOptions.map((option, index) => (
+          {UsernavOptions.map((option, index) => (
             <Link
               to={option.path}
               key={index}

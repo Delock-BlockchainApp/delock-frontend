@@ -32,7 +32,7 @@ const FormGenerator: React.FC<FormProps> = ({ schema }) => {
             onChange={(e) => handleChange(key, e.target.value)}
             className="w-2/3 px-4 py-1 bg-inherit border-b-2 border-gray-400 focus:outline-none ml-5"
             placeholder={`Enter ${key.replace(/_/g, " ")}`}
-            required
+            disabled
           />
         </div>
           
@@ -49,7 +49,7 @@ const FormGenerator: React.FC<FormProps> = ({ schema }) => {
             value={formData[key] || ""}
             onChange={(e) => handleChange(key, e.target.value)}
             className="w-2/3 px-4 py-1 bg-inherit border-b-2 border-gray-400 focus:outline-none ml-5"
-            required
+            disabled
           />
         </div>
 
@@ -68,7 +68,7 @@ const FormGenerator: React.FC<FormProps> = ({ schema }) => {
             onChange={(e) => handleChange(key, e.target.value)}
             className="w-2/3 px-4 py-1 bg-inherit border-b-2 border-gray-400 focus:outline-none ml-5"
             placeholder={`Enter ${key.replace(/_/g, " ")}`}
-            required
+            disabled
           />
         </div>
           

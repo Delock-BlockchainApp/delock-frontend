@@ -4,9 +4,9 @@ import Card_component2 from "../components/Card_component2"
 import Overview_component1 from "../components/Overview_component1"
 import Profile from "../components/Profile"
 import TextComponent2 from "../components/TextComponent2"
+
 function Overview() {
   const navigate = useNavigate();
-
   const documents = [
     { document_id: 'CG-001-001', name: 'Aadhaar Card' },
     { document_id: 'CG-001-002', name: 'Voter ID' },

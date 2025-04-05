@@ -7,7 +7,8 @@ export const authState = atom({
   key: 'authState',
   default: {
     isAuthenticated: false,
-    account:"",
+    account: "",
+    role: "user", // Default role is "user"
   },
   effects_UNSTABLE: [persistAtom],
 });
