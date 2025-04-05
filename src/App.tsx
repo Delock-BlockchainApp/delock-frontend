@@ -19,12 +19,8 @@ import Delock from './pages/delock'
 import Issuers from './pages/Issuers'
 import AdminOverview from './pages/AdminOverview'
 import CustomFormPage from './pages/CustomFormPage'
-import { useRecoilValue } from 'recoil'
-import { authState } from './recoil'
 
 function App() {
-  const auth = useRecoilValue(authState) as { isAuthenticated: boolean; role: string }
-  const isAdmin = auth.role === 'admin'
   return (
     <Routes>
       {/* Public Routes */}

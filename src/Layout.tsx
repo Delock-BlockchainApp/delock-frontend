@@ -3,11 +3,11 @@ import logo from "./assets/logo.svg";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Toaster } from "react-hot-toast";
 import { useBlockchain } from "./context/BlockchainContext";
-import { useRecoilState } from 'recoil';
-import { authState } from './recoil';
 import toast from 'react-hot-toast';
-
+import { useAuth } from "./context/useAuth";
 function Layout() {
+  const { role } = useAuth()
+  const isAdmin = role === "admin";
   const UsernavOptions = [
     { name: 'Overview', icon: 'bi bi-pie-chart-fill', path: '/dashboard' },
     { name: 'Documents', icon: 'bi bi-grid-fill', path: '/dashboard/documents' },
@@ -16,18 +16,17 @@ function Layout() {
   ];
 
   const AdminNavOption=[
-    { name: 'Overview', icon: 'bi bi-pie-chart-fill', path: '/admin' },
-    { name: 'Documents', icon: 'bi bi-upload', path: '/admin/upload' },
-    { name: 'Settings', icon: 'bi bi-gear-fill', path: '/admin/settings' },
+    { name: 'Overview', icon: 'bi bi-pie-chart-fill', path: '/dashboard' },
+    { name: 'Documents', icon: 'bi bi-grid-fill', path: '/dashboard/documents' },
+    { name: 'Settings', icon: 'bi bi-gear-fill', path: '/dashboard/settings' },
     { name: 'Custom Form', icon: 'bi bi-file-earmark-text-fill', path: '/admin/schema' }
   ]
 
   const { disconnectWallet } = useBlockchain();
-  const [auth, setAuth] = useRecoilState(authState);
+
 
   const handleDisconnect = () => {
     disconnectWallet();
-    setAuth({ isAuthenticated: false, account: null });
     toast.success('Wallet disconnected successfully');
   };
   return (
@@ -41,22 +40,7 @@ function Layout() {
         </div>
         {/* Nav Section */}
         <div className="mt-10 px-3 flex flex-col">
-          {UsernavOptions.map((option, index) => (
-            <Link
-              to={option.path}
-              key={index}
-              className="h-14 w-full flex items-center gap-5 rounded-lg mb-10 hover:bg-gray-200 cursor-pointer group"
-            >
-              {/* Icon */}
-              <i
-                className={`${option.icon} ml-4 text-[30px] group-hover:text-bold-blue transition-colors duration-300`}
-              ></i>
-              {/* Text */}
-              <h1 className="text-white text-xl font-semibold group-hover:text-bold-blue transition-colors duration-300">
-                {option.name}
-              </h1>
-            </Link>
-          ))}
+          {isAdmin ? AdminNavOption.map((option, index) => (<SideBarButtton key={index} {...option} />)) : UsernavOptions.map((option, index) => (<SideBarButtton key={index} {...option} />))}
           {/* Logout */}
           <div onClick={handleDisconnect} className="h-14 flex items-center gap-5 rounded-lg mt-28 hover:bg-gray-200 cursor-pointer group">
             <i
@@ -79,3 +63,28 @@ function Layout() {
 }
 
 export default Layout;
+
+interface NavOption {
+  name: string;
+  icon: string;
+  path: string;
+}
+
+const SideBarButtton = (option: NavOption, index: number) => {
+  return(
+    <Link
+    to={option.path}
+    key={index}
+    className="h-14 w-full flex items-center gap-5 rounded-lg mb-10 hover:bg-gray-200 cursor-pointer group"
+  >
+    {/* Icon */}
+    <i
+      className={`${option.icon} ml-4 text-[30px] group-hover:text-bold-blue transition-colors duration-300`}
+    ></i>
+    {/* Text */}
+    <h1 className="text-white text-xl font-semibold group-hover:text-bold-blue transition-colors duration-300">
+      {option.name}
+    </h1>
+  </Link>
+  )
+}

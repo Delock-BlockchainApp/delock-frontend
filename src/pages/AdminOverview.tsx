@@ -4,7 +4,7 @@ import AdminCard1 from "../components/Home/AdminCard1"
 import AdminCard2 from "../components/Home/AdminCard2"
 function AdminOverview() {
   return (
-    <div className="h-full p-5 overflow-y-scroll scrollbar">
+    <>
       <div className="flex justify-between">
         <div className="h-32 w-fit bg-light-blue p-5 pr-0 flex justify-between rounded-md">
           <div>
@@ -49,7 +49,7 @@ function AdminOverview() {
       
 
 
-    </div>
+    </>
   )
 }
 

@@ -651,7 +651,8 @@ const CONTRACT_ABI = [
 	}
 ];
 const CONTRACT_ADDRESS = import.meta.env.VITE_REACT_URL_CONTRACT_ADDRESS // Replace with a valid fallback address
-
+// console.log('CONTRACT_ABI',CONTRACT_ABI);
+// console.log('CONTRACT_ADDRESS',CONTRACT_ADDRESS);
 // console.log('CONTRACT_ADDRESS',CONTRACT_ADDRESS);
 import { useRecoilState } from "recoil";
 
@@ -680,100 +681,94 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const navigate = useNavigate();
 
   // Function to connect MetaMask
-  const connectWallet = async () => {
-	console.log("Connecting wallet...");
-	if ((window as any).ethereum) {
-	  try {
-		const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
-		setProvider(web3Provider);
-  
-		await web3Provider.send("eth_requestAccounts", []);
-		const signer = web3Provider.getSigner();
-		setSigner(signer);
-  
-		const userAccount = await signer.getAddress();
-		setAccount(userAccount); // Update address immediately
-  
-		const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-		setContract(contractInstance);
-  
-		// toast.success("Wallet connected successfully!");
-		if(contract){
-			const isAdmin=await contract.isAdmin();
-			if(isAdmin){
-				toast.success("Wallet connected successfully as Admin!");
-				setAuth({ isAuthenticated: true, account: userAccount, role: "admin" });
-				navigate("/dashboard");
-		}
-		else {
-			const isRegistered=await contract.isRegistered(userAccount);
-			if(isRegistered){
-				toast.success("Wallet connected successfully as User!");
-				setAuth({ isAuthenticated: true, account: userAccount, role: "user" });
-				navigate("/dashboard");
-			}
-			else{
-				toast.error("User not registered!");
-				setAuth({ isAuthenticated: false, account: userAccount });
-			;
-			}
-		}
-	}
-	  } catch (error) {
-		console.error("Failed to connect wallet:", error);
-		toast.error("Failed to connect wallet.");
-	  }
-	} else {
-	  toast.error("Please install MetaMask!");
-	}
-  };
-
-  			// Listen for disconnection
-		(window as any).ethereum.on("disconnect", () => {
-			console.log("MetaMask disconnected.");
-			disconnectWallet();
-		  });
-
-  		// Listen for account changes
-		  (window as any).ethereum.on("accountsChanged", (accounts: string[]) => {
-			console.log("MetaMask account changed.");
-		  if (accounts.length > 0) {
-			setAccount(accounts[0]);
-		  } else {
-			disconnectWallet();
-		  }
-		});
-
-  // Function to disconnect wallet
+ 
+  // Disconnect Wallet
   const disconnectWallet = () => {
     setAccount(null);
     setProvider(null);
     setSigner(null);
     setContract(null);
-	setAuth({ isAuthenticated: false, account: "" });
-	console.log("Wallet disconnected.");
-
+    setAuth({ isAuthenticated: false, account: '' });
+    console.log('Wallet disconnected.');
   };
 
-  // Cleanup on unmount
-  useEffect(() => {
+  // Main logic reused for wallet connection
+  const handleWalletConnection = async () => {
+    console.log('Connecting wallet...');
     if ((window as any).ethereum) {
-      (window as any).ethereum.on("connect", () => {
-        console.log("Connected to MetaMask.");
-		setAuth({ isAuthenticated: true, account: account || "" });
-      });
+      try {
+        const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
+        setProvider(web3Provider);
 
-      (window as any).ethereum.on("disconnect", () => {
-        console.log("MetaMask disconnected.");
-        disconnectWallet();
-      });
+        await web3Provider.send('eth_requestAccounts', []);
+        const signer = web3Provider.getSigner();
+        setSigner(signer);
 
-      return () => {
-        (window as any).ethereum.removeAllListeners("connect");
-        (window as any).ethereum.removeAllListeners("disconnect");
-      };
+        const userAccount = await signer.getAddress();
+        setAccount(userAccount);
+
+        const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+        setContract(contractInstance);
+
+        const isAdmin = await contractInstance.isAdmin();
+        if (isAdmin) {
+          toast.success('Wallet connected successfully as Admin!');
+          setAuth({ isAuthenticated: true, account: userAccount, role: 'admin' });
+          navigate('/dashboard');
+        } else {
+          const isRegistered = await contractInstance.isRegistered(userAccount);
+          if (isRegistered) {
+            toast.success('Wallet connected successfully as User!');
+            setAuth({ isAuthenticated: true, account: userAccount, role: 'user' });
+            navigate('/dashboard');
+          } else {
+            toast.error('User not registered!');
+            setAuth({ isAuthenticated: false, account: userAccount });
+            disconnectWallet();
+            navigate('/signup');
+          }
+        }
+      } catch (error) {
+        console.error('Failed to connect wallet:', error);
+        toast.error('Failed to connect wallet.');
+      }
+    } else {
+      toast.error('Please install MetaMask!');
     }
+  };
+
+  const connectWallet = async () => {
+    await handleWalletConnection();
+  };
+
+  // Setup listeners once
+  useEffect(() => {
+    const { ethereum } = window as any;
+    if (!ethereum) return;
+
+    const handleAccountsChanged = async (accounts: string[]) => {
+      console.log('MetaMask account changed.');
+      if (accounts.length > 0) {
+        await handleWalletConnection(); // Reconnect with new account
+      } else {
+        disconnectWallet();
+      }
+    };
+
+    const handleDisconnect = () => {
+      console.log('MetaMask disconnected.');
+      disconnectWallet();
+    };
+
+    ethereum.on('accountsChanged', handleAccountsChanged);
+    ethereum.on('disconnect', handleDisconnect);
+
+    return () => {
+      ethereum.removeListener('accountsChanged', handleAccountsChanged);
+      ethereum.removeListener('disconnect', handleDisconnect);
+    };
   }, []);
+
   return (
     <BlockchainContext.Provider value={{ provider, signer, contract, account, connectWallet, disconnectWallet }}>
       {children}
@@ -781,11 +776,10 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   );
 };
 
-// Custom Hook to use Blockchain Context
 export const useBlockchain = () => {
   const context = useContext(BlockchainContext);
   if (!context) {
-    throw new Error("useBlockchain must be used within a BlockchainProvider");
+    throw new Error('useBlockchain must be used within a BlockchainProvider');
   }
   return context;
 };
