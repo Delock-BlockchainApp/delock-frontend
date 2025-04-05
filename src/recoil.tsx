@@ -1,3 +1,4 @@
+
 import { atom } from 'recoil';
 import { recoilPersist } from "recoil-persist";
 
@@ -19,6 +20,8 @@ export const userState = atom({
     name: "",
     email: "",
     wallet: "",
+    userId:"",
+    lastLogin:"", // Default to current date and time
   },
   effects_UNSTABLE: [persistAtom],
 });
@@ -34,5 +37,8 @@ export const userIpfsCredentials = atom({
 });
 
 
-
+export const isLoadingState = atom({
+  key: 'isLoadingState',  
+  default: false,
+});
 

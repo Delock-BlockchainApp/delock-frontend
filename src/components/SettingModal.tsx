@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface PremiumModalProps {
   isOpen: boolean;
@@ -7,7 +7,6 @@ interface PremiumModalProps {
   currentApiKey: string;
   onSave: (domain: string, apiKey: string) => void;
 }
-
 const SettingModal: React.FC<PremiumModalProps> = ({
   isOpen,
   onClose,
@@ -18,6 +17,12 @@ const SettingModal: React.FC<PremiumModalProps> = ({
   const [domain, setDomain] = useState(currentDomain);
   const [apiKey, setApiKey] = useState(currentApiKey);
 
+  useEffect(() => {
+    if (isOpen) {
+      setDomain(currentDomain);
+      setApiKey(currentApiKey);
+    }
+  }, [isOpen, currentDomain, currentApiKey]);
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {

@@ -4,10 +4,24 @@ import Card_component2 from "../components/Card_component2"
 import Overview_component1 from "../components/Overview_component1"
 import Profile from "../components/Profile"
 import TextComponent2 from "../components/TextComponent2"
-
+import { useRecoilState} from "recoil"
+import { isLoadingState, userState } from "../recoil"
+import { useEffect } from "react"
+import axios from "axios"
+import { useAuth } from "../context/useAuth"
+import toast from "react-hot-toast"
+import Loader from "../components/Loader"
 
   function UserOverview() {
+    const [user, setUser] = useRecoilState(userState);
+    const [loading, setLoading] = useRecoilState(isLoadingState);
+ 
     const navigate = useNavigate();
+    const auth = useAuth()
+    const BACKEND_URL=import.meta.env.VITE_REACT_URL_BACKEND_URL
+
+
+    
   const documents = [
     { document_id: 'CG-001-001', name: 'Aadhaar Card' },
     { document_id: 'CG-001-002', name: 'Voter ID' },
@@ -36,13 +50,68 @@ import TextComponent2 from "../components/TextComponent2"
       },
     });
   };
+  
+  const formatLastLogin = (isoDate: string) => {
+    const date = new Date(isoDate);
+    return date.toLocaleString("en-US", {
+      dateStyle: "medium",
+      timeStyle: "short", // This gives time like 4:15 PM
+    });
+  };
+  
+  const fetchUserDetails = async () => {
+    try {
+      console.log("Fetching user details...");
+      if (!auth.account) {
+        toast.error("Wallet address not found.");
+        return;
+      }
+      // console.log("Fetching user details for address:", auth.account);
+      // console.log("Backend URL:", BACKEND_URL);
+      const response = await axios.get(`${BACKEND_URL}/api/users?address=${auth.account}`);
+      // console.log("Response from backend:", response.data);
+      // Check if response has expected data
+      if (response.status === 200 && response.data) {
+       const user = response.data;
+        // console.log("User data:", response.data);
+        const currentTime = new Date().toISOString();
+        const formattedTime = formatLastLogin(currentTime);
+        setUser({
+          name:user?.name,
+          email:user?.email,
+          wallet: user?.wallet_address,
+          userId: user?._id , // Ensure userId is included
+          lastLogin: formattedTime, });
+        setLoading(false);
+        toast.success("User details fetched successfully.");
+  
+      } else {
+        toast.error("Unexpected response while fetching user info.");
+        console.error("Unexpected response:", response);
+      }
+    }
+    catch (error) {
+      toast.error("Error fetching user details.");
+      console.error("Error fetching user details:", error);
+    }
+  
+  };
+  useEffect(() => {
 
+    if (auth.isAuthenticated && auth.account && !user.name) {
+      
+      fetchUserDetails();
+      setLoading(true);
+     
+    }
+  },  [auth.isAuthenticated, auth.account]);
+  
     return (
         <>
         <div className="flex justify-between">
         <div className="h-32 w-[655px] bg-light-blue p-3 flex justify-between rounded-md">
           <div>
-                <div className="flex text-3xl gap-3"><h3 className="text-dark-blue font-semibold">Welcome</h3><h3 className="font-light">Nandkishor R ,</h3></div>
+                <div className="flex text-3xl gap-3"><h3 className="text-dark-blue font-semibold">Welcome</h3><h3 className="font-light">{user.name} ,</h3></div>
                 <p className="font-light font-lg">Great to have you back in the Delock are ready to go! </p>
           </div>
           <img src={overview_img} alt="secure_img" />

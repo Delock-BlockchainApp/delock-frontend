@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-
+import { useRecoilValue } from 'recoil';
+import { userState } from '../recoil'; // Adjust the import path as necessary
+import { useBlockchain } from '../context/BlockchainContext';
 function Profile() {
   const [isOpen, setIsOpen] = useState(false);
-  
-  // Mock user data - replace with your actual user data
-  const user = {
-    name: "John Doe",
-    email: "john@example.com",
-    wallet: "0x1234...5678"
-  };
+  const user = useRecoilValue(userState); // Get user data from Recoil state
+    const { disconnectWallet } = useBlockchain();
 
+  const formatWallet = (address: string) => {
+    if (!address) return "";
+    const match = address.match(/^(.{4,5}).+(.{7})$/);
+    return match ? `${match[1]}................${match[2]}` : address;
+  };
+  const Wallet = formatWallet(user.wallet);
   return (
     <div className="relative">
       <div 
@@ -35,12 +38,12 @@ function Profile() {
         
         <div className="p-4 border-b border-gray-100">
           <p className="text-xs text-gray-500 uppercase">Wallet Address</p>
-          <p className="text-sm font-mono text-gray-700">{user.wallet}</p>
+          <p className="text-sm font-mono text-gray-700 line-clamp-1">{Wallet}</p>
         </div>
         
         <div className="p-2">
           <button
-            onClick={() => console.log('Logout clicked')}
+            onClick={disconnectWallet}
             className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors"
           >
             Logout
