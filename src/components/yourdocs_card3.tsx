@@ -1,18 +1,25 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { userIpfsCredentials } from '../recoil';
+import { useRecoilValue } from 'recoil';
+import toast from 'react-hot-toast';
 
 interface CardProps {
     data: Record<string, any>;
 }
 
 const YourdocsCard4: React.FC<CardProps> = ({ data }) => {
-    // const navigate = useNavigate();
-// console.log(data)
-  // const handleNavigate = () => {
-  //   navigate(`${data?.code}`, { state: data });
-  // };
+     const credentials = useRecoilValue(userIpfsCredentials);
+  const HandleFileView= () => {
+    if(!credentials?.domain ){
+        toast.error("Please set your IPFS credentials in the settings page.");
+        return;
+    }
+    window.open(`https://${credentials?.domain}/ipfs/${data?.document_hash}`, '_blank');
+    
+  }
     return (
-        <div className='flex flex-col rounded-xl bg-white p-2 w-[120px] h-[150px] mt-8 mr-8  [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)] cursor-pointer'>
+        <div onClick={HandleFileView} className='flex flex-col rounded-xl bg-white p-2 w-[120px] h-[150px] mt-5 mr-8  [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)] cursor-pointer '>
 
 
 
@@ -22,10 +29,10 @@ const YourdocsCard4: React.FC<CardProps> = ({ data }) => {
             </div> 
             <div className=" relative flex flex-col mt-2">
                 <span className="absolute text-xs font-poppins font-semibold ">
-                    {data?.title}
+                    {data?.document_name}
                 </span>
                 <span className=" absolute text-xs font-poppins text-gray-500 mt-9">
-                    {data?.date}
+                    {data?.created_at}
                 </span>
             </div>
            

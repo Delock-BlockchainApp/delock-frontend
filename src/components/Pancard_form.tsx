@@ -28,7 +28,7 @@ function Pancard_form() {
 
     setLoading(false);
     if (response.status === 200) {
-		console.log('dfvdssdf',response.data.ipfsData.IpfsHash);
+		console.log('response',response.data.ipfsData.IpfsHash);
       issueDocument(
         (document.getElementById("userAddress") as HTMLInputElement).value,
         response.data.ipfsData.IpfsHash,

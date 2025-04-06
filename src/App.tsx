@@ -43,7 +43,7 @@ function App() {
         <Route path="documents/issuers" element={<Issuers />} />
         <Route path="documents/issuers/:departmentCode" element={<DocsViewMore />} />
         <Route path="documents/issuers/:departmentCode/:documentCode" element={<GetDoc />} />
-        <Route path="yourdocs/:folderName" element={<Yourdocs_viewmore />} />
+        <Route path="yourdocs/:folderId" element={<Yourdocs_viewmore />} />
         <Route path="settings" element={<Settings />} />
       </Route>
 

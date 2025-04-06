@@ -24,7 +24,7 @@ function IssuerCard({...issuer}: any) {
         </div>
         <div className="flex justify-between mt-2">
         <div className="flex w-44 h-7 border-2  border-dark-blue rounded-2xl justify-center items-center text-sm text-dark-blue">State Government</div>
-        <div className=" flex w-7 border-2 rounded-full border-dark-blue items-center justify-center cursor-pointer text-dark-blue hover:bg-dark-blue hover:text-white"><i onClick={handleClick} className="fa-solid fa-arrow-right -rotate-45"></i></div>
+        <div onClick={handleClick} className=" flex w-7 border-2 rounded-full border-dark-blue items-center justify-center cursor-pointer text-dark-blue hover:bg-dark-blue hover:text-white"><i className="fa-solid fa-arrow-right -rotate-45"></i></div>
         </div>
         </div>
   )
