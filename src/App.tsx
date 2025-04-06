@@ -17,7 +17,7 @@ import Home from './pages/Home'
 import AuthRoute from './routes/AuthRoute'
 import Delock from './pages/delock'
 import Issuers from './pages/Issuers'
-import AdminOverview from './pages/AdminOverview'
+
 import CustomFormPage from './pages/CustomFormPage'
 
 function App() {
@@ -28,39 +28,18 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Login />} />
 
-      {/* Protected User Routes */}
-      <Route
-        path="/dashboard"
-        element={
-          <AuthRoute>
-            <Layout />
-          </AuthRoute>
-        }
-      >
-        <Route index element={<Overview />} />
-        <Route path="documents" element={<Documents />} />
-        <Route path="yourdocs" element={<Yourdocs />} />
-        <Route path="documents/issuers" element={<Issuers />} />
-        <Route path="documents/issuers/:departmentCode" element={<DocsViewMore />} />
-        <Route path="documents/issuers/:departmentCode/:documentCode" element={<GetDoc />} />
-        <Route path="yourdocs/:folderId" element={<Yourdocs_viewmore />} />
-        <Route path="settings" element={<Settings />} />
-      </Route>
-
-      {/* Protected Admin Routes */}
-      <Route
-        path="/admin"
-        element={
-          <AuthRoute>
-            <Layout />
-          </AuthRoute>
-        }
-      >
-        <Route index element={<AdminOverview />} />
-        <Route path="settings" element={<Settings />} />
-        <Route path="upload" element={<UploadDocs />} />
-        <Route path="schema" element={<CustomFormPage />} />
-      </Route>
+      <Route path="/dashboard" element={<AuthRoute><Layout /></AuthRoute>}>
+  <Route index element={<Overview />} />
+  <Route path="documents" element={<Documents />} />
+  <Route path="yourdocs" element={<Yourdocs />} />
+  <Route path="documents/issuers" element={<Issuers />} />
+  <Route path="documents/issuers/:departmentCode" element={<DocsViewMore />} />
+  <Route path="documents/issuers/:departmentCode/:documentCode" element={<GetDoc />} />
+  <Route path="yourdocs/:folderId" element={<Yourdocs_viewmore />} />
+  <Route path="settings" element={<Settings />} />
+  <Route path="upload" element={<AuthRoute adminOnly><UploadDocs /></AuthRoute>} />
+  <Route path="schema" element={<AuthRoute adminOnly><CustomFormPage /></AuthRoute>} />
+</Route>
 
       {/* Fallback */}
       <Route path="*" element={<Error404 />} />
