@@ -19,7 +19,7 @@ function Layout() {
     { name: 'Overview', icon: 'bi bi-pie-chart-fill', path: '/dashboard' },
     { name: 'Documents', icon: 'bi bi-grid-fill', path: '/dashboard/documents' },
     { name: 'Settings', icon: 'bi bi-gear-fill', path: '/dashboard/settings' },
-    { name: 'Custom Form', icon: 'bi bi-file-earmark-text-fill', path: '/admin/schema' }
+    { name: 'Custom Form', icon: 'bi bi-file-earmark-text-fill', path: '/dashboard/schema' }
   ]
 
   const { disconnectWallet } = useBlockchain();

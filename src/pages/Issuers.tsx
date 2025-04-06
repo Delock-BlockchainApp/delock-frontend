@@ -7,11 +7,11 @@ function Issuers() {
     const [responseData, setResponseData] = useState([]);
     const navigate = useNavigate();
     const location=useLocation();
-    const searchedState=location.state;
+    const searcheditem=location.state;
 
-    if (searchedState) {
+    if (searcheditem) {
       if (searchKey === '') {
-        setSearchKey(searchedState);
+        setSearchKey(searcheditem);
       }
     }
     const fetchDepartmentData = async () => {

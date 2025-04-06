@@ -36,9 +36,15 @@ export const userIpfsCredentials = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const AdminState = atom({
+  key: 'AdminState',
+  default: {
+    department_name: "",
+    department_code: "",
+    wallet_address: "",
+    department_id:"",
+    lastLogedin: "", // Default to current date and time
 
-export const isLoadingState = atom({
-  key: 'isLoadingState',  
-  default: false,
+  },
+  effects_UNSTABLE: [persistAtom],
 });
-

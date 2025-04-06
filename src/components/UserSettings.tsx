@@ -10,27 +10,34 @@ export const UserSettings = () => {
   const BACKEND_URL = import.meta.env.VITE_REACT_URL_BACKEND_URL;
   const user = useRecoilValue(userState);
   const[credentials, setCredentials] = useRecoilState(userIpfsCredentials)
-   
+
   // Fetch saved settings
   const fetchCredentials = async () => {
     try {
       const response = await axios.get(`${BACKEND_URL}/api/users/credential?userId=${user.userId}`);
-      const data = response.data;
-        if (response.status === 200 && data) {
-           if (data.domain && data.api_key) {
-                setCredentials({ domain: data?.domain, apiKey: data?.api_key });
-        } else {
-            toast.error("Unexpected response while fetching settings.");
-            console.error("Unexpected response:", response);
-        }
       
-    } }catch (error) {
-      console.error("Error fetching settings:", error);
+      if (response.status === 200 && response.data) {
+        if (response.data.domain && response.data.api_key) {
+          setCredentials({ domain: response.data.domain, apiKey: response.data.api_key });
+        } else {
+          // Clear credentials if the response doesn't have expected data
+          setCredentials({ domain: "", apiKey: "" });
+          console.log("No valid credentials found in response");
+        }
+      } 
+    } catch (error) {
+      // Check specifically for 404 error
+      if (error.response && error.response.status === 404) {
+        console.log("No credentials found (404), clearing state");
+        setCredentials({ domain: "", apiKey: "" });
+      } else {
+        console.error("Error fetching settings:", error);
+      }
     }
   };
   useEffect(() => {
     fetchCredentials();
-  }, []);
+  }, [user]);
 
   const handleSaveSettings = async (newDomain: string, newApiKey: string) => {
     try {

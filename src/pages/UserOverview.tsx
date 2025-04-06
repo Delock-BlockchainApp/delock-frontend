@@ -5,16 +5,17 @@ import Overview_component1 from "../components/Overview_component1"
 import Profile from "../components/Profile"
 import TextComponent2 from "../components/TextComponent2"
 import { useRecoilState} from "recoil"
-import { isLoadingState, userState } from "../recoil"
-import { useEffect } from "react"
+import { userState } from "../recoil"
+import { useEffect, useState } from "react"
 import axios from "axios"
 import { useAuth } from "../context/useAuth"
 import toast from "react-hot-toast"
 import Loader from "../components/Loader"
+import {  ImportantDocuments } from "../utils/dataUtils"
 
   function UserOverview() {
     const [user, setUser] = useRecoilState(userState);
-    const [loading, setLoading] = useRecoilState(isLoadingState);
+    const [loading, setLoading] = useState(false);
  
     const navigate = useNavigate();
     const auth = useAuth()
@@ -22,31 +23,14 @@ import Loader from "../components/Loader"
 
 
     
-  const documents = [
-    { document_id: 'CG-001-001', name: 'Aadhaar Card' },
-    { document_id: 'CG-001-002', name: 'Voter ID' },
-    { document_id: 'CG-001-003', name: 'PAN Verification' },
-    { document_id: 'CG-001-004', name: 'Ration Card' },
-    { document_id: 'CG-001-005', name: 'Driving License' },
-    { document_id: 'CG-001-006', name: 'Vehicle Registration' },
-    { document_id: 'CG-001-007', name: 'Caste Certificate' },
-    { document_id: 'CG-001-008', name: 'Residence Certificate' },
-    { document_id: 'CG-001-009', name: 'Life Insurance' },
-    { document_id: 'CG-001-010', name: 'Class X Marksheet' },
-  ];
+ 
 
-  const department = {
-    state: 'Central Government',
-    department_code: 'CG-001',
-    department_name: 'Ministry of Home Affairs',
-    department_description: 'Responsible for internal security and citizen identification.',
-  };
 
-  const handleNavigate = (doc: { document_id: string; name: string }) => {
-    navigate(`documents/issuers/${department.department_code}/${doc.document_id}`, {
+  const handleNavigate = (doc: {dep_code:string; doc_code: string; dep_name: string;state:string;title:string },index:number) => {
+    navigate(`documents/issuers/${doc.dep_code}/${doc.doc_code}`, {
       state: {
-        ...department,
-        document_name: doc.name,
+        ...ImportantDocuments[index],
+        document_name: doc.title,
       },
     });
   };
@@ -66,45 +50,47 @@ import Loader from "../components/Loader"
         toast.error("Wallet address not found.");
         return;
       }
-      // console.log("Fetching user details for address:", auth.account);
-      // console.log("Backend URL:", BACKEND_URL);
+      
+      setLoading(true); // Set loading to true at the start of the fetch
+      
       const response = await axios.get(`${BACKEND_URL}/api/users?address=${auth.account}`);
-
-      console.log("Response from backend:", response.data);
-      // Check if response has expected data
+      
       if (response.status === 200 && response.data) {
-       const user = response.data;
-        // console.log("User data:", response.data);
+        const user = response.data;
         const currentTime = new Date().toISOString();
         const formattedTime = formatLastLogin(currentTime);
+        
         setUser({
-          name:user?.name,
-          email:user?.email,
+          name: user?.name,
+          email: user?.email,
           wallet: user?.wallet_address,
-          userId: user?._id , // Ensure userId is included
-          lastLogin: formattedTime, });
-        setLoading(false);
-        toast.success("User details fetched successfully.");
-  
+          userId: user?._id, // Ensure userId is included
+          lastLogin: formattedTime,
+        });
+        
+        // toast.success("User details fetched successfully.");
       } else {
         toast.error("Unexpected response while fetching user info.");
         console.error("Unexpected response:", response);
       }
-    }
-    catch (error) {
+    } catch (error) {
       toast.error("Error fetching user details.");
       console.error("Error fetching user details:", error);
+    } finally {
+      setLoading(false); // Set loading to false whether the request succeeds or fails
     }
-  
   };
+
   useEffect(() => {
- 
-    if (auth.isAuthenticated && auth.account && !user.name ) {
+    // Only fetch if authenticated, has account, and user details aren't loaded yet
+    if (auth.isAuthenticated && auth.account) {
       fetchUserDetails();
-      setLoading(true);
-     
     }
-  },  [auth.isAuthenticated, auth.account]);
+  }, [auth.isAuthenticated, auth.account, user.name]);
+
+  if (loading) {
+    return <Loader />; // Show loading indicator while fetching user details  
+  }
   
     return (
         <>
@@ -135,9 +121,9 @@ import Loader from "../components/Loader"
   
           <TextComponent2 text="Documents you might need" />
           <div className="w-full grid grid-cols-4 gap-4">
-            {documents.map((doc, index) => (
-              <div key={index} onClick={() => handleNavigate(doc)} className="cursor-pointer">
-                <Card_component2 Name={doc.name} />
+            {ImportantDocuments.map((doc, index) => (
+              <div key={index} onClick={() => handleNavigate(doc,index)} className="cursor-pointer">
+                <Card_component2 Name={doc.title} />
               </div>
             ))}
           </div>

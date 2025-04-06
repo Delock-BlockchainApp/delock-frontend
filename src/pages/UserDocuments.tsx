@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useBlockchain } from "../context/BlockchainContext";
 // import YourdocsCard3 from "../components/yourdocs_card3";
 import Profile from "../components/Profile";
-import { getDepartmentName, getDocumentName, stateMap } from "../utils/dataUtils";
+import { getDepartmentName, getDocumentName, ImportantDocuments, stateMap } from "../utils/dataUtils";
 import { useNavigate } from "react-router-dom";
 import KeywordResults from '../components/Keyword_List';
 
@@ -31,7 +31,16 @@ function UserDocuments() {
     "Agriculture"
   ];
   
-
+  
+   
+  const handleNavigate = (doc: {dep_code:string; doc_code: string; dep_name: string;state:string;title:string },index:number) => {
+    navigate(`/dashboard/documents/issuers/${doc.dep_code}/${doc.doc_code}`, {
+      state: {
+        ...ImportantDocuments[index],
+        document_name: doc.title,
+      },
+    });
+  };
   
   // Function to get department name
   // const getDepartmentName = (deptId: string): string | undefined => {
@@ -95,31 +104,26 @@ function UserDocuments() {
       </div>
 
 
-      <TextComponent2 text="Issued Documents" />
+      {/* <TextComponent2 text="Issued Documents" />
       
        <div className='flex justify-between'>
         {documents.slice(0, 4).map((document) => (
           <Card_component1 title={getDocumentName(document.docId) || "Unknown Document"} description={''} Authority={getDepartmentName(document.depId) || "Unknown Department"} />
         ))}
 
-      </div>
+      </div> */}
+      <div className=" text-[16px] font-poppins font-medium mt-3 ">Authorized Government Documents</div>
+
+          <div className="w-full grid grid-cols-4 gap-4">
+            {ImportantDocuments.map((doc, index) => (
+              <div key={index} onClick={() => handleNavigate(doc,index)} className="cursor-pointer">
+                <Card_component2 Name={doc.title} />
+              </div>
+            ))}
+          </div>
 
       <div className=" flex items-center rounded-[10px] bg-[#EBF3FC] pt-0 w-[1200px] h-[53px] mt-8 ">
         <div className="  font-poppins  text-[20px] text-base ml-4 font-normal" style={{ color: '#004182' }}>Combines blockchain’s immutability, IPFS’s distributed storage, and smart contract-based workflows.</div>
-      </div>
-      <div className=" text-[16px] font-poppins font-medium mt-3 ">Authorized Government Documents</div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-x-10 w-11/12">
-        <Card_component2 Name={'E-Aadhar'} />
-        <Card_component2 Name={'Residence Certificate'} />
-        <Card_component2 Name={'Voter ID'} />
-        <Card_component2 Name={'Driving License'} />
-        <Card_component2 Name={'Pan Card'} />
-        <Card_component2 Name={'XII Certificate'} />
-        <Card_component2 Name={'X Certificate'} />
-        <Card_component2 Name={'Life Insurance'} />
-        <Card_component2 Name={'Ration Card'} />
-        <Card_component2 Name={'Caste Certifiacte'} />
-
       </div>
       <div className=" text-[16px] font-poppins font-medium mt-5">State Government</div>
       <div className="mt-5 w-[1200px]">
@@ -132,8 +136,9 @@ function UserDocuments() {
 
 
         <KeywordResults keywords={keywords}>
+          </KeywordResults>
     
-        </KeywordResults>
+      
 
 
           </div>
