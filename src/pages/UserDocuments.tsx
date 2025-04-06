@@ -1,5 +1,4 @@
-import React from 'react'
-import axios from "axios";
+
 import Card_component1 from '../components/Card_component1'
 import Card_component2 from '../components/Card_component2'
 import Card_component3 from '../components/Card_component3'
@@ -10,23 +9,15 @@ import { useBlockchain } from "../context/BlockchainContext";
 // import YourdocsCard3 from "../components/yourdocs_card3";
 import Profile from "../components/Profile";
 import { getDepartmentName, getDocumentName, stateMap } from "../utils/dataUtils";
-import Card_component4 from "../components/Card_component4";
 import { useNavigate } from "react-router-dom";
 import KeywordResults from '../components/Keyword_List';
 
 function UserDocuments() {
     const navigate = useNavigate();
-  interface Department {
-    _id: string;
-    department_name: string;
-    state: string; // Added state property
-    department_code: string; // Added department_code property
-  }
+
   const { contract, account } = useBlockchain();
 
   const [documents, setDocuments] = useState<any[]>([]);
-
-  const [departments, setDepartments] = useState<any[]>([]);
 
   const keywords = [
     "Vehicle",
@@ -72,19 +63,6 @@ function UserDocuments() {
     }
   };
 
-  const fetchDepartmentData = async () => {
-    try {
-      // const response = await axios.get("http://localhost:3000/api/documents/get_all_department");
-      // if (response.status !== 200) throw new Error(`HTTP error! Status: ${response.status}`);
-
-      // const data = response.data;
-      // setDepartments(data.departmentData);
-
-      console.log("Department Data ", departments);
-    } catch (error) {
-      console.error("Error fetching department data:", error);
-    }
-  };
 
   useEffect(() => {
     getRequestedDocuments();
@@ -93,9 +71,6 @@ function UserDocuments() {
     , [contract, account]);
 
 
-  useEffect(() => {
-    fetchDepartmentData();
-  }, []);
 
   return (
     <div>
@@ -153,21 +128,14 @@ function UserDocuments() {
             <Card_component3 Name={value} />
           ))}
         </div>
+
+
+
         <KeywordResults keywords={keywords}>
     
         </KeywordResults>
 
 
-        {/* <section>
-            <div className="mt-5">
-              <TextComponent2 text="Education & Learning" />
-              <div className="flex mt-5">
-                {departments?.map((department, index) => (
-                <Card_component4 key={index} issuer={department} />
-                ))}
-              </div>
-            </div>
-          </section> */}
           </div>
     </div>
   )
