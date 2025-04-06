@@ -69,7 +69,8 @@ import Loader from "../components/Loader"
       // console.log("Fetching user details for address:", auth.account);
       // console.log("Backend URL:", BACKEND_URL);
       const response = await axios.get(`${BACKEND_URL}/api/users?address=${auth.account}`);
-      // console.log("Response from backend:", response.data);
+
+      console.log("Response from backend:", response.data);
       // Check if response has expected data
       if (response.status === 200 && response.data) {
        const user = response.data;
@@ -97,9 +98,8 @@ import Loader from "../components/Loader"
   
   };
   useEffect(() => {
-
-    if (auth.isAuthenticated && auth.account && !user.name) {
-      
+ 
+    if (auth.isAuthenticated && auth.account && !user.name ) {
       fetchUserDetails();
       setLoading(true);
      

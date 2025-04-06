@@ -724,7 +724,7 @@ export const BlockchainProvider: React.FC<{ children: React.ReactNode }> = ({ ch
           } else {
             toast.error('User not registered!');
             setAuth({ isAuthenticated: false, account: userAccount });
-            disconnectWallet();
+            // disconnectWallet();
             navigate('/signup');
           }
         }
