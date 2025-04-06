@@ -8,11 +8,11 @@ function TextComponent2({text}: TextComponentProps) {
   const navigate = useNavigate();
 
     const handleNavigate = () => {
-      navigate(`issuers/${text}`, { state: { text } });
+      navigate('issuers', { state: text });
     };
   return (
-    <div className="flex justify-between">
-          <p className="font-medium" >{text}</p><p  onClick={handleNavigate}>view all <i className="bi bi-arrow-right"></i></p>
+    <div className="flex justify-between cursor-pointer">
+          <p  className="font-medium" >{text}</p> <p onClick={handleNavigate}>view all <i className="bi bi-arrow-right"></i></p>
     </div>
   )
 }

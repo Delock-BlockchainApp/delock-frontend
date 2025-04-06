@@ -153,9 +153,9 @@ function UserDocuments() {
             <Card_component3 Name={value} />
           ))}
         </div>
-        <KeywordResults keywords={keywords}>
+        <KeywordResults keywords={keywords}/>
     
-        </KeywordResults>
+      
 
 
         {/* <section>
