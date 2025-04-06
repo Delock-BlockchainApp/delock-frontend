@@ -4,12 +4,14 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useBlockchain } from "../context/BlockchainContext";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
 const navigate = useNavigate();
   const { contract, connectWallet,account } = useBlockchain();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const BACKEND_URL = import.meta.env.VITE_REACT_URL_BACKEND_URL;
 
   const handleConnect = async () => {
     if (!name.trim() || !email.trim()) {
@@ -20,6 +22,24 @@ const navigate = useNavigate();
     try {
       await connectWallet();
       await registerUser(name, email);
+    try {
+      const response = await axios.post(`${BACKEND_URL}/api/users/register`, {
+        name: name,
+        email: email,
+        wallet_address: account, // Use the connected wallet address dynamically
+      });
+    if (response.status === 200 || response.status === 201) {
+      toast.success("Signup successful!");
+      navigate("/dashboard");
+    } else {
+      toast.error("Signup failed. Please try again.");
+    }
+    } catch (error) {
+      console.error("Error during API call:", error);
+      toast.error("Failed to register user. Please check your backend.");
+      return;
+    }
+
     } catch (error) {
       console.error(error);
       toast.error("Error connecting wallet.");

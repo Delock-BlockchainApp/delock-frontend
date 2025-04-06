@@ -98,8 +98,9 @@ import Loader from "../components/Loader"
   };
 
   useEffect(() => {
-    // Only fetch if authenticated, has account, and user details aren't loaded yet
-    if (auth.isAuthenticated && auth.account) {
+
+    if (auth.isAuthenticated && auth.account && !user.name) {
+      
       fetchUserDetails();
     }
   }, [auth.isAuthenticated, auth.account, user.name]);
