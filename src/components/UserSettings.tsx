@@ -11,17 +11,25 @@ export const UserSettings = () => {
   const user = useRecoilValue(userState);
   const[credentials, setCredentials] = useRecoilState(userIpfsCredentials)
 
+
+  const formatWallet = (address: string) => {
+    if (!address) return "";
+    const match = address.match(/^(.{7,8}).+(.{15})$/);
+    return match ? `${match[1]}................${match[2]}` : address;
+  };
+
   // Fetch saved settings
   const fetchCredentials = async () => {
     try {
       const response = await axios.get(`${BACKEND_URL}/api/users/credential?userId=${user.userId}`);
       
       if (response.status === 200 && response.data) {
-        if (response.data.domain && response.data.api_key) {
-          setCredentials({ domain: response.data.domain, apiKey: response.data.api_key });
+        const { domain, api_key,jwt_secret,jwt_token } = response.data;
+        if (domain && api_key && jwt_token && jwt_secret) {
+          setCredentials({ domain, api_key,jwt_secret,jwt_token });
         } else {
           // Clear credentials if the response doesn't have expected data
-          setCredentials({ domain: "", apiKey: "" });
+          setCredentials({ domain: "",api_key: "", jwt_token: "", jwt_secret: "" });  
           console.log("No valid credentials found in response");
         }
       } 
@@ -29,26 +37,31 @@ export const UserSettings = () => {
       // Check specifically for 404 error
       if (error.response && error.response.status === 404) {
         console.log("No credentials found (404), clearing state");
-        setCredentials({ domain: "", apiKey: "" });
+        setCredentials({ domain: "", apiKey: "", jwt_token: "", jwt_secret: "" });
       } else {
         console.error("Error fetching settings:", error);
       }
     }
   };
   useEffect(() => {
-    fetchCredentials();
-  }, [user]);
+    if(!credentials.domain && !credentials.api_key && !credentials.jwt_token && !credentials.jwt_secret){
+      fetchCredentials();
+    }
+    
+  }, [user,credentials]);
 
-  const handleSaveSettings = async (newDomain: string, newApiKey: string) => {
+  const handleSaveSettings = async (newDomain: string, newApiKey: string,newJwtToken:string,newJwtSecret:string) => {
     try {
       const SaveCredentials =await axios.post(`${BACKEND_URL}/api/users/credential`, {
         domain: newDomain,
         api_key: newApiKey,
+        jwt_token: newJwtToken,
+        jwt_secret: newJwtSecret,
         user_id: user.userId,
       });
       if (SaveCredentials.status !== 200) {
 
-      setCredentials({ domain: newDomain, apiKey: newApiKey });
+      setCredentials({ domain: newDomain, api_key: newApiKey, jwt_token: newJwtToken, jwt_secret: newJwtSecret });
       setIsModalOpen(false);
       toast.success("Credentials saved successfully.");
 
@@ -84,22 +97,23 @@ export const UserSettings = () => {
           </div>
         </div>
 
-        <div className="mt-10 w-11/12 shadow-md h-32 rounded-lg border-2 border-gray-200 p-5">
+        <div className="mt-10 w-11/12 shadow-md h-52 rounded-lg border-2 border-gray-200 p-5">
           <div className="flex justify-between">
             <p className="text-lg font-semibold">Delock Drive</p>
             <button
               onClick={() => setIsModalOpen(true)}
               className="text-gray-900 hover:text-gray-700"
-              title={credentials?.domain && credentials?.apiKey ? "Edit settings" : "Add settings"}
+              title={credentials ? "Edit settings" : "Add settings"}
             >
-              {credentials?.domain && credentials?.apiKey ? (
+              {credentials ? (
                 <i className="fa-solid fa-pen-to-square text-gray-900"></i>
               ) : (
                 <i className="fa-solid fa-plus text-gray-900"></i>
               )}
             </button>
           </div>
-          {credentials?.domain && credentials?.apiKey ? (
+          {credentials ? (
+            <>
             <div className="mt-7 flex">
               <p className="text-md gap-2 flex text-gray-700">
                 <span>Domain:</span>
@@ -107,9 +121,20 @@ export const UserSettings = () => {
               </p>
               <p className="text-md gap-2 flex text-gray-700 ml-44">
                 <span>API Key:</span>
-                <span className="font-semibold">{credentials?.apiKey}</span>
+                <span className="font-semibold">{credentials?.api_key}</span>
               </p>
             </div>
+             <div className="mt-7 flex">
+             <p className="text-md gap-2 flex text-gray-700">
+               <span>Jwt Token:</span>
+               <span className="font-semibold">{formatWallet(credentials?.jwt_token)}</span>
+             </p>
+             <p className="text-md gap-2 flex text-gray-700 ml-48">
+               <span>Jwt Secret:</span>
+               <span className="font-semibold">{formatWallet(credentials?.jwt_secret)}</span>
+             </p>
+           </div></>
+            
           ) : (
             <div className="mt-7 text-gray-500 text-center font-semibold">
               No Delock Drive settings configured. Click the add button to set up.
@@ -122,7 +147,9 @@ export const UserSettings = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         currentDomain={credentials?.domain}
-        currentApiKey={credentials?.apiKey}
+        currentApiKey={credentials?.api_key}
+        currentJwtToken={credentials?.jwt_token}
+        currentJwtSecret={credentials?.jwt_secret}
         onSave={handleSaveSettings}
       />
     </>

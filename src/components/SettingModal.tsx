@@ -5,29 +5,37 @@ interface PremiumModalProps {
   onClose: () => void;
   currentDomain: string;
   currentApiKey: string;
-  onSave: (domain: string, apiKey: string) => void;
+  currentJwtToken: string;
+  currentJwtSecret: string;
+  onSave: (domain: string, apiKey: string, jwtToken: string, jwtSecret: string) => void;
 }
 const SettingModal: React.FC<PremiumModalProps> = ({
   isOpen,
   onClose,
   currentDomain,
   currentApiKey,
+  currentJwtToken,
+  currentJwtSecret,
   onSave,
 }) => {
   const [domain, setDomain] = useState(currentDomain);
   const [apiKey, setApiKey] = useState(currentApiKey);
+  const [jwtToken, setJwtToken] = useState(currentJwtToken);
+  const [jwtSecret, setJwtSecret] = useState(currentJwtSecret);
 
   useEffect(() => {
     if (isOpen) {
       setDomain(currentDomain);
       setApiKey(currentApiKey);
+      setJwtToken(currentJwtToken);
+      setJwtSecret(currentJwtSecret);
     }
   }, [isOpen, currentDomain, currentApiKey]);
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(domain, apiKey);
+    onSave(domain, apiKey, jwtToken, jwtSecret);
     onClose();
   };
 
@@ -68,6 +76,30 @@ const SettingModal: React.FC<PremiumModalProps> = ({
                 onChange={(e) => setApiKey(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none  "
                 placeholder="Enter API key"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">
+                Jwt Token
+              </label>
+              <input
+                type="text"
+                value={jwtToken}
+                onChange={(e) => setJwtToken(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none  "
+                placeholder="Enter Jwt Token"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">
+                Jwt Secret
+              </label>
+              <input
+                type="text"
+                value={jwtSecret}
+                onChange={(e) => setJwtSecret(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none  "
+                placeholder="Enter Jwt Secret"
               />
             </div>
           </div>

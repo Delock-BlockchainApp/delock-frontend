@@ -31,7 +31,9 @@ export const userIpfsCredentials = atom({
   key: 'userIpfsCredentials',
   default: {
     domain: "",
-    apiKey: "",
+    api_key: "",
+    jwt_token: "",
+    jwt_secret:""
   },
   effects_UNSTABLE: [persistAtom],
 });
