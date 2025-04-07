@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import toast from "react-hot-toast";
 
 function App() {
   const [walletAddress, setWalletAddress] = useState(null);
@@ -13,7 +14,7 @@ function App() {
   // Connect to MetaMask
   const connectWallet = async () => {
     if (!checkMetaMaskInstalled()) {
-      alert("MetaMask is not installed. Please install it to use this dApp!");
+      toast.error("MetaMask is not installed. Please install it to use this dApp!");
       return;
     }
 
@@ -25,7 +26,7 @@ function App() {
       setIsConnected(true); // Set connection status
     } catch (error) {
       console.error("Error connecting to MetaMask:", error);
-      alert("Could not connect to MetaMask!");
+      toast.error("Could not connect to MetaMask!");
     }
   };
 

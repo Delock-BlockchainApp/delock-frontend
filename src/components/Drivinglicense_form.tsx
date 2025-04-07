@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useBlockchain } from '../context/BlockchainContext';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 
 
@@ -16,10 +17,10 @@ function Drivinglicense_form() {
     try {
       const tx = await contract.issueDocument(userAddress, ipfsHash, deptId, docId);
       await tx.wait(); // Wait for transaction to be mined
-      alert("Document issued successfully!");
+      toast.success("Document issued successfully!");
     } catch (error) {
       console.error(error);
-      alert("Error issuing document.");
+      toast.error("Error issuing document.");
     }
   };
 
@@ -164,7 +165,7 @@ function Drivinglicense_form() {
           onClick={async () => {
 
             if ((document.getElementById('IssuingAuthority') as HTMLInputElement).value == '' || (document.getElementById('name') as HTMLInputElement).value == '' || (document.getElementById('licenseNo') as HTMLInputElement).value == '' || (document.getElementById('AuthorizeVehicle') as HTMLInputElement).value == '' || (document.getElementById('guardian') as HTMLInputElement).value == '' || (document.getElementById('dob') as HTMLInputElement).value == '' || (document.getElementById('address') as HTMLTextAreaElement).value == '' || (document.getElementById('bloodGroup') as HTMLSelectElement).value == '' || (document.getElementById('doi') as HTMLInputElement).value == '' || (document.getElementById('doe') as HTMLInputElement).value == '') {
-              window.alert('Please fill all the fields');
+              toast('Please fill all the fields');
               return;
             }
             setLoading(true);

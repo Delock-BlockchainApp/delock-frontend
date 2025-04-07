@@ -4,6 +4,7 @@ import uploading from '../assets/uploading.gif'
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { useBlockchain } from '../context/BlockchainContext';
+import toast from 'react-hot-toast';
 
 function Pancard_form() {
 
@@ -45,10 +46,10 @@ const issueDocument = async (userAddress: string, ipfsHash: string, deptId: stri
         try {
             const tx = await contract.issueDocument(userAddress, ipfsHash, deptId,docId);
             await tx.wait(); // Wait for transaction to be mined
-            alert("Document issued successfully!");
+          toast.success("Document issued successfully!");
         } catch (error) {
             console.error(error);
-            alert("Error issuing document.");
+            toast.error("Error issuing document.");
         }
     };
 

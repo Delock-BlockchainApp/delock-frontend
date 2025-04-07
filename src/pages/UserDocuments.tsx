@@ -9,6 +9,7 @@ import Profile from "../components/Profile";
 import {  ImportantDocuments, stateMap } from "../utils/dataUtils";
 import { useNavigate } from "react-router-dom";
 import KeywordResults from '../components/Keyword_List';
+import toast from 'react-hot-toast';
 
 function UserDocuments() {
     const navigate = useNavigate();
@@ -66,7 +67,7 @@ function UserDocuments() {
       console.log("Parsed Docs:", parsedDocs);
     } catch (error) {
       console.error(error);
-      alert("Error fetching documents.");
+      toast.error("Error fetching documents.");
     }
   };
 
