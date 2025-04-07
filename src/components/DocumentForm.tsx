@@ -2,10 +2,11 @@ import { useState } from "react";
 
 interface DocumentFormProps {
     documentSchema: Record<string, string>;
+    onFormSubmit: (formData: Record<string, any>) => void;
   }
-  
-export const DocumentForm: React.FC<DocumentFormProps> = ({ documentSchema }) => {
+export const DocumentForm: React.FC<DocumentFormProps> = ({ documentSchema, onFormSubmit }) => {
     const [formData, setFormData] = useState<Record<string, any>>({});
+    
   
     const handleChange = (key: string, value: string | number) => {
       setFormData((prev) => ({ ...prev, [key]: value }));
@@ -17,6 +18,7 @@ export const DocumentForm: React.FC<DocumentFormProps> = ({ documentSchema }) =>
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       console.log("Document Data:", formData);
+      onFormSubmit(formData);
     };
   
     const renderInput = (key: string, type: string) => {

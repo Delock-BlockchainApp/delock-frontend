@@ -1,14 +1,10 @@
-const Overview_component1 = ({ title, maskedId, issuer, imageUrl }) => {
+const Overview_component1 = ({ title, maskedId, issuer }) => {
   return (
     <div className="w-[250px] h-[150px] border border-gray-300 rounded-lg shadow-md p-4 bg-white flex flex-col justify-between mt-5 mr-7 mb-5">
       <div className="flex items-center">
         {/* Image Box */}
         <div className="w-20 h-20 bg-gray-300 rounded-lg flex-shrink-0 overflow-hidden">
-          <img
-            src={imageUrl || "/assets/photo.jpg"}
-            alt={title}
-            className="w-full h-full object-cover"
-          />
+        <img src="https://cdn-icons-png.flaticon.com/512/1250/1250614.png" alt="icon" className='w-[80px] h-[80px]' />
         </div>
 
         {/* Text Content */}

@@ -149,7 +149,7 @@ import { useBlockchain } from "../context/BlockchainContext"
               title={item.title}
               maskedId={item.maskedId}
               issuer={item.issuer}
-              imageUrl={item.imageUrl}
+              
             />
           ))}
         </div>

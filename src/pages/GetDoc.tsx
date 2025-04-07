@@ -20,7 +20,7 @@ const IssueData = () => {
 
     if (!contract) {
       toast.error("Blockchain contract not available.");
-      connectWallet();
+      connectWallet(); // Triggers MetaMask
       return;
     }
 
