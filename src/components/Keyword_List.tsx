@@ -43,7 +43,7 @@ const KeywordResults = ({ keywords }: KeywordResultsProps) => {
 {result.data && result.data.length > 0 && (
     <section>
         <div className="mt-5">
-            <TextComponent2 text={`${result.keyword}`} />
+            <TextComponent2 text={`${result.keyword}`   } dept={`${result.data[0].department_name}`}/>
             <div className="flex mt-5">
                 {result.data.slice(0, 8).map((department: Record<string, any>, index: React.Key | null | undefined) => (
                     <Card_component4 key={index} issuer={department} />

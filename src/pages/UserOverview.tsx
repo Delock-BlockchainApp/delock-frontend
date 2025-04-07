@@ -143,7 +143,7 @@ import { useBlockchain } from "../context/BlockchainContext"
         </div>
   
         <div className="mt-5">
-          <TextComponent2 text="Your latest searches" />
+          <TextComponent2 text="Your latest searches" dept="Your latest searches"/>
   
           {documents.length > 0 ? (
         <div className="flex flex-wrap">
@@ -165,7 +165,7 @@ import { useBlockchain } from "../context/BlockchainContext"
       )}
           
   
-          <TextComponent2 text="Documents you might need" />
+          <TextComponent2 text="Documents you might need" dept="Documents you might need"/>
           <div className="w-full grid grid-cols-4 gap-4">
             {ImportantDocuments.map((doc, index) => (
               <div key={index} onClick={() => handleNavigate(doc,index)} className="cursor-pointer">

@@ -1,14 +1,12 @@
 
-import Card_component1 from '../components/Card_component1'
 import Card_component2 from '../components/Card_component2'
 import Card_component3 from '../components/Card_component3'
-import TextComponent2 from '../components/TextComponent2'
 // import DepartmentAndDocs from "../components/Department_and_Docs";
 import { useEffect, useState } from "react";
 import { useBlockchain } from "../context/BlockchainContext";
 // import YourdocsCard3 from "../components/yourdocs_card3";
 import Profile from "../components/Profile";
-import { getDepartmentName, getDocumentName, ImportantDocuments, stateMap } from "../utils/dataUtils";
+import {  ImportantDocuments, stateMap } from "../utils/dataUtils";
 import { useNavigate } from "react-router-dom";
 import KeywordResults from '../components/Keyword_List';
 
@@ -27,7 +25,7 @@ function UserDocuments() {
     "Police",
     "Labour",
     "Fisheries",
-    "Urban Welfare",
+    "Urban",
     "Agriculture"
   ];
   
