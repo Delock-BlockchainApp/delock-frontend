@@ -19,8 +19,7 @@ const KeywordResults = ({ keywords }: KeywordResultsProps) => {
             const response = await axios.get(`${BACKEND_URL}/api/department`, {
               params: { searchkey: keyword },
             });
-            console.log("Response for keyword:", keyword, response.data);
-            return {
+             return {
               keyword,
               data: response.data,
             };
