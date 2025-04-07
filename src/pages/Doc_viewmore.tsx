@@ -5,6 +5,7 @@ import Profile from "../components/Profile";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 const BACKEND = import.meta.env.VITE_REACT_URL_BACKEND_URL;
 const Doc_viewmore = () => {
   const navigate = useNavigate();
@@ -26,8 +27,14 @@ const Doc_viewmore = () => {
         console.error("Unexpected response status:", response.status);
       }
     } catch (error) {
+      
       if (axios.isAxiosError(error)) {
-        console.error("Axios error fetching department documents:", error.message);
+        if (error.response?.status === 404) {
+          console.error("Document not found (404).");
+          toast.error("There are no documents available for this department.");
+        } else {
+          console.error("Axios error fetching department documents:", error.message);
+        }
       } else {
         console.error("Unexpected error fetching department documents:", error);
       }
@@ -75,14 +82,24 @@ const Doc_viewmore = () => {
       </div>
       <p className="flex flex-col ml-14 mt-5 text-md w-[1000px]">{data?.department_description}</p>
       <div className="flex justify-between mt-5 font-medium ml-14">Available documents</div>
-      <div className="ml-10 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 w-2/3">
+      {documents?.length === 0 ? (
+       <div className=" flex w-full justify-center ">
+       <div className="flex justify-center items-center rounded-lg bg-light-blue pt-1 w-8/12 mt-10 h-28">
+         <div className="text-base ml-4 font-light text-dark-blue text-lg font-medium">
+           No Data Available , there are no documents available for this department.
+         </div>
+       </div>
+       </div>
+      ) : (
+       <div className="ml-10 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 w-2/3">
         {documents?.map((doc, index) => (
           <Card_component5
             key={index}
             data={{ dep_name: data?.department_name, dep_code:data?.department_id,state: data?.state, doc_code: doc?.document_id, title: doc?.document_name,doc_description: doc?.document_description }}
           />
         ))}
-      </div>
+      </div>)}
+      
     </div>
   );
 };

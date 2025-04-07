@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 function AdminOverview() {
   const { account, isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(true);
-  const [department, setDepartment] = useRecoilState(AdmindocumentState);
+  const [documents, setDocuments] = useRecoilState(AdmindocumentState);
   const [admin, setAdmin] = useRecoilState(AdminState);
 const navigate=useNavigate();
 const hasFetched = useRef(false);
@@ -52,16 +52,15 @@ const hasFetched = useRef(false);
           lastLogin: formattedTime,
         });
   
-        const docsResponse = await axios.get(`${BACKEND_URL}/api/department/${data?.department_code}`);
-        const { documents, state } = docsResponse.data;
-  
-        setDepartment({ documents, state });
-        hasFetched.current = true;
+        const docsResponse = await axios.get(`${BACKEND_URL}/api/documents?documentId=${data?.department_code}`);
+        if (docsResponse.status === 200 && docsResponse.data) {
+          setDocuments(docsResponse.data);
+          hasFetched.current = true;
       } else {
         // MongoDB record not found
         toast.error("Admin not registered in database.");
         navigate("/signin"); // 🔁 Redirect to login
-      }
+      }}
     } catch (error: any) {
       toast.error("Admin not found or server error.");
       console.error("Error:", error?.response || error.message);
@@ -71,11 +70,16 @@ const hasFetched = useRef(false);
     }
   };
   useEffect(() => {
+    hasFetched.current = false; // Reset fetch flag when account changes
+  }, [account]);
+  
+  useEffect(() => {
     if (isAuthenticated && account) {
       fetchAdminDetails();
     }
-  }, [isAuthenticated, account]);
+  }, [isAuthenticated, account,admin.department_name]);
 
+  
   if (loading) return <Loader />;
 
   return (
@@ -106,7 +110,7 @@ const hasFetched = useRef(false);
           <AdminCard1 Name="Total Issuer" Number={280} />
           <AdminCard1 Name="Total Users" Number={300} />
           <AdminCard1 Name="Total Department Documents" Number={840} />
-          <AdminCard1 Name="Department Documents" Number={department?.documents.length} />
+          <AdminCard1 Name="Department Documents" Number={documents.length} />
           <AdminCard1 Name="Documents Issued" Number={300} />
         </div>
       </div>
@@ -114,8 +118,8 @@ const hasFetched = useRef(false);
       <div className="mt-10 pl-5">
         <p className="font-semibold">Issued Documents found</p>
         <div className="flex mt-5 gap-5 flex-wrap">
-          {department?.documents.length > 0 ? (
-            department?.documents.map((doc, index) => (
+          {documents.length > 0 ? (
+            documents.map((doc, index) => (
               <AdminCard2 key={index} data={doc} />
             ))
           ) : (

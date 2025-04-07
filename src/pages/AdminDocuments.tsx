@@ -6,7 +6,16 @@ import { AdmindocumentState } from '../recoil'
 import AdminCard3 from '../components/Admin/AdminCard3'
 
 function AdminDocuments() {
-  const Department=useRecoilValue(AdmindocumentState)
+  const documents=useRecoilValue(AdmindocumentState)
+  let state: string 
+  if(documents?.length!=0){
+    if (documents[0].department_id.startsWith("CG")) {
+      state="All State"
+    }
+  }
+
+
+
   return (
     <div>
     {/* Top section */}
@@ -16,8 +25,8 @@ function AdminDocuments() {
     </div>
     <div className='mt-5'>
       <div className='flex grid grid-cols-3'>
-      {Department && Department?.documents?.map((doc, index) => (
-        <AdminCard3 key={index} data={{...doc,state:Department?.state}} /> 
+      {documents && documents?.map((doc, index) => (
+        <AdminCard3 key={index} data={{...doc,state}} /> 
       ))}
       </div>
     </div>
