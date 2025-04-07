@@ -60,12 +60,12 @@ const hasFetched = useRef(false);
       } else {
         // MongoDB record not found
         toast.error("Admin not registered in database.");
-        navigate("/login"); // 🔁 Redirect to login
+        navigate("/signin"); // 🔁 Redirect to login
       }
     } catch (error: any) {
       toast.error("Admin not found or server error.");
       console.error("Error:", error?.response || error.message);
-      navigate("/login"); // 🔁 Redirect to login
+      navigate("/signin"); // 🔁 Redirect to login
     } finally {
       setLoading(false);
     }

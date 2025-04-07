@@ -5,9 +5,33 @@ export const ImportantDocuments = [
     { dep_code: "CG-CG5", doc_code: 'CG-CG5-001', dep_name: 'Caste Certificate', state: "Central Government", title: "Caste Certificate"},
     { dep_code: "CG-CG1", doc_code: 'CG-CG1-001', dep_name: 'Passport', state: "Central Government", title: "Passport"},
     { dep_code: "CG-CG5", doc_code: 'CG-CG5-003', dep_name: 'Disability Certificate', state: "Central Government", title: "Disability Certificate"},
+    { 
+        dep_code: "CG-CG10", 
+        doc_code: "CG-CG10-001", 
+        dep_name: "Ayushman Bharat Card", 
+        state: "Central Government", 
+        title: "Ayushman Bharat Card", 
+        description: "The Ayushman Bharat Card provides health insurance coverage under the Pradhan Mantri Jan Arogya Yojana (PM-JAY), allowing eligible families to receive free medical treatment at government and empaneled private hospitals.",
+    },
+    {
+        dep_code: "AN-D1",
+        doc_code: "AN-D1-001",
+        dep_name: "Driving Licence",
+        state: "State Government",
+        title: "Driving Licence",
+        description: "A Driving Licence is an official document issued by the transport authority that permits an individual to operate a motor vehicle on public roads. It serves as proof of competence in driving, ensuring that the holder has undergone the necessary training, passed the required tests, and meets all legal requirements for road safety. The licence includes details such as the individual's name, photograph, date of birth, address, and the vehicle categories they are allowed to drive. It must be renewed periodically and can be suspended or revoked for traffic violations.",
+   
+    },
+    {
+        dep_code: "AN-D1",
+        doc_code: "AN-D1-002",
+        dep_name: "Vehicle Registration Certificate",
+        state: "State Government",
+        title: "Vehicle Registration Certificate",
+        description: "The Vehicle Registration Certificate (RC) is an essential legal document that establishes the ownership and registration details of a motor vehicle. Issued by the Regional Transport Office (RTO), the RC contains crucial information such as the vehicle's registration number, chassis number, engine number, owner\u2019s details, fuel type, and date of registration. It is mandatory for all vehicle owners to carry a valid RC while operating their vehicle, as it serves as proof that the vehicle has been registered under government regulations and is legally allowed on the road.",
+ 
+    }
 ];
-
-
 
 // State Map
 export const stateMap = new Map([

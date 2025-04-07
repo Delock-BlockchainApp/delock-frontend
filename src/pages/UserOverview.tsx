@@ -173,7 +173,7 @@ import { useBlockchain } from "../context/BlockchainContext"
               </div>
             ))}
           </div>
-  <div className="flex items-center rounded-lg bg-light-blue pt-1 w-11/12 mt-2 h-12 mb-10">
+  <div className="flex items-center rounded-lg bg-light-blue pt-1 w-11/12 mt-10 h-12 mb-10">
             <div className="text-base ml-4 font-light text-dark-blue text-xl">
               Enhances security, reduces fraud risk, streamlines document management for government and citizens.
             </div>
