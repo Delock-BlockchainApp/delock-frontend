@@ -27,10 +27,6 @@ import { useBlockchain } from "../context/BlockchainContext"
     const BACKEND_URL=import.meta.env.VITE_REACT_URL_BACKEND_URL
 
 
-    
- 
-
-
   const handleNavigate = (doc: {dep_code:string; doc_code: string; dep_name: string;state:string;title:string },index:number) => {
     navigate(`documents/issuers/${doc.dep_code}/${doc.doc_code}`, {
       state: {

@@ -14,7 +14,8 @@ export const AdminCard3=({ data }: { data: Data })=>{
     navigate(`upload`, {
       state:  {document_id:data.document_id,document_name:data.document_name} ,
     });
-    // console.log("Data in AdminCard3:", data);
+    
+     console.log("Data in AdminCard3:", data);
   };
   return (
     <div className="relative bg-white border-2 rounded-lg w-[350px] h-[250px] mt-5 shadow-md flex p-3 flex-col">
