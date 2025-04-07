@@ -10,6 +10,7 @@ import AdminCard1 from "../components/Admin/AdminCard1";
 import AdminCard2 from "../components/Admin/AdminCard2";
 import overview_img from "../assets/adminoverview.png";
 import { useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
 function AdminOverview() {
@@ -17,7 +18,7 @@ function AdminOverview() {
   const [loading, setLoading] = useState(true);
   const [department, setDepartment] = useRecoilState(AdmindocumentState);
   const [admin, setAdmin] = useRecoilState(AdminState);
-  
+const navigate=useNavigate();
 const hasFetched = useRef(false);
   const BACKEND_URL = import.meta.env.VITE_REACT_URL_BACKEND_URL;
 
@@ -37,9 +38,10 @@ const hasFetched = useRef(false);
       console.log("Fetching admin details...");
   
       const response = await axios.get(`${BACKEND_URL}/api/department/admin/${account}`);
+  
       if (response.status === 200 && response.data) {
         const data = response.data;
-        
+  
         const formattedTime = formatLastLogin(new Date().toISOString());
   
         setAdmin({
@@ -52,22 +54,22 @@ const hasFetched = useRef(false);
   
         const docsResponse = await axios.get(`${BACKEND_URL}/api/department/${data?.department_code}`);
         const { documents, state } = docsResponse.data;
-    
-        setDepartment({ documents, state });
   
+        setDepartment({ documents, state });
         hasFetched.current = true;
       } else {
-        toast.error("Failed to fetch admin details.");
-        console.error("Unexpected response:", response);
+        // MongoDB record not found
+        toast.error("Admin not registered in database.");
+        navigate("/login"); // 🔁 Redirect to login
       }
-    } catch (error) {
-      toast.error("Error fetching admin details.");
-      console.error("Error:", error);
+    } catch (error: any) {
+      toast.error("Admin not found or server error.");
+      console.error("Error:", error?.response || error.message);
+      navigate("/login"); // 🔁 Redirect to login
     } finally {
       setLoading(false);
     }
   };
-  
   useEffect(() => {
     if (isAuthenticated && account) {
       fetchAdminDetails();
