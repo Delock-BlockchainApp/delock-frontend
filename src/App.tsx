@@ -15,7 +15,7 @@ import UploadDocs from './pages/UploadDocs'
 import GetDoc from './pages/GetDoc'
 import Home from './pages/Home'
 import AuthRoute from './routes/AuthRoute'
-import Delock from './pages/delock'
+// import Delock from './pages/delock'
 import Issuers from './pages/Issuers'
 
 import CustomFormPage from './pages/CustomFormPage'
@@ -37,8 +37,8 @@ function App() {
   <Route path="documents/issuers/:departmentCode/:documentCode" element={<GetDoc />} />
   <Route path="yourdocs/:folderId" element={<Yourdocs_viewmore />} />
   <Route path="settings" element={<Settings />} />
-  <Route path="upload" element={<AuthRoute adminOnly><UploadDocs /></AuthRoute>} />
-  <Route path="schema" element={<AuthRoute adminOnly><CustomFormPage /></AuthRoute>} />
+  <Route path="documents/upload" element={<AuthRoute adminOnly><UploadDocs /></AuthRoute>} />
+  <Route path="documents/upload/:documentCode" element={<AuthRoute adminOnly><CustomFormPage /></AuthRoute>} />
 </Route>
 
       {/* Fallback */}

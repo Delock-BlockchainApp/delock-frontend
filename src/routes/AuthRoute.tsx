@@ -16,8 +16,8 @@ const AuthRoute = ({ children, adminOnly = false }: AuthRouteProps) => {
     return <Navigate to="/signin" state={{ from: location }} replace />;
   }
 
-  if (adminOnly && auth.role !== "admin") {
-    return <Navigate to="/404" replace />;
+  if (adminOnly && auth.role !== 'admin') {
+    return <Navigate to="/dashboard" replace />;
   }
 
   return <>{children}</>;

@@ -1,81 +1,80 @@
 import { useEffect, useState } from "react";
-import Profile from "../components/Profile";
-import overview_img from "../assets/adminoverview.png";
-import AdminCard1 from "../components/Home/AdminCard1";
-import AdminCard2 from "../components/Home/AdminCard2";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { useAuth } from "../context/useAuth";
-import Loader from "../components/Loader";
 import { useRecoilState } from "recoil";
-import { AdminState } from "../recoil";
+import { AdmindocumentState, AdminState } from "../recoil";
+import Loader from "../components/Loader";
+import Profile from "../components/Profile";
+import AdminCard1 from "../components/Admin/AdminCard1";
+import AdminCard2 from "../components/Admin/AdminCard2";
+import overview_img from "../assets/adminoverview.png";
+import { useRef } from 'react';
+
+
 function AdminOverview() {
-  const { account } = useAuth();
-  // Use local loading state instead of global Recoil state
-  const [loading, setLoading] = useState(false);
-  const[Admin, setAdmin] = useRecoilState(AdminState)
+  const { account, isAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [department, setDepartment] = useRecoilState(AdmindocumentState);
+  const [admin, setAdmin] = useRecoilState(AdminState);
+  
+const hasFetched = useRef(false);
   const BACKEND_URL = import.meta.env.VITE_REACT_URL_BACKEND_URL;
 
   const formatLastLogin = (isoDate: string) => {
     const date = new Date(isoDate);
     return date.toLocaleString("en-US", {
       dateStyle: "medium",
-      timeStyle: "short", // This gives time like 4:15 PM
+      timeStyle: "short",
     });
+  };
+
+  const fetchAdminDetails = async () => {
+    if (!account || hasFetched.current) return;
+  
+    setLoading(true);
+    try {
+      console.log("Fetching admin details...");
+  
+      const response = await axios.get(`${BACKEND_URL}/api/department/admin/${account}`);
+      if (response.status === 200 && response.data) {
+        const data = response.data;
+        
+        const formattedTime = formatLastLogin(new Date().toISOString());
+  
+        setAdmin({
+          department_name: data?.department_name,
+          department_code: data?.department_code,
+          wallet_address: data?.wallet_address,
+          department_id: data?._id,
+          lastLogin: formattedTime,
+        });
+  
+        const docsResponse = await axios.get(`${BACKEND_URL}/api/department/${data?.department_code}`);
+        const { documents, state } = docsResponse.data;
+    
+        setDepartment({ documents, state });
+  
+        hasFetched.current = true;
+      } else {
+        toast.error("Failed to fetch admin details.");
+        console.error("Unexpected response:", response);
+      }
+    } catch (error) {
+      toast.error("Error fetching admin details.");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
   
   useEffect(() => {
-    // Track if the component is mounted
-    let isMounted = true;
-    
-    const fetchDepartmentDetails = async () => {
-      if (!account) return;
-      
-      setLoading(true);
-      try {
-        const response = await axios.get(`${BACKEND_URL}/api/department/admin?address=${account}`);
-        console.log("Department Details:", response.data);
-        if(response.status===200 && response.data){
-          const admin = response.data;
-          const currentTime = new Date().toISOString();
-          const formattedTime = formatLastLogin(currentTime);
-        // Only update state if component is still mounted
-        if (isMounted) {
-          setAdmin({
-            department_name: admin?.department_name,
-            department_code: admin?.department_code,
-            wallet_address: admin?.wallet_address,
-            department_id: admin?._id,
-            lastLogin: formattedTime,
-          });
-          // toast.success("Department details fetched successfully.");
-          setLoading(false);
-        }}
-      } catch (error) {
-        if (isMounted) {
-          if (error instanceof Error) {
-            console.error("Error fetching department details:", error.message);
-          } else {
-            console.error("Error fetching department details:", error);
-          }
-          setLoading(false);
-        }
-      }
-    };
-    if(Admin?.wallet_address!==account){
-      fetchDepartmentDetails();
+    if (isAuthenticated && account) {
+      fetchAdminDetails();
     }
-    
-    // Cleanup function to prevent state updates after unmount
-    return () => {
-      isMounted = false;
-    };
-  }, [account,setAdmin]);
+  }, [isAuthenticated, account]);
 
-  // Show your own loading indicator if needed
-  if (loading) {
-    return (<Loader/>)
-  }
-
+  if (loading) return <Loader />;
 
   return (
     <>
@@ -85,7 +84,7 @@ function AdminOverview() {
             <div className="flex text-3xl gap-3">
               <h3 className="text-dark-blue font-semibold">Welcome</h3>
               <h3 className="font-light">
-                {Admin.department_name}
+                {admin?.department_name || "Department"}
               </h3>
             </div>
             <p className="font-light text-lg">
@@ -98,22 +97,30 @@ function AdminOverview() {
       </div>
 
       <div className="mt-5">
-        <div className="w-4/5 grid grid-cols-3 gap-2 mt-20 ">
-          <div className="text-bold-blue text-2xl font-semibold ml-6 pl-5 mt-4">Statics Logics</div>
+        <div className="w-4/5 grid grid-cols-3 gap-2 mt-20">
+          <div className="text-bold-blue text-2xl font-semibold ml-6 pl-5 mt-4">
+            Statics Logics
+          </div>
           <AdminCard1 Name="Total Issuer" Number={280} />
           <AdminCard1 Name="Total Users" Number={300} />
           <AdminCard1 Name="Total Department Documents" Number={840} />
-          <AdminCard1 Name="Department Documents" Number={3} />
+          <AdminCard1 Name="Department Documents" Number={department?.documents.length} />
           <AdminCard1 Name="Documents Issued" Number={300} />
         </div>
       </div>
 
       <div className="mt-10 pl-5">
         <p className="font-semibold">Issued Documents found</p>
-        <div className="flex mt-5 gap-5">
-          <AdminCard2 Name="PanCard" />
-          <AdminCard2 Name="Aadhaar Card" />
-          <AdminCard2 Name="Voter ID" />
+        <div className="flex mt-5 gap-5 flex-wrap">
+          {department?.documents.length > 0 ? (
+            department?.documents.map((doc, index) => (
+              <AdminCard2 key={index} data={doc} />
+            ))
+          ) : (
+            <div className="text-light-blue font-light text-lg">
+              No documents found
+            </div>
+          )}
         </div>
       </div>
 

@@ -33,7 +33,7 @@ function Profile() {
       
       {/* Dropdown menu */}
       <div
-        className={`absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-200 ease-in-out border-2 ${
+        className={`absolute right-0 mt-2 w-72 z-50 bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-200 ease-in-out border-2 ${
           isOpen
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-[-10px] pointer-events-none'
@@ -73,13 +73,6 @@ function Profile() {
         <div className="p-2"> <button onClick={disconnectWallet} className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors cursor-pointer">  Logout  </button> </div> 
       </div>
       
-      {/* Click outside handler to close dropdown */}
-      {/* {isOpen && (
-        <div 
-          className="fixed inset-0 z-10" 
-          onClick={() => setIsOpen(false)}
-        />
-      )} */}
     </div>
   );
 }

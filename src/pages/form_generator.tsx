@@ -5,6 +5,7 @@ interface FormProps {
 }
 
 const FormGenerator: React.FC<FormProps> = ({ schema }) => {
+
   const [formData, setFormData] = useState<Record<string, any>>({});
 
   const handleChange = (key: string, value: string | number) => {
@@ -88,7 +89,7 @@ const FormGenerator: React.FC<FormProps> = ({ schema }) => {
       ))}
        <div className="mt-5 flex justify-end">
           <button
-            className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-pointer text-md "
+            className="flex h-9 w-52 rounded-lg bg-bold-blue text-white justify-center items-center font-semibold cursor-none text-md "
       
           >
             Issue Document

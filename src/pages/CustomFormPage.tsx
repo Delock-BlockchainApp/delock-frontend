@@ -2,21 +2,62 @@ import React, { useState } from "react";
 import SchemaGenerator from "./SchemaGenerator";
 import FormGenerator from "./form_generator";
 import toast from "react-hot-toast";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const CustomFormPage = () => {
+  const location=useLocation();
+  const document_name=location?.state
+  console.log("Document Name:",document_name);
+  const document_id=useParams().documentCode
+  const BACKEND_URL = import.meta.env.VITE_REACT_URL_BACKEND_URL;
+  const navigate=useNavigate()
+
   const [formSchema, setFormSchema] = useState<Record<string, string>>({});
   const [jsonOutput, setJsonOutput] = useState<string>("");
 
   const handleSchemaChange = (schema: Record<string, string>) => {
     setFormSchema(schema);
     setJsonOutput(JSON.stringify(schema, null, 2));
-    console.log("Generated JSON Schema:", schema);
-    console.log("Generated JSON Output:", jsonOutput);
+    // console.log("Generated JSON Schema:", schema);
+    // console.log("Generated JSON Output:", jsonOutput);
   };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(jsonOutput).then(() => {
-      alert("Copied to clipboard!");
+      toast.success("Copied to clipboard!");
+    });
+  };
+  const handleFormSubmit = async () => {
+    if (!formSchema || Object.keys(formSchema).length === 0) {
+      toast.error("Please generate a form schema before submitting.");
+      return;
+    }
+    const payload = {
+      document_schema: formSchema,
+      document_id,
+      document_name,
+    };
+
+    toast.promise(
+      axios.post(`${BACKEND_URL}/api/documents/docschema`, payload),
+      {
+        loading: "Saving document schema...",
+        success: "Document schema saved successfully.",
+        error: "Error while saving document schema.",
+      }
+    )
+    .then((response) => {
+      if (response.status === 201) {
+        console.log("Saved:", response.data);
+        navigate(-1);
+      } else {
+        toast.error("Failed to save document schema.");
+        console.error("Unexpected response:", response);
+      }
+    })
+    .catch((error) => {
+      console.error("Save error:", error instanceof Error ? error.message : error);
     });
   };
 
@@ -52,9 +93,7 @@ const CustomFormPage = () => {
             <p className="text-gray-600">No form schema generated yet.</p>
           )}
           <div className="mt-4 flex justify-end">
-          <div onClick={()=>{
-            toast.success("Document saved successfully");
-          }} className="h-9 flex bg-green-500 text-white px-4 py-2 rounded-md font-semibold text-md  hover:bg-green-600">Save Document</div>
+          <div onClick={handleFormSubmit} className="h-9 flex bg-green-500 text-white px-4 py-2 rounded-md font-semibold text-md cursor-pointer hover:bg-green-600">Save Document</div>
           </div>
           
         </div>

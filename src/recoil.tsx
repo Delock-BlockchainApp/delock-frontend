@@ -48,3 +48,9 @@ export const AdminState = atom({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const AdmindocumentState = atom({
+  key: 'AdmindocumentState',
+  default: {},
+  effects_UNSTABLE: [persistAtom],
+});
