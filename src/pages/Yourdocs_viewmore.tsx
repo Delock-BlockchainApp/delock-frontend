@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
-import { userState } from "../recoil";
+import { userIpfsCredentials, userState } from "../recoil";
 import Profile from "../components/Profile";
 import YourdocsCard4 from "../components/yourdocs_card3";
 import DocumentUploadModal from "../components/DocumentUploadModal";
@@ -13,6 +13,7 @@ const Yourdocs_viewmore = () => {
   const location = useLocation();
   const { state } = location;
   const FolderName = state;
+  const credentials = useRecoilValue(userIpfsCredentials);
 
   const { folderId } = useParams<{ folderId: string }>();
   const [documents, setDocuments] = useState<any[]>([]);
@@ -51,11 +52,16 @@ const Yourdocs_viewmore = () => {
   
       return;
     }
+    if (!credentials.domain || !credentials.jwt_token) {
+      toast.error("Please set your credentials in settings before uploading a document.");
+      return;
+    }
   
     const formData = new FormData();
     formData.append("file", file);
     formData.append("document_name", name);
-    formData.append("user_id", user.userId); 
+    formData.append("user_id", user.userId);
+    formData.append("jwt_token", credentials.jwt_token); 
     toast.promise(
       axios.post(
       `${BACKEND_URL}/api/users/yourdoc/folder/${folderId}`,

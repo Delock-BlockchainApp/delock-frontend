@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 function IssuerCard({...issuer}: any) {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`${issuer.department_code}`,{
+    navigate(`${issuer.department_id}`,{
       state: {issuer},
     });
   };

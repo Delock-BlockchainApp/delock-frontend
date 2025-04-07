@@ -9,7 +9,7 @@ const Card_component4: React.FC<CardProps> = ({ issuer }) => {
     const navigate = useNavigate();
 // console.log(data)
   const handleNavigate = () => {
-    navigate(`issuers/${issuer?.department_code}`, { state: { issuer } });
+    navigate(`issuers/${issuer?.department_id}`, { state: { issuer } });
   };
     return (
         <div  onClick={handleNavigate} className='flex flex-col rounded-xl bg-white p-2 w-[120px] h-[150px] mt-8 mr-8  [box-shadow:4px_4px_10px_rgba(0,0,0,0.2)] cursor-pointer'>

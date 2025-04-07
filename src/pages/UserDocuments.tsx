@@ -137,10 +137,6 @@ function UserDocuments() {
 
         <KeywordResults keywords={keywords}>
           </KeywordResults>
-    
-      
-
-
           </div>
     </div>
   )
