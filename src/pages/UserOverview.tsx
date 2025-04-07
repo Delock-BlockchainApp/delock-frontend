@@ -105,7 +105,7 @@ import { useBlockchain } from "../context/BlockchainContext"
       console.log("Parsed Docs:", parsedDocs);
     } catch (error) {
       console.error(error);
-      alert("Error fetching documents.");
+      toast.error("Error fetching documents.");
     }
   };
 

@@ -1,6 +1,7 @@
 // src/App.tsx
 import React, { useEffect, useState} from "react";
 import { useBlockchain } from "../context/BlockchainContext";
+import toast from "react-hot-toast";
 
 interface DepartmentAdmin {
     admin: string;
@@ -33,7 +34,7 @@ const Delock: React.FC = () => {
 	// 			setContract(contract);
 
 	// 		} else {
-	// 			alert("Please install MetaMask!");
+	// 			toast.error("Please install MetaMask!");
 	// 		}
 	// 	};
 
@@ -65,10 +66,10 @@ const Delock: React.FC = () => {
 		try {
 			const tx = await contract.registerUser(name, email);
 			await tx.wait(); // Wait for transaction to be mined
-			alert("User registered successfully!");
+			toast.success("User registered successfully!");
 		} catch (error) {
 			console.error(error);
-			alert("Error during registration.");
+			toast.error("Error during registration.");
 		}
 	};
 
@@ -92,7 +93,7 @@ const Delock: React.FC = () => {
 			setDocuments(parsedDocs);
 		} catch (error) {
 			console.error(error);
-			alert("Error fetching documents.");
+			toast.error("Error fetching documents.");
 		}
 	};
 
@@ -104,10 +105,10 @@ const Delock: React.FC = () => {
 		try {
 			const tx = await contract.issueDocument(userAddress, ipfsHash, deptId, docId);
 			await tx.wait(); // Wait for transaction to be mined
-			alert("Document issued successfully!");
+			toast.success("Document issued successfully!");
 		} catch (error) {
 			console.error(error);
-			alert("Error issuing document.");
+			toast.error("Error issuing document.");
 		}
 	};
 
@@ -116,10 +117,10 @@ const Delock: React.FC = () => {
 		try {
 			const tx = await contract.requestDocument(deptId, docId);
 			await tx.wait(); // Wait for transaction to be mined
-			alert("Document requested successfully!");
+			toast.success("Document requested successfully!");
 		} catch (error) {
 			console.error(error);
-			alert("Error requesting document.");
+			toast.error("Error requesting document.");
 		}
 	}
 
@@ -128,10 +129,10 @@ const Delock: React.FC = () => {
 		try {
 			const tx = await contract.createDepartment(deptId);
 			await tx.wait();
-			alert("Department created successfully!");
+			toast.success("Department created successfully!");
 		} catch (error) {
 			console.error("Error creating department:", error);
-			alert("Error creating department.");
+			toast.error("Error creating department.");
 		}
 	};
 
@@ -140,10 +141,10 @@ const Delock: React.FC = () => {
 		try {
 			const tx = await contract.assignAdmin(deptId, adminAddress);
 			await tx.wait();
-			alert("Admin assigned successfully!");
+			toast.success("Admin assigned successfully!");
 		} catch (error) {
 			console.error("Error assigning admin:", error);
-			alert("Error assigning admin.");
+			toast.error("Error assigning admin.");
 		}
 	};
 
@@ -153,10 +154,10 @@ const Delock: React.FC = () => {
 		try {
 			const tx = await contract.revokeAdmin(deptId, adminAddress);
 			await tx.wait();
-			alert("Admin revoked successfully!");
+			toast.success("Admin revoked successfully!");
 		} catch (error) {
 			console.error("Error revoking admin:", error);
-			alert("Error revoking admin.");
+			toast.error("Error revoking admin.");
 		}
 	};
 
@@ -169,7 +170,7 @@ const Delock: React.FC = () => {
 			return docs;
 		} catch (error) {
 			console.error("Error fetching user documents:", error);
-			alert("Error fetching user documents.");
+			toast.error("Error fetching user documents.");
 		}
 	};
 
@@ -182,7 +183,7 @@ const Delock: React.FC = () => {
 			return users;
 		} catch (error) {
 			console.error("Error fetching registered users:", error);
-			alert("Error fetching registered users.");
+			toast.error("Error fetching registered users.");
 		}
 	};
 
@@ -209,7 +210,7 @@ const Delock: React.FC = () => {
 			return parsedData;
 		} catch (error) {
 			console.error("Error fetching all admins and department id:", error);
-			alert("Error fetching all admins and department id.");
+			toast.error("Error fetching all admins and department id.");
 		}
 	};
 
@@ -223,7 +224,7 @@ const Delock: React.FC = () => {
 			return docs;
 		} catch (error) {
 			console.error("Error fetching department documents:", error);
-			alert("Error fetching department documents.");
+			toast.error("Error fetching department documents.");
 		}
 	};
 

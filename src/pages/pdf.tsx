@@ -5,6 +5,7 @@ import html2canvas from 'html2canvas';
 import { useEffect, useState } from 'react';
 import { ethers } from "ethers"
 import { get } from 'http';
+import toast from 'react-hot-toast';
 
 
 function Pdf() {
@@ -715,18 +716,18 @@ function Pdf() {
         const result = await response.json();
         if (response.ok) {
           console.log('PDF pinned to IPFS:', result);
-          alert(`Upload successful! IPFS Hash: ${result.IpfsHash}`);
+          toast.success(`Upload successful! IPFS Hash: ${result.IpfsHash}`);
         } else {
           console.error('Pinata API error:', result);
-          alert('Failed to upload to Pinata. Check console for details.');
+          toast.error('Failed to upload to Pinata. Check console for details.');
         }
       } catch (error) {
         console.error('Error generating PDF or uploading to Pinata:', error);
-        alert('An error occurred. Please check the console for details.');
+        toast.error('An error occurred. Please check the console for details.');
       }
     } else {
       console.error('Card element not found!');
-      alert('Card element not found!');
+      toast.error('Card element not found!');
     }
   }
 
@@ -743,7 +744,7 @@ function Pdf() {
       }
       else {
         console.error('Contract not connected!');
-        alert('Contract not connected!');
+        toast.error('Contract not connected!');
       }
     }
   }
@@ -778,7 +779,7 @@ function Pdf() {
         }
         else {
           console.error('Contract not connected!');
-          alert('Contract not connected!');
+          toast.error('Contract not connected!');
         }
       };
     }
@@ -797,7 +798,7 @@ function Pdf() {
         }
         else {
           console.error('Contract not connected!');
-          alert('Contract not connected!');
+          toast.error('Contract not connected!');
         }
       };
     }
@@ -815,7 +816,7 @@ function Pdf() {
         }
         else {
           console.error('Contract not connected!');
-          alert('Contract not connected!');
+          toast.error('Contract not connected!');
         }
       };
     }
