@@ -9,7 +9,7 @@ const IssueData = () => {
   const location = useLocation();
   const data = location.state;
   console.log("Data from location:", data);
-  const { contract } = useBlockchain();
+  const { contract,connectWallet } = useBlockchain();
   const [consentGiven, setConsentGiven] = useState(false);
 
   const fetchData = async () => {
@@ -20,6 +20,7 @@ const IssueData = () => {
 
     if (!contract) {
       toast.error("Blockchain contract not available.");
+      connectWallet();
       return;
     }
 
@@ -87,9 +88,9 @@ const IssueData = () => {
       </div>
 
       {/* Information Box */}
-      <div className="bg-light-blue shadow-md ml-5" style={{ width: '987.85px', height: '134.67px', borderRadius: '10px 0px 0px 0px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
-        <p className="text-center" style={{ fontSize: '16px', color: '#004182', fontFamily: 'Poppins, sans-serif' }}>
-          {data?.data?.title}, {data?.state}: {data?.data?.department?.department_description}
+      <div className="bg-light-blue shadow-md ml-5 p-10 h-40  " style={{width: '987.8px' , borderRadius: '10px 0px 0px 0px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p className="text-justify" style={{ fontSize: '16px', color: '#004182', fontFamily: 'Poppins, sans-serif' }}>
+          {data?.dep_name}, {data?.state}: {data?.doc_description}
         </p>
       </div>
     </div>
