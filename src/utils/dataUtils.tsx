@@ -14,8 +14,8 @@ export const ImportantDocuments = [
         description: "The Ayushman Bharat Card provides health insurance coverage under the Pradhan Mantri Jan Arogya Yojana (PM-JAY), allowing eligible families to receive free medical treatment at government and empaneled private hospitals.",
     },
     {
-        dep_code: "AN-D1",
-        doc_code: "AN-D1-001",
+        dep_code: "KE-D1",
+        doc_code: "KE-D1-001",
         dep_name: "Driving Licence",
         state: "State Government",
         title: "Driving Licence",
