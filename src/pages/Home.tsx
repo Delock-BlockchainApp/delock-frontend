@@ -5,7 +5,7 @@ import Resource from "./Resource";
 function Home() {
  const options=["Features","Solutions","Developers","Resources"]
   return (
-    <div className=" flex flex-col min-h-screen ">
+    <div className=" flex flex-col h-fit ">
       {/* Navbar */}
       <div className="flex w-full h-16 border-b-2 items-center justify-between top-0 sticky z-20 px-8 bg-white ">
         <div className="flex items-center"><div className="font-bold text-3xl text-dark-blue">DeLock</div>

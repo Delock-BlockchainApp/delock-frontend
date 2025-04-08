@@ -11,7 +11,7 @@ import axios from "axios"
 import { useAuth } from "../context/useAuth"
 import toast from "react-hot-toast"
 import Loader from "../components/Loader"
-import {  ImportantDocuments } from "../utils/dataUtils"
+import {  getDepartmentName, getDocumentName, ImportantDocuments } from "../utils/dataUtils"
 import { useBlockchain } from "../context/BlockchainContext"
 
   function UserOverview() {
@@ -146,9 +146,9 @@ import { useBlockchain } from "../context/BlockchainContext"
           {documents.map((item, index) => (
             <Overview_component1
               key={index}
-              title={item.title}
-              maskedId={item.maskedId}
-              issuer={item.issuer}
+              title={getDocumentName(item.docId) || "Unknown Document"}
+              maskedId={item.ipfs}
+              issuer={getDepartmentName(item.depId )|| 'unknown dept'}
               
             />
           ))}

@@ -13,7 +13,7 @@ const Card_component1: React.FC<CardProps> = ({ title, description, Authority })
 
 
             <div className=' bg-[#D9D9D9] w-[80px] h-[80px] rounded-[10px] flex justify-center items-center'>
-                <img src="https://cdn-icons-png.flaticon.com/512/1250/1250614.png" alt="icon" className='w-16 h-16' />
+                <img src="https://cdn-icons-png.flaticon.com/512/1250/1250614.png" alt="icon" className='w-10 h-10' />
 
             </div>
             <div className='ml-2 justify-center items-center'>
