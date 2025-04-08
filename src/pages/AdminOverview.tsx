@@ -18,6 +18,7 @@ function AdminOverview() {
   const [loading, setLoading] = useState(true);
   const [documents, setDocuments] = useRecoilState(AdmindocumentState);
   const [admin, setAdmin] = useRecoilState(AdminState);
+  const [overviewCount, setOverviewCount] = useState<any>([]);
 const navigate=useNavigate();
 const hasFetched = useRef(false);
   const BACKEND_URL = import.meta.env.VITE_REACT_URL_BACKEND_URL;
@@ -29,7 +30,19 @@ const hasFetched = useRef(false);
       timeStyle: "short",
     });
   };
-
+  const fetchOverviewCount = async () => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/department/all/count`);
+      if (response.status === 200) {
+        console.log("Overview count fetched successfully:", response.data);
+        setOverviewCount(response.data);
+      } else {
+        console.error("Failed to fetch overview count:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching overview count:", error);
+    }
+  }
   const fetchAdminDetails = async () => {
     if (!account || hasFetched.current) return;
   
@@ -76,6 +89,7 @@ const hasFetched = useRef(false);
   useEffect(() => {
     if (isAuthenticated && account) {
       fetchAdminDetails();
+      fetchOverviewCount(); // Fetch overview count when authenticated
     }
   }, [isAuthenticated, account,admin.department_name]);
 
@@ -107,11 +121,13 @@ const hasFetched = useRef(false);
           <div className="text-bold-blue text-2xl font-semibold ml-6 pl-5 mt-4">
             Statics Logics
           </div>
-          <AdminCard1 Name="Total Issuer" Number={280} />
-          <AdminCard1 Name="Total Users" Number={300} />
-          <AdminCard1 Name="Total Department Documents" Number={840} />
+          <AdminCard1 Name="Total Issuer" Number={overviewCount?.departmentsCount} />
+          <AdminCard1 Name="Total Users" Number={overviewCount?.userCount} />
+          <AdminCard1 Name="Total Department Documents" Number={overviewCount?.documentsCount} />
           <AdminCard1 Name="Department Documents" Number={documents.length} />
-          <AdminCard1 Name="Documents Issued" Number={300} />
+          <div className="text-bold-blue text-2xl font-semibold ml-6 pl-5 mt-4">
+          System Summary
+          </div>
         </div>
       </div>
 
