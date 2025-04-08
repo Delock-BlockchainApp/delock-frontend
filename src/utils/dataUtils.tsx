@@ -86,7 +86,13 @@ export const departmentMap = new Map([
     ['KE-D7', 'Fisheries Department'],
     ['KE-D8', 'Urban Development Department'],
     ['KE-D9', 'Social Welfare Department'],
-    ['KE-D10', 'Agriculture Department']
+    ['KE-D10', 'Agriculture Department'],
+    ['CG-CG1', 'Passport Seva Kendra'],
+    ['CG-CG2', 'Income Tax Department'],
+    ['CG-CG3', 'Election Commission'],
+    ['CG-CG4', 'UIDAI'],
+    ['CG-CG5', 'Department of Empowerment of Persons with Disabilities'],
+    ['CG-CG10', 'Ministry of Health and Family Welfare']
 ]);
 
 // Document Map
@@ -169,7 +175,10 @@ export const documentMap = new Map([
 
     ["KE-D10-001", "Farmer ID Card"],
     ["KE-D10-002", "Crop Insurance Certificate"],
-    ["KE-D10-003", "Soil Health Card"]
+    ["KE-D10-003", "Soil Health Card"],
+    ["CG-CG3-002", "Election Commission Certificate"],
+    ["CG-CG3-001", "Voter ID"],
+
 ]);
 
 // Functions to get names
